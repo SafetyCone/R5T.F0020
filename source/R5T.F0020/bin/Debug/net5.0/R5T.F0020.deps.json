@@ -1,0 +1,47 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "R5T.F0020/1.0.0": {
+        "dependencies": {
+          "R5T.Magyar": "1.0.0",
+          "R5T.T0132": "1.0.0"
+        },
+        "runtime": {
+          "R5T.F0020.dll": {}
+        }
+      },
+      "R5T.Magyar/1.0.0": {
+        "runtime": {
+          "R5T.Magyar.dll": {}
+        }
+      },
+      "R5T.T0132/1.0.0": {
+        "runtime": {
+          "R5T.T0132.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "R5T.F0020/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "R5T.Magyar/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "R5T.T0132/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
