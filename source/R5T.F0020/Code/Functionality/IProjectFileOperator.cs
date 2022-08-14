@@ -50,6 +50,11 @@ namespace R5T.F0020
                 xProjectFile);
         }
 
+        public void Create_New(string projectFilePath, ProjectType projectType)
+        {
+            Instances.ProjectFileGenerator.CreateNew(projectFilePath, projectType);
+        }
+
         public async Task<string[]> GetDirectProjectReferenceFilePaths(string projectFilePath)
         {
             var projectReferenceXDocumentRelativeXPath = "//Project/ItemGroup/ProjectReference";
@@ -70,7 +75,7 @@ namespace R5T.F0020
                 {
                     var unresolvedPath = projectDirectoryPath + relativeFilePath;
 
-                    var resolvedPath = this.ResolvePath(unresolvedPath);
+                    var resolvedPath = Instances.PathOperator.ResolvePath(unresolvedPath);
                     return resolvedPath;
                 })
                 .ToArray();
@@ -98,7 +103,7 @@ namespace R5T.F0020
                 {
                     var unresolvedPath = projectDirectoryPath + relativeFilePath;
 
-                    var resolvedPath = this.ResolvePath(unresolvedPath);
+                    var resolvedPath = Instances.PathOperator.ResolvePath(unresolvedPath);
                     return resolvedPath;
                 })
                 .ToArray();
@@ -108,7 +113,7 @@ namespace R5T.F0020
 
         public string GetProjectDirectoryPath(string projectFilePath)
         {
-            var projectDirectoryPath = String.Join('\\', projectFilePath.Split('\\').SkipLast(1)) + '\\';
+            var projectDirectoryPath = Instances.PathOperator.GetParentDirectoryPath_ForFile(projectFilePath);
             return projectDirectoryPath;
         }
 
@@ -118,24 +123,11 @@ namespace R5T.F0020
         {
             var projectDirectoryPath = this.GetProjectDirectoryPath(projectFilePath);
 
-            var projectDirectoryRelativeFilePath = this.GetRelativePath(
+            var projectDirectoryRelativeFilePath = Instances.PathOperator.GetRelativePath(
                 projectDirectoryPath,
                 path);
 
             return projectDirectoryRelativeFilePath;
-        }
-
-        public string GetRelativePath(
-            string sourcePath,
-            string destinationPath)
-        {
-            var sourceUri = new Uri(new Uri("file://"), sourcePath);
-            var destinationUri = new Uri(new Uri("file://"), destinationPath);
-
-            var relativeUri = sourceUri.MakeRelativeUri(destinationUri);
-
-            var relativePath = Uri.UnescapeDataString(relativeUri.ToString());
-            return relativePath;
         }
 
         public bool HasProjectReference(
@@ -162,22 +154,6 @@ namespace R5T.F0020
         {
             var fileStream = new FileStream(filePath, FileMode.Open);
             return fileStream;
-        }
-
-        public string ResolvePath(string unresolvedPath)
-        {
-            try
-            {
-                var unresolvedUri = new Uri(new Uri("file://"), unresolvedPath);
-
-                var resolvedPath = unresolvedUri.LocalPath;
-                return resolvedPath;
-            }
-            catch (UriFormatException uriFormatException)
-            {
-                var message = $"Failed to resolve path: {unresolvedPath}";
-                throw new ArgumentException(message, nameof(unresolvedPath), uriFormatException);
-            }
         }
 
         public void RemoveProjectReference_Synchronous(

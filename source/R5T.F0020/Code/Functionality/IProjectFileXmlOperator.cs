@@ -9,7 +9,7 @@ using R5T.Magyar.Xml;
 using R5T.T0132;
 
 
-namespace R5T.F0020
+namespace R5T.F0020.N000
 {
 	[FunctionalityMarker]
 	public partial interface IProjectFileXmlOperator : IFunctionalityMarker

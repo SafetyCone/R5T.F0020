@@ -9,7 +9,30 @@ namespace R5T.F0020
 	[FunctionalityMarker]
 	public partial interface IProjectFileGenerator : IFunctionalityMarker
 	{
-		public void CreateNewConsole(string projectFilePath)
+		public void CreateNew(
+			string projectFilePath,
+			ProjectType projectType)
+        {
+            switch (projectType)
+            {
+				case ProjectType.Console:
+					this.CreateNewConsole(projectFilePath);
+					break;
+
+				case ProjectType.Library:
+					this.CreateNewLibrary(projectFilePath);
+					break;
+
+				case ProjectType.Test:
+					this.CreateNewTest(projectFilePath);
+					break;
+
+				default:
+					throw Instances.EnumerationHelper.UnexpectedEnumerationValueException(projectType);
+			}
+        }
+
+        public void CreateNewConsole(string projectFilePath)
 		{
 			var text =
 @"
@@ -67,6 +90,11 @@ namespace R5T.F0020
 			string filePath,
 			string text)
 		{
+			// Ensure the directory exists.
+			var directoryPath = Instances.PathOperator.GetParentDirectoryPath(filePath);
+			
+			Instances.FileSystemOperator.CreateDirectory_OkIfAlreadyExists(directoryPath);
+
 			// Trim text.
 			var outputText = text.Trim();
 

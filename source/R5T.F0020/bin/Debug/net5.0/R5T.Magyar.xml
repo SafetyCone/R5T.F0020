@@ -988,7 +988,7 @@
         </member>
         <member name="M:System.IO.FileHelper.ActuallyReadAllLines(System.String)">
             <summary>
-            Actually reads all lines. The <see cref="M:System.IO.File.ReadLines(System.String)"/> method omits blank lines, but adding the new line character to the previous line!
+            Actually reads all lines. The <see cref="M:System.IO.File.ReadLines(System.String)"/> method omits blank lines, instead adding the new line character to the previous line!
             </summary>
         </member>
         <member name="M:System.IO.FileHelper.DeleteOnlyIfExists(System.String)">

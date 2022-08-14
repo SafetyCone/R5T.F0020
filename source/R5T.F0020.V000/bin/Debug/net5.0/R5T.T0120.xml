@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>R5T.T0120</name>
+    </assembly>
+    <members>
+        <member name="T:R5T.T0120.Expectation`2">
+            <summary>
+            Represents an expectation tying together an input, an expected output, and the means to verify encounted output instances against the expected output instance.
+            An expectation provides all the information required to verify an operation transforming a <typeparamref name="TInput"/> into a <typeparamref name="TOutput"/>.
+            </summary>
+        </member>
+        <member name="M:R5T.T0120.Expectation`2.op_Implicit(R5T.T0120.Expectation{`0,`1})~`0">
+            <summary>
+            <inheritdoc cref="F:R5T.T0120.Documentation.ConvenientConversionToInputType"/>
+            </summary>
+        </member>
+        <member name="M:R5T.T0120.InputOutputPair`2.op_Implicit(R5T.T0120.InputOutputPair{`0,`1})~`0">
+            <summary>
+            <inheritdoc cref="F:R5T.T0120.Documentation.ConvenientConversionToInputType"/>
+            </summary>
+        </member>
+        <member name="T:R5T.T0120.Documentation">
+            <summary>
+            Testing-related data types.
+            </summary>
+        </member>
+        <member name="F:R5T.T0120.Documentation.ConvenientConversionToInputType">
+            <summary>
+            Convenient conversion to input type to allow:
+            <code>
+            var expected = GetExpected();
+            var actual = TestObject.TestMethod(expected);
+            </code>
+            </summary>
+        </member>
+    </members>
+</doc>

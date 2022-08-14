@@ -1,0 +1,359 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>R5T.Y0000</name>
+    </assembly>
+    <members>
+        <member name="T:R5T.Y0000.Documentation">
+            <summary>
+            Documentation for .NET, C# language, and standard library concepts.
+            </summary>
+        </member>
+        <member name="F:R5T.Y0000.Documentation.ForGuid.B_Format">
+            <summary>
+            <para>The B format is the D format, enclosed in braces:</para>
+            <para>{9a19103f-16f7-4668-be54-9a1e7a4f7556}</para>
+            <inheritdoc cref="F:R5T.Y0000.Documentation.ForGuid.GuidFormatsUrl"/>
+            </summary>
+        </member>
+        <member name="F:R5T.Y0000.Documentation.ForGuid.B_Uppercase_Format">
+            <summary>
+            <para>The B uppercase format is the D uppercase format, enclosed in braces:</para>
+            <para>{9A19103F-16F7-4668-BE54-9A1E7A4F7556}</para>
+            <inheritdoc cref="F:R5T.Y0000.Documentation.ForGuid.GuidFormatsUrl"/>
+            </summary>
+        </member>
+        <member name="F:R5T.Y0000.Documentation.ForGuid.D_Format">
+            <summary>
+            <para>The D format is 32 lower-case characters digits in groups of 8, 4, 4, 4, 12, separated by hyphens:</para>
+            <para>9a19103f-16f7-4668-be54-9a1e7a4f7556</para>
+            <para>This is the default format.</para>
+            <inheritdoc cref="F:R5T.Y0000.Documentation.ForGuid.GuidFormatsUrl"/>
+            </summary>
+        </member>
+        <member name="F:R5T.Y0000.Documentation.ForGuid.D_Uppercase_Format">
+            <summary>
+            <para>The D uppercase format is 32 upper-case characters digits in groups of 8, 4, 4, 4, 12, separated by hyphens:</para>
+            <para>9A19103F-16F7-4668-BE54-9A1E7A4F7556</para>
+            <para>This is the default format.</para>
+            <inheritdoc cref="F:R5T.Y0000.Documentation.ForGuid.GuidFormatsUrl"/>
+            </summary>
+        </member>
+        <member name="F:R5T.Y0000.Documentation.ForGuid.N_Format">
+            <summary>
+            <para>The N format is 32 consecutive lower-case characters and digits:</para>
+            <para>9a19103f16f74668be549a1e7a4f7556</para>
+            <inheritdoc cref="F:R5T.Y0000.Documentation.ForGuid.GuidFormatsUrl"/>
+            </summary>
+        </member>
+        <member name="F:R5T.Y0000.Documentation.ForGuid.P_Format">
+            <summary>
+            <para>The P format is the D format, enclosed in parentheses:</para>
+            <para>(9a19103f-16f7-4668-be54-9a1e7a4f7556)</para>
+            <inheritdoc cref="F:R5T.Y0000.Documentation.ForGuid.GuidFormatsUrl"/>
+            </summary>
+        </member>
+        <member name="F:R5T.Y0000.Documentation.ForGuid.X_Format">
+            <summary>
+            <para>The X format uses hexadecimal values enclosed in braces:</para>
+            <para>{0x9a19103f,0x16f7,0x4668,{0xbe,0x54,0x9a,0x1e,0x7a,0x4f,0x75,0x56}}</para>
+            <inheritdoc cref="F:R5T.Y0000.Documentation.ForGuid.GuidFormatsUrl"/>
+            </summary>
+        </member>
+        <member name="F:R5T.Y0000.Documentation.ForGuid.GuidFormatsUrl">
+            <summary>
+            Guid formats: <see href="https://docs.microsoft.com/en-us/dotnet/api/system.guid.tostring"/>
+            </summary>
+        </member>
+        <member name="F:R5T.Y0000.Documentation.ForNamespaceName.InvalidNamespaceName">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Documentation.ForNamespaceName.InvalidNamespaceName" path="/definition"/>
+            </summary>
+            <definition>Invalid namespace names contain invalid characters, are unescaped (non-contextual) keywords, or have the verbatim specifier (@) after the leading character.</definition>
+        </member>
+        <member name="F:R5T.Y0000.Documentation.ForNamespaceName.RecommendedNamespaceName">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Documentation.ForNamespaceName.RecommendedNamespaceName" path="/definition"/>
+            </summary>
+            <definition>Recommended namespace names start with a capital letter, and then have either uppercase and lowercase letters, digits, or underscores.</definition>
+        </member>
+        <member name="F:R5T.Y0000.Documentation.ForNamespaceName.UnrecommendedNamespaceName">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Documentation.ForNamespaceName.UnrecommendedNamespaceName" path="/definition"/>
+            </summary>
+            <definition>Unrecommended namespace names are valid, but start with something other than a capital letter.</definition>
+        </member>
+        <member name="F:R5T.Y0000.Documentation.ForNamespaceName.ValidNamespaceName">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Documentation.ForNamespaceName.ValidNamespaceName" path="/definition"/>
+            </summary>
+            <definition>Valid namespace names contain only valid characters, are escaped keywords, or have the verbatim specifier as the leading character.</definition>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.Alphanumeric">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Alphanumeric" path="/definition"/>
+            The Alphanumeric class uses the signifier 'X'.
+            </summary>
+            <definition>The Alphanumeric class all <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Alpha" path="/name"/>s and <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Numeric" path="/name"/>s.</definition>
+            <name><i>alphanumeric</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.Alpha">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Alpha" path="/definition"/>
+            The Alpha class uses the signifier '@'.
+            </summary>
+            <definition>The Alpha class contains the uppercase and lowercase latin letters (A-Z, and a-z)</definition>
+            <name><i>alpha</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.Character">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Character" path="/definition"/>
+            </summary>
+            <definition>The Character class contains all characters. Any character is in this class.</definition>
+            <name><i>control</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.Control">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Control" path="/definition"/>
+            </summary>
+            <definition>The Control class contains non-printing control characters (like new line, tab, etc.).</definition>
+            <name><i>control</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.Digit">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Digit" path="/definition"/>
+            </summary>
+            <definition>The Digit class contains the numerical digits 0-9.</definition>
+            <name><i>digit</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.Letter">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Letter" path="/definition"/>
+            </summary>
+            <definition>The Letter class contains all uppercase (A-Z), lowercase (a-z), and accented (ª-ÿ) letters.</definition>
+            <name><i>letter</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.Lowercase">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Lowercase" path="/definition"/>
+            The Uppercase class uses the signifier '_'.
+            </summary>
+            <definition>The Lowercase class contains all lowercase latin (a-z) and accented (µ-ÿ) letters.</definition>
+            <name><i>lowercase</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.Number">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Number" path="/definition"/>
+            </summary>
+            <definition>The Number class contains the digits (0-9), the exponents (², ³, and ¹), and the fractions (¼, ½, and ¾).</definition>
+            <name><i>number</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.Numeric">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Numeric" path="/definition"/>
+            </summary>
+            <definition><inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Digit" path="/definition"/></definition>
+            The Numeric class uses the signifier '#'.
+            <name><i>numeric</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.Punctuation">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Punctuation" path="/definition"/>
+            </summary>
+            <definition>The Punctuation class contains the punctuation marks (! through ¿).</definition>
+            <name><i>punctuation</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.Separator">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Separator" path="/definition"/>
+            </summary>
+            <definition>The Separator class contains the separators (' ', space, and '', the non-breaking space (A0)).</definition>
+            <name><i>separator</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.Symbol">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Symbol" path="/definition"/>
+            </summary>
+            <definition>The Symbol class contains the symbols ($ through ÷).</definition>
+            <name><i>symbol</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.Uppercase">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Uppercase" path="/definition"/>
+            The Uppercase class uses the signifier '^'.
+            </summary>
+            <definition>The Uppercase class contains the uppercase latin (A-Z) and accented (À-Þ) letters.</definition>
+            <name><i>uppercase</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.Whitespace">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.Whitespace" path="/definition"/>
+            </summary>
+            <definition>The Whitespace class contains the whitespace characters tab through non-breaking-space.</definition>
+            <name><i>whitespace</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacterClasses.None">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacterClasses.None" path="/definition"/>
+            </summary>
+            <definition>The None class contains no characters. No character is in this class.</definition>
+            <name><i>control</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacters.CharacterClass">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacters.CharacterClass" path="/definition"/>
+            </summary>
+            <definition>Characters can be categorized into classes.</definition>
+            <name><i>character class</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacters.LowerCase">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacters.LowerCase" path="/definition"/>
+            </summary>
+            <definition>Lower case letter are the small component of an upper-case/lower-case pair.</definition>
+            <name><i>lowercase</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCharacters.UpperCase">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCharacters.UpperCase" path="/definition"/>
+            </summary>
+            <definition>Upper case letter are the large component of an upper-case/lower-case pair.</definition>
+            <name><i>uppercase</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCodeElementIdentityNames.IdentityName">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCodeElementIdentityNames.IdentityName" path="/definition"/>
+            These are the same ID strings used in C# XML documentation comments.
+            See: <see href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/xmldoc/#id-strings"/>
+            </summary>
+            <definition>The name by which a code element can be uniquely identified.</definition>
+            <name><i>identity name</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCodeElementIdentityNames.UniqueTypeCriteria">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCodeElementIdentityNames.UniqueTypeCriteria" path="/definition"/>
+            </summary>
+            <definition>Types are unique by the combination of: 1) assemblied, namespaced, type name and 2) generic type parameter arity.</definition>
+            <name><i>unique type criteria</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForCounter.Counter">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForCounter.Counter" path="/definition"/>
+            </summary>
+            <definition>A counter starts at one by default (as opposed to index, which starts at zero by default).</definition>
+            <name><i>counter</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForIndex.Index">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForIndex.Index" path="/definition"/>
+            Indices are usually positive (greater than zero), but ranges can be constructed to have negative indices (less than zero).
+            Indices usually start at zero, but ranges can be constructed to start at indices both less than and greater than zero.
+            </summary>
+            <definition>An index is an integer that numerically indexes items in an ordered range from first to last.</definition>
+            <name><i>index</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForIndex.Exclusive">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForIndex.Exclusive" path="/definition"/>
+            A range begins at the index one after the first exclusive index, and stops at the index one before the last exclusive index.
+            <para><inheritdoc cref="F:R5T.Y0000.Glossary.ForIndex.ExclusiveInclusiveRelationship" path="/definition"/></para>
+            </summary>
+            <definition>An exclusive index is not included in a range.</definition>
+            <name><i>exclusive</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForIndex.Inclusive">
+            <summary> 
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForIndex.Inclusive" path="/definition"/>
+            A range beings at the first inclusive index, and stops at the last the inclusive index.
+            <para><inheritdoc cref="F:R5T.Y0000.Glossary.ForIndex.ExclusiveInclusiveRelationship" path="/definition"/></para>
+            </summary>
+            <definition>An inclusive index is included in a range.</definition>
+            <name><i>inclusive</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForIndex.ExclusiveInclusiveRelationship">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForIndex.ExclusiveInclusiveRelationship" path="/definition"/>
+            </summary>
+            <definition>The first <inheritdoc cref="F:R5T.Y0000.Glossary.ForIndex.Inclusive" path="/name"/> index begins one after the first <inheritdoc cref="F:R5T.Y0000.Glossary.ForIndex.Exclusive" path="/name"/> index, and the last <inheritdoc cref="F:R5T.Y0000.Glossary.ForIndex.Exclusive" path="/name"/> index begins one after the last <inheritdoc cref="F:R5T.Y0000.Glossary.ForIndex.Inclusive" path="/name"/> index.</definition>
+            <name><i>exclusive-inclusive relationship</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForOutput.OutputByClosure">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForOutput.OutputByClosure" path="/definition"/>
+            An action taking another action as a parameter does not *need* to declare and output type. Instead, outputs can be placed in variable references captured by the action parameter's closure.
+            </summary>
+            <definition>A closure can "pipe" it's outputs to output variables (like variable references or lists) by capturing them as part of its closure.</definition>
+            <name><i>output-by-closure</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForPaths.DirectoryIndicated">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForPaths.DirectoryIndicated" path="/definition"/>
+            </summary>
+            <definition>A path is directory indicated if it ends with either of the two directory separator characters.</definition>
+            <name><i>directory indicated</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForPaths.DirectoryPath">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForPaths.DirectoryPath" path="/definition"/>
+            </summary>
+            <definition>The path to a directory.</definition>
+            <name><i>directory path</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForPaths.FileIndicated">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForPaths.FileIndicated" path="/definition"/>
+            </summary>
+            <definition>A path is file indicated if it does *not* end with either of the two directory separator characters.</definition>
+            <name><i>file indicated</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForPaths.FilePath">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForPaths.FilePath" path="/definition"/>
+            </summary>
+            <definition>The path to a file.</definition>
+            <name><i>file path</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForPaths.Windows">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForPaths.Windows" path="/definition"/>
+            </summary>
+            <definition>Path uses the Windows directory separator.</definition>
+            <name><i>windows</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForPaths.NonWindows">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForPaths.NonWindows" path="/definition"/>
+            </summary>
+            <definition>Path uses the Non-Windows directory separator.</definition>
+            <name><i>non-windows</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForPaths.RootIndicated">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForPaths.RootIndicated" path="/definition"/>
+            </summary>
+            <definition>A path is root-indicated if it starts with a directory separator.</definition>
+            <name><i>root-indicated</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForPaths.Strict">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForPaths.Strict" path="/definition"/>
+            </summary>
+            <definition>Many times, a path cannot be absolutely classified. (For example, is a path without any directory separators a Windows or non-Windows path?)</definition>
+            <name><i>stric</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForToken.Token">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForToken.Token" path="/definition"/>
+            </summary>
+            <definition>A token is a part of a string that is separated from the rest of the string by one zero, one, or two <inheritdoc cref="F:R5T.Y0000.Glossary.ForToken.TokenSeparator" path="/name"/>s.</definition>
+            <name><i>token</i></name>
+        </member>
+        <member name="F:R5T.Y0000.Glossary.ForToken.TokenSeparator">
+            <summary>
+            <inheritdoc cref="F:R5T.Y0000.Glossary.ForToken.TokenSeparator" path="/definition"/>
+            </summary>
+            <definition>A token separator separates parts of a string into <inheritdoc cref="F:R5T.Y0000.Glossary.ForToken.Token" path="/name"/>s.</definition>
+            <name><i>token separator</i></name>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>R5T.T0119.X001</name>
+    </assembly>
+    <members>
+        <member name="M:System.IAssertionExtensions.DoesNotThrowExceptionAsync(R5T.T0119.IAssertion,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Allows explicitly stating that an action should not thrown an exception.
+            With MSTest, if code throws an exception the test will fail. However, relying on this behavior means that test code will lack an assertion, which makes these test look different from all other tests.
+            This method allows a conforming assertion to be made in the case of testing for no exceptions.
+            </summary>
+            <remarks>
+            From: https://stackoverflow.com/a/9417242
+            </remarks>
+        </member>
+        <member name="T:R5T.T0119.X001.Documentation">
+            <summary>
+            Basic extensions.
+            </summary>
+        </member>
+    </members>
+</doc>

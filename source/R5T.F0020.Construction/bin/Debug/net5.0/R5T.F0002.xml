@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>R5T.F0002</name>
+    </assembly>
+    <members>
+        <member name="M:R5T.F0002.Internal.IPathOperator.IsFirstDirectorySeparator(System.String,System.Char,System.Boolean)">
+            <summary>
+            Determines if the first directory separator in the path is the specified <paramref name="directorySeparator"/>.
+            If no directory separator is found, then the specified <paramref name="assumption"/> is made.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.Implementations.IPathOperator.IsValid_NotNullNotEmpty(System.String)">
+            <summary>
+            Determines whether a path is valid based solely on whether it is not null and not empty.
+            </summary>
+        </member>
+        <member name="T:R5T.F0002.Documentation">
+            <summary>
+            Common operations on System namespace, and related, types, like Predicate, regular expression pattern, Index etc.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IDirectorySeparatorOperator.GetAlternateDirectorySeparator(System.Char)">
+            <summary>
+            Given the Windows directory separator, get the non-Windows directory separator and vice-versa.
+            Note: will throw an exception if the input <paramref name="directorySeparator"/> is not either the Windows or non-Windows directory separator.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.IsDirectoryIndicated(System.String)">
+            <summary>
+            Determines whether the <paramref name="path"/> is <inheritdoc cref="F:R5T.Y0000.Glossary.ForPaths.DirectoryIndicated" path="/name"/>.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.IsFileIndicated(System.String)">
+            <summary>
+            Determines whether the <paramref name="path"/> is <inheritdoc cref="F:R5T.Y0000.Glossary.ForPaths.FileIndicated" path="/name"/>.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.IsNonWindows(System.String)">
+            <summary>
+            Chooses <see cref="M:R5T.F0002.IPathOperator.IsNonWindows_AssumeTrue(System.String)"/> as the default.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.IsNonWindows_AssumeTrue(System.String)">
+            <summary>
+            Determines if a path is a non-Windows path, assuming it is if there are no directory separators present to allow an actual determination.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.IsNonWindows_Strict(System.String)">
+            <summary>
+            Determines if a path is a non-Windows path, making no assumption if there are no directory separators present to allow an actual determination.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.IsRootIndicated(System.String)">
+            <summary>
+            Determines whether the <paramref name="path"/> is <inheritdoc cref="F:R5T.Y0000.Glossary.ForPaths.RootIndicated" path="/name"/>.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.Combine_EnsureResolved(System.String,System.String,System.Char)">
+            <summary>
+            Combine the path segments, ensuring that the result is resolved.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.Combine_EnsureDirectorySeparator(System.String,System.String,System.Char)">
+            <summary>
+            Combines the paths, ensuring that the path uses the specified directory separator.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.Combine_EnsureLinkingDirectorySeparator(System.String,System.String,System.Char)">
+            <summary>
+            Combines the two paths, ensuring that only the specified directory separator is between the two paths.
+            This is useful because paths might end with a directory separator or begin with a directory separator, and you don't want to have double directory separators.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.EnsureDirectorySeparator(System.String,System.Char)">
+            <summary>
+            Ensures that the path uses only the specified <paramref name="directorySeparator"/>.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.MatchTerminals(System.String,System.String)">
+            <summary>
+            Ensures that both the beginning and end of a path match a reference path in terms of root-indication and directory-indication.
+            This is useful after modifying a path when you want to retain information about whether the initial path was root- or directory-indicated.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.GetParentDirectoryPath(System.String)">
+            <summary>
+            Works for both directory and file paths.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.GetAllPathParts(System.String)">
+            <summary>
+            Returns all path parts, even empty path parts.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.GetPathParts(System.String)">
+            <summary>
+            Chooses <see cref="M:R5T.F0002.IPathOperator.GetNonEmptyPathParts(System.String)"/> as the default.
+            </summary>
+        </member>
+    </members>
+</doc>

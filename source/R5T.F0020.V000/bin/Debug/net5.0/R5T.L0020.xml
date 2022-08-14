@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>R5T.L0020</name>
+    </assembly>
+    <members>
+        <member name="T:R5T.L0020.Documentation">
+            <summary>
+            MSTest.TestFramework Nuget package selector.
+            </summary>
+        </member>
+    </members>
+</doc>

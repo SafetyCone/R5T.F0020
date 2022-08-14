@@ -1,12 +1,19 @@
 using System;
 
+using R5T.F0000;
+using R5T.F0002;
+
 
 namespace R5T.F0020
 {
     public static class Instances
     {
+        public static IEnumerationHelper EnumerationHelper { get; } = F0002.EnumerationHelper.Instance;
+        public static IFileSystemOperator FileSystemOperator { get; } = F0000.FileSystemOperator.Instance;
+        public static IPathOperator PathOperator { get; } = F0002.PathOperator.Instance;
+        public static IProjectFileGenerator ProjectFileGenerator { get; } = F0020.ProjectFileGenerator.Instance;
         public static IProjectFileOperator ProjectFileOperator { get; } = F0020.ProjectFileOperator.Instance;
-        public static IProjectFileXmlOperator ProjectFileXmlOperator { get; } = F0020.ProjectFileXmlOperator.Instance;
-        public static IProjectFileXPathOperator ProjectFileXPathOperator { get; } = F0020.ProjectFileXPathOperator.Instance;
+        public static N000.IProjectFileXmlOperator ProjectFileXmlOperator { get; } = N000.ProjectFileXmlOperator.Instance;
+        public static N000.IProjectFileXPathOperator ProjectFileXPathOperator { get; } = N000.ProjectFileXPathOperator.Instance;
     }
 }

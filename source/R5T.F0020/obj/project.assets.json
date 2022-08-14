@@ -2,6 +2,36 @@
   "version": 3,
   "targets": {
     "net5.0": {
+      "R5T.F0000/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "R5T.T0132": "1.0.0",
+          "R5T.Z0000": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/R5T.F0000.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/R5T.F0000.dll": {}
+        }
+      },
+      "R5T.F0002/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "R5T.F0000": "1.0.0",
+          "R5T.Magyar": "1.0.0",
+          "R5T.T0132": "1.0.0",
+          "R5T.Z0000": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/R5T.F0002.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/R5T.F0002.dll": {}
+        }
+      },
       "R5T.Magyar/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.0",
@@ -10,6 +40,16 @@
         },
         "runtime": {
           "bin/placeholder/R5T.Magyar.dll": {}
+        }
+      },
+      "R5T.T0131/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/R5T.T0131.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/R5T.T0131.dll": {}
         }
       },
       "R5T.T0132/1.0.0": {
@@ -21,23 +61,73 @@
         "runtime": {
           "bin/placeholder/R5T.T0132.dll": {}
         }
+      },
+      "R5T.Y0000/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/R5T.Y0000.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/R5T.Y0000.dll": {}
+        }
+      },
+      "R5T.Z0000/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "R5T.T0131": "1.0.0",
+          "R5T.Y0000": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/R5T.Z0000.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/R5T.Z0000.dll": {}
+        }
       }
     }
   },
   "libraries": {
+    "R5T.F0000/1.0.0": {
+      "type": "project",
+      "path": "../../../R5T.F0000/source/R5T.F0000/R5T.F0000.csproj",
+      "msbuildProject": "../../../R5T.F0000/source/R5T.F0000/R5T.F0000.csproj"
+    },
+    "R5T.F0002/1.0.0": {
+      "type": "project",
+      "path": "../../../R5T.F0002/source/R5T.F0002/R5T.F0002.csproj",
+      "msbuildProject": "../../../R5T.F0002/source/R5T.F0002/R5T.F0002.csproj"
+    },
     "R5T.Magyar/1.0.0": {
       "type": "project",
       "path": "../../../R5T.Magyar/source/R5T.Magyar/R5T.Magyar.csproj",
       "msbuildProject": "../../../R5T.Magyar/source/R5T.Magyar/R5T.Magyar.csproj"
     },
+    "R5T.T0131/1.0.0": {
+      "type": "project",
+      "path": "../../../R5T.T0131/source/R5T.T0131/R5T.T0131.csproj",
+      "msbuildProject": "../../../R5T.T0131/source/R5T.T0131/R5T.T0131.csproj"
+    },
     "R5T.T0132/1.0.0": {
       "type": "project",
       "path": "../../../R5T.T0132/source/R5T.T0132/R5T.T0132.csproj",
       "msbuildProject": "../../../R5T.T0132/source/R5T.T0132/R5T.T0132.csproj"
+    },
+    "R5T.Y0000/1.0.0": {
+      "type": "project",
+      "path": "../../../R5T.Y0000/source/R5T.Y0000/R5T.Y0000.csproj",
+      "msbuildProject": "../../../R5T.Y0000/source/R5T.Y0000/R5T.Y0000.csproj"
+    },
+    "R5T.Z0000/1.0.0": {
+      "type": "project",
+      "path": "../../../R5T.Z0000/source/R5T.Z0000/R5T.Z0000.csproj",
+      "msbuildProject": "../../../R5T.Z0000/source/R5T.Z0000/R5T.Z0000.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "R5T.F0002 >= 1.0.0",
       "R5T.Magyar >= 1.0.0",
       "R5T.T0132 >= 1.0.0"
     ]
@@ -74,6 +164,9 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
+            "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0002\\source\\R5T.F0002\\R5T.F0002.csproj": {
+              "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0002\\source\\R5T.F0002\\R5T.F0002.csproj"
+            },
             "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.Magyar\\source\\R5T.Magyar\\R5T.Magyar.csproj": {
               "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.Magyar\\source\\R5T.Magyar\\R5T.Magyar.csproj"
             },
