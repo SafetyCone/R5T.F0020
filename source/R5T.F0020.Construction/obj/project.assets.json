@@ -60,6 +60,9 @@
       "R5T.T0131/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "R5T.T0143": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/R5T.T0131.dll": {}
         },
@@ -70,6 +73,9 @@
       "R5T.T0132/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "R5T.T0143": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/R5T.T0132.dll": {}
         },
@@ -80,11 +86,24 @@
       "R5T.T0141/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "R5T.T0143": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/R5T.T0141.dll": {}
         },
         "runtime": {
           "bin/placeholder/R5T.T0141.dll": {}
+        }
+      },
+      "R5T.T0143/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/R5T.T0143.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/R5T.T0143.dll": {}
         }
       },
       "R5T.Y0000/1.0.0": {
@@ -149,6 +168,11 @@
       "path": "../../../R5T.T0141/source/R5T.T0141/R5T.T0141.csproj",
       "msbuildProject": "../../../R5T.T0141/source/R5T.T0141/R5T.T0141.csproj"
     },
+    "R5T.T0143/1.0.0": {
+      "type": "project",
+      "path": "../../../R5T.T0143/source/R5T.T0143/R5T.T0143.csproj",
+      "msbuildProject": "../../../R5T.T0143/source/R5T.T0143/R5T.T0143.csproj"
+    },
     "R5T.Y0000/1.0.0": {
       "type": "project",
       "path": "../../../R5T.Y0000/source/R5T.Y0000/R5T.Y0000.csproj",
@@ -192,6 +216,7 @@
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
+        "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

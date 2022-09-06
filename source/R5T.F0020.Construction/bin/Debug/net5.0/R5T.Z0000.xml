@@ -55,7 +55,7 @@
             Also known as the circumflex, or up-caret.
             </summary>
         </member>
-        <member name="P:R5T.Z0000.ICharacters.FormFeed">
+        <member name="P:R5T.Z0000.ICharacters.ExclamationMark">
             <summary>
             Strangely, in Visual Studio form-feed prints as the feminine (Venus) symbol.
             </summary>

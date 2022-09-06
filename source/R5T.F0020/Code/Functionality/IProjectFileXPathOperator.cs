@@ -13,31 +13,31 @@ namespace R5T.F0020.N000
 	[FunctionalityMarker]
 	public partial interface IProjectFileXPathOperator : IFunctionalityMarker
 	{
-		public XElement AcquireProjectReferencesItemGroup(XDocument projectFile)
+		public XElement AcquireProjectReferencesItemGroup(XDocument projectXDocument)
         {
-			var wasFound = this.HasProjectReferencesItemGroup(projectFile);
+			var wasFound = this.HasProjectReferencesItemGroup(projectXDocument);
 			if (!wasFound)
 			{
-				var output = this.AddItemGroup(projectFile);
+				var output = this.AddItemGroup(projectXDocument);
 				return output;
 			}
 
 			return wasFound.Result;
 		}
 
-		public void AddProjectReference(XDocument projectFile,
+		public void AddProjectReference(XDocument projectXDocument,
 			string projectDirectoryRelativeProjectFilePath)
         {
 			// Short-circuit if already present.
 			var alreadyHasReference = this.HasProjectReferenceElement(
-				projectFile,
+				projectXDocument,
 				projectDirectoryRelativeProjectFilePath);
 			if(alreadyHasReference)
             {
 				return;
             }
 
-			var projectReferencesItemGroup = this.AcquireProjectReferencesItemGroup(projectFile);
+			var projectReferencesItemGroup = this.AcquireProjectReferencesItemGroup(projectXDocument);
 
 			this.AddProjectReference(
 				projectReferencesItemGroup,
@@ -52,11 +52,11 @@ namespace R5T.F0020.N000
 			projectReferencesItemGroup.Add(projectReferenceElement);
         }
 
-		public XElement AddItemGroup(XDocument projectFile)
+		public XElement AddItemGroup(XDocument projectXDocument)
         {
 			var itemGroup = this.CreateItemGroup();
 
-			var projectElement = this.GetProjectElement(projectFile);
+			var projectElement = this.GetProjectElement(projectXDocument);
 
 			projectElement.Add(itemGroup);
 
@@ -83,9 +83,9 @@ namespace R5T.F0020.N000
 			return output;
 		}
 
-		public XElement GetProjectElement(XDocument projectFile)
+		public XElement GetProjectElement(XDocument projectXDocument)
         {
-			var wasFound = this.HasProjectElement(projectFile);
+			var wasFound = this.HasProjectElement(projectXDocument);
 			if (!wasFound)
 			{
 				throw new Exception("Projet item not found.");
@@ -94,11 +94,11 @@ namespace R5T.F0020.N000
 			return wasFound.Result;
 		}
 
-		public XElement GetProjectReferenceElement(XDocument projectFile,
+		public XElement GetProjectReferenceElement(XDocument projectXDocument,
 			string projectDirectoryRelativeProjectFilePath)
 		{
 			var wasFound = this.HasProjectReferenceElement(
-				projectFile,
+				projectXDocument,
 				projectDirectoryRelativeProjectFilePath);
 
 			if (!wasFound)
@@ -109,9 +109,9 @@ namespace R5T.F0020.N000
 			return wasFound.Result;
 		}
 
-		public XElement GetProjectReferencesItemGroup(XDocument projectFile)
+		public XElement GetProjectReferencesItemGroup(XDocument projectXDocument)
         {
-			var wasFound = this.HasProjectReferencesItemGroup(projectFile);
+			var wasFound = this.HasProjectReferencesItemGroup(projectXDocument);
             if (!wasFound)
             {
                 throw new Exception("Project references item group not found.");
@@ -120,18 +120,35 @@ namespace R5T.F0020.N000
 			return wasFound.Result;
         }
 
-		public WasFound<XElement> HasProjectElement(XDocument projectFile)
-        {
-			var projectReferencesXDocumentRelativeXPath = "//Project";
+		public WasFound<XElement> HasElement(XDocument projectXDocument, string xPath)
+		{
+			var itemOrDefault = projectXDocument.XPathSelectElement(xPath);
 
-			var wasFound = this.HasElement(projectFile, projectReferencesXDocumentRelativeXPath);
+			var wasFound = WasFound.From(itemOrDefault);
 			return wasFound;
 		}
 
-		public WasFound<XElement> HasProjectReferenceElement(XDocument projectFile,
+		public WasFound<XElement> HasOutputTypeElement(XDocument projectXDocument)
+        {
+			var wasFound = this.HasElement(
+				projectXDocument,
+				Instances.XDocumentRelativeXPaths.OutputTypeElement);
+
+			return wasFound;
+		}
+
+		public WasFound<XElement> HasProjectElement(XDocument projectXDocument)
+        {
+			var projectReferencesXDocumentRelativeXPath = "//Project";
+
+			var wasFound = this.HasElement(projectXDocument, projectReferencesXDocumentRelativeXPath);
+			return wasFound;
+		}
+
+		public WasFound<XElement> HasProjectReferenceElement(XDocument projectXDocument,
 			string projectDirectoryRelativeProjectFilePath)
 		{
-			var hasProjectReferencesItemGroup = this.HasProjectReferencesItemGroup(projectFile);
+			var hasProjectReferencesItemGroup = this.HasProjectReferencesItemGroup(projectXDocument);
 			if (!hasProjectReferencesItemGroup)
 			{
 				return WasFound.NotFound<XElement>();
@@ -157,20 +174,22 @@ namespace R5T.F0020.N000
 			return output;
         }
 
-		public WasFound<XElement> HasProjectReferencesItemGroup(XDocument projectFile)
+		public WasFound<XElement> HasProjectReferencesItemGroup(XDocument projectXDocument)
         {
-			var projectReferencesXDocumentRelativeXPath = "//Project/ItemGroup[ProjectReference]";
-
 			// Assume just one project references item group.
-			var wasFound = this.HasElement(projectFile, projectReferencesXDocumentRelativeXPath);
+			var wasFound = this.HasElement(
+				projectXDocument,
+				Instances.XDocumentRelativeXPaths.ItemGroupWithProjectReference);
+
 			return wasFound;
 		}
 
-		public WasFound<XElement> HasElement(XDocument projectFile, string xPath)
-        {
-			var itemOrDefault = projectFile.XPathSelectElement(xPath);
+		public WasFound<XElement> HasVersionElement(XDocument projectXDocument)
+		{
+			var wasFound = this.HasElement(
+				projectXDocument,
+				Instances.XDocumentRelativeXPaths.VersionTypeElement);
 
-			var wasFound = WasFound.From(itemOrDefault);
 			return wasFound;
 		}
 
@@ -190,12 +209,12 @@ namespace R5T.F0020.N000
 			return output;
         }
 
-		public void RemoveProjectReference(XDocument projectFile,
+		public void RemoveProjectReference(XDocument projectXDocument,
 			string projectDirectoryRelativeProjectFilePath)
 		{
 			// Short-circuit if not already present.
 			var hasReference = this.HasProjectReferenceElement(
-				projectFile,
+				projectXDocument,
 				projectDirectoryRelativeProjectFilePath);
 			if (!hasReference)
 			{
@@ -203,18 +222,10 @@ namespace R5T.F0020.N000
 			}
 
 			var projectReferenceElement = this.GetProjectReferenceElement(
-				projectFile,
+				projectXDocument,
 				projectDirectoryRelativeProjectFilePath);
 
 			projectReferenceElement.Remove();
 		}
-
-		//public void RemoveProjectReference(XElement projectReferencesItemGroup,
-		//	string projectDirectoryRelativeProjectFilePath)
-		//{
-		//	var projectReferenceElement = this.GetProjectReferenceElement()
-
-		//	projectReferencesItemGroup.Add(projectReferenceElement);
-		//}
 	}
 }

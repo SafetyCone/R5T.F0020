@@ -752,12 +752,12 @@
             Quality-of-life overload for <see cref="M:System.Linq.IEnumerableExtensions.HasMoreThanOne``1(System.Collections.Generic.IEnumerable{``0})"/>.
             </summary>
         </member>
-        <member name="M:System.Linq.IEnumerableExtensions.None``1(System.Collections.Generic.IEnumerable{``0})">
+        <member name="M:System.Linq.IEnumerableExtensions.None_OLD``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
             Returns true if there are no entries.
             </summary>
         </member>
-        <member name="M:System.Linq.IEnumerableExtensions.Now``1(System.Collections.Generic.IEnumerable{``0})">
+        <member name="M:System.Linq.IEnumerableExtensions.Now_OLD``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
             Selects array as the preferred data structure for an evaluated enumerable.
             </summary>

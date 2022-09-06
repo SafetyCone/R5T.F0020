@@ -14,6 +14,26 @@ namespace R5T.F0020.N000
 	[FunctionalityMarker]
 	public partial interface IProjectFileXmlOperator : IFunctionalityMarker
 	{
+		public async Task<TOutput> InProjectFileXDocumentContext<TOutput>(
+			string projectFilePath,
+			Func<XDocument, Task<TOutput>> functionOnProjectXDocument)
+        {
+			var projectXDocument = await this.LoadProjectFile(projectFilePath);
+
+			var output = await functionOnProjectXDocument(projectXDocument);
+			return output;
+        }
+
+		public TOutput InProjectFileXDocumentContext_Synchronous<TOutput>(
+			string projectFilePath,
+			Func<XDocument, TOutput> functionOnProjectXDocument)
+		{
+			var projectXDocument = this.LoadProjectFile_Synchronous(projectFilePath);
+
+			var output = functionOnProjectXDocument(projectXDocument);
+			return output;
+		}
+
 		public async Task<XDocument> LoadProjectFile(
 			Stream stream)
         {

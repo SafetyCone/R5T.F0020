@@ -26,6 +26,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -91,6 +92,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -162,6 +164,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -230,6 +233,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -291,12 +295,17 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj": {
+                "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -349,6 +358,70 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj": {
+                "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj",
+        "projectName": "R5T.T0143",
+        "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj",
+        "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
+        "outputPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -407,6 +480,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -465,6 +539,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

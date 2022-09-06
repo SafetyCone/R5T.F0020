@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.XPath;
 
+using R5T.Magyar;
+
 using R5T.T0132;
 
 
@@ -130,6 +132,19 @@ namespace R5T.F0020
             return projectDirectoryRelativeFilePath;
         }
 
+        /// <summary>
+        /// Gets the version specified by the project file, or if none is specified, the value provided by <see cref="IProjectOperator.GetDefaultVersion"/> (1.0.0).
+        /// </summary>
+        public Version GetVersionOrDefault(string projectFilePath)
+        {
+            var hasVersion = this.HasVersion(projectFilePath);
+
+            var output = hasVersion.ResultOrIfNotFound(
+                () => Instances.ProjectOperator.GetDefaultVersion());
+
+            return output;
+        }
+
         public bool HasProjectReference(
             string projectFilePath,
             string projectReferenceFilePath)
@@ -143,6 +158,29 @@ namespace R5T.F0020
             var output = Instances.ProjectFileXPathOperator.HasProjectReferenceElement(
                 xmlProjectFile,
                 projectDirectoryRelativeProjectReferenceFilePath);
+
+            return output;
+        }
+
+        public WasFound<Version> HasVersion(string projectFilePath)
+        {
+            var hasVersionString = Instances.ProjectFileXmlOperator.InProjectFileXDocumentContext_Synchronous(
+                projectFilePath,
+                Instances.ProjectXDocumentOperator.HasVersionString);
+
+            var output = hasVersionString.Convert(versionString => Version.Parse(versionString));
+
+            return output;
+        }
+
+        /// <summary>
+        /// Determines whether a project file is a library (as opposed to a an executable).
+        /// </summary>
+        public bool IsLibrary_Synchronous(string projectFilePath)
+        {
+            var output = Instances.ProjectFileXmlOperator.InProjectFileXDocumentContext_Synchronous(
+                projectFilePath,
+                Instances.ProjectXDocumentOperator.IsLibraryProject);
 
             return output;
         }

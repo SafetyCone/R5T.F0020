@@ -42,13 +42,24 @@
         }
       },
       "R5T.T0131/1.0.0": {
+        "dependencies": {
+          "R5T.T0143": "1.0.0"
+        },
         "runtime": {
           "R5T.T0131.dll": {}
         }
       },
       "R5T.T0132/1.0.0": {
+        "dependencies": {
+          "R5T.T0143": "1.0.0"
+        },
         "runtime": {
           "R5T.T0132.dll": {}
+        }
+      },
+      "R5T.T0143/1.0.0": {
+        "runtime": {
+          "R5T.T0143.dll": {}
         }
       },
       "R5T.Y0000/1.0.0": {
@@ -94,6 +105,11 @@
       "sha512": ""
     },
     "R5T.T0132/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "R5T.T0143/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

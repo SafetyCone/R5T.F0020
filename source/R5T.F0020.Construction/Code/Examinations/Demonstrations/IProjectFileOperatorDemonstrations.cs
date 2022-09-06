@@ -10,11 +10,51 @@ namespace R5T.F0020.Construction
 	[DemonstrationsMarker]
 	public partial interface IProjectFileOperatorDemonstrations : IDemonstrationsMarker
 	{
+		public void TestHasVersion()
+        {
+			var projectWithVersionFilePath = Instances.ProjectFilePaths.R5T_S0013;
+
+			var projectWithVersionHasVersion = Instances.ProjectFileOperator.HasVersion(projectWithVersionFilePath);
+
+			var versionOrNot = projectWithVersionHasVersion.Exists
+				? projectWithVersionHasVersion.Result.ToString()
+				: "<No version>"
+				;
+
+			Console.WriteLine($"{versionOrNot}: Project with version has version?");
+
+			var projectWithoutVersionFilePath = Instances.ProjectFilePaths.R5T_F0020_Construction;
+
+			var projectWithoutVersionHasVersion = Instances.ProjectFileOperator.HasVersion(projectWithoutVersionFilePath);
+
+			versionOrNot = projectWithoutVersionHasVersion.Exists
+				? projectWithoutVersionHasVersion.Result.ToString()
+				: "<No version>"
+				;
+
+			Console.WriteLine($"{versionOrNot}: Project with version has version?");
+		}
+
+		public void TestIsLibraryProject()
+        {
+			var libraryProjectFilePath = Instances.ProjectFilePaths.R5T_F0020;
+
+			var libraryProjectIsLibrary = Instances.ProjectFileOperator.IsLibrary_Synchronous(libraryProjectFilePath);
+
+			Console.WriteLine($"{libraryProjectIsLibrary}: is library project a library?");
+
+			var nonLibraryProjectFilePath = Instances.ProjectFilePaths.R5T_F0020_Construction;
+
+			var nonLibraryProjectIsLibrary = Instances.ProjectFileOperator.IsLibrary_Synchronous(nonLibraryProjectFilePath);
+
+			Console.WriteLine($"{nonLibraryProjectIsLibrary}: is non-library project a library?");
+		}
+
 		public void AddProjectReference()
         {
-			var projectFilePath = @"C:\Code\DEV\Git\GitHub\SafetyCone\R5T.F0020\source\R5T.F0020.Construction\R5T.F0020.Construction.csproj";
+			var projectFilePath = Instances.ProjectFilePaths.R5T_F0020_Construction;
 
-			var referenceProjectFilePath = @"C:\Code\DEV\Git\GitHub\SafetyCone\R5T.A0003\source\R5T.A0003\R5T.A0003.csproj";
+			var referenceProjectFilePath = Instances.ProjectFilePaths.R5T_A0003;
 
 			Instances.ProjectFileOperator.AddProjectReference_Synchronous(
 				projectFilePath,
@@ -23,9 +63,9 @@ namespace R5T.F0020.Construction
 
 		public void HasProjectReference_True()
         {
-			var projectFilePath = @"C:\Code\DEV\Git\GitHub\SafetyCone\R5T.S0030\source\R5T.S0030\R5T.S0030.csproj";
+			var projectFilePath = Instances.ProjectFilePaths.R5T_S0030;
 
-			var referenceProjectFilePath = @"C:\Code\DEV\Git\GitHub\SafetyCone\R5T.A0003\source\R5T.A0003\R5T.A0003.csproj";
+			var referenceProjectFilePath = Instances.ProjectFilePaths.R5T_A0003;
 
 			var hasProjectReference = Instances.ProjectFileOperator.HasProjectReference(
 				projectFilePath,
@@ -36,9 +76,9 @@ namespace R5T.F0020.Construction
 
 		public void HasProjectReference_False()
 		{
-			var projectFilePath = @"C:\Code\DEV\Git\GitHub\SafetyCone\R5T.S0030\source\R5T.S0030\R5T.S0030.csproj";
+			var projectFilePath = Instances.ProjectFilePaths.R5T_S0030;
 
-			var referenceProjectFilePath = @"C:\Code\DEV\Git\GitHub\SafetyCone\R5T.S0031\source\R5T.S0031\R5T.S0031.csproj";
+			var referenceProjectFilePath = Instances.ProjectFilePaths.R5T_S0031;
 
 			var hasProjectReference = Instances.ProjectFileOperator.HasProjectReference(
 				projectFilePath,
@@ -49,7 +89,7 @@ namespace R5T.F0020.Construction
 
 		public void ListDirectProjectReferenceFilePaths()
         {
-			var projectFilePath = @"C:\Code\DEV\Git\GitHub\SafetyCone\R5T.S0030\source\R5T.S0030\R5T.S0030.csproj";
+			var projectFilePath = Instances.ProjectFilePaths.R5T_S0030;
 
 			var projectReferenceFilePaths = Instances.ProjectFileOperator.GetDirectProjectReferenceFilePaths_Synchronous(projectFilePath);
 
@@ -67,9 +107,9 @@ namespace R5T.F0020.Construction
 
 		public void RemoveProjectReference()
 		{
-			var projectFilePath = @"C:\Code\DEV\Git\GitHub\SafetyCone\R5T.F0020\source\R5T.F0020.Construction\R5T.F0020.Construction.csproj";
+			var projectFilePath = Instances.ProjectFilePaths.R5T_F0020_Construction;
 
-			var referenceProjectFilePath = @"C:\Code\DEV\Git\GitHub\SafetyCone\R5T.A0003\source\R5T.A0003\R5T.A0003.csproj";
+			var referenceProjectFilePath = Instances.ProjectFilePaths.R5T_A0003;
 
 			Instances.ProjectFileOperator.RemoveProjectReference_Synchronous(
 				projectFilePath,

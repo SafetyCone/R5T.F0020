@@ -10,5 +10,6 @@ namespace R5T.F0020.Construction
 
         public static IProjectFileGenerator ProjectFileGenerator { get; } = F0020.ProjectFileGenerator.Instance;
         public static IProjectFileOperator ProjectFileOperator { get; } = F0020.ProjectFileOperator.Instance;
+        public static IProjectFilePaths ProjectFilePaths { get; } = Construction.ProjectFilePaths.Instance;
     }
 }

@@ -40,3 +40,5 @@ C:\Code\DEV\Git\GitHub\SafetyCone\R5T.F0020\source\R5T.F0020.Construction\bin\De
 C:\Code\DEV\Git\GitHub\SafetyCone\R5T.F0020\source\R5T.F0020.Construction\bin\Debug\net5.0\R5T.Y0000.xml
 C:\Code\DEV\Git\GitHub\SafetyCone\R5T.F0020\source\R5T.F0020.Construction\bin\Debug\net5.0\R5T.Z0000.pdb
 C:\Code\DEV\Git\GitHub\SafetyCone\R5T.F0020\source\R5T.F0020.Construction\bin\Debug\net5.0\R5T.Z0000.xml
+C:\Code\DEV\Git\GitHub\SafetyCone\R5T.F0020\source\R5T.F0020.Construction\bin\Debug\net5.0\R5T.T0143.dll
+C:\Code\DEV\Git\GitHub\SafetyCone\R5T.F0020\source\R5T.F0020.Construction\bin\Debug\net5.0\R5T.T0143.pdb

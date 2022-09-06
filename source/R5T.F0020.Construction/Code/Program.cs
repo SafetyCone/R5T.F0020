@@ -13,8 +13,10 @@ namespace R5T.F0020.Construction
             //Instances.ProjectFileOperatorDemonstrations.AddProjectReference();
             //Instances.ProjectFileOperatorDemonstrations.HasProjectReference_False();
             //Instances.ProjectFileOperatorDemonstrations.HasProjectReference_True();
-            Instances.ProjectFileOperatorDemonstrations.ListDirectProjectReferenceFilePaths();
+            //Instances.ProjectFileOperatorDemonstrations.ListDirectProjectReferenceFilePaths();
             //Instances.ProjectFileOperatorDemonstrations.RemoveProjectReference();
+            //Instances.ProjectFileOperatorDemonstrations.TestIsLibraryProject();
+            Instances.ProjectFileOperatorDemonstrations.TestHasVersion();
         }
     }
 }

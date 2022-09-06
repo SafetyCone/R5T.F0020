@@ -104,6 +104,41 @@
             Chooses the invariant uppering operation as default.
             </summary>
         </member>
+        <member name="M:R5T.F0000.ICommandLineOperator.Start(System.String,System.Diagnostics.DataReceivedEventHandler,System.Boolean)">
+            <summary>
+            Configures and starts a process.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.ICommandLineOperator.Start(System.String,System.String,System.Diagnostics.DataReceivedEventHandler,System.Boolean)">
+            <summary>
+            Configures and starts a process.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.ICommandLineOperator.Start(System.String,System.String,System.Diagnostics.DataReceivedEventHandler,System.Diagnostics.DataReceivedEventHandler,System.Boolean)">
+            <summary>
+            Configures and starts a process.
+            </summary>s
+        </member>
+        <member name="M:R5T.F0000.IDateOperator.GetNow">
+            <summary>
+            Chooses <see cref="M:R5T.F0000.IDateOperator.GetNow_Local"/> as the default.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IDateOperator.GetToday">
+            <summary>
+            Chooses <see cref="M:R5T.F0000.IDateOperator.GetToday_Local"/> as the default.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IEnumerableOperator.Now``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Enumerates the enumerable.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IEnvironmentOperator.IsDebugCompilationConfiguration">
+            <summary>
+            Returns true if the DEBUG preprocessor context symbol has been defined. False otherwise.
+            </summary>
+        </member>
         <member name="T:R5T.F0000.IExecutablePathOperator">
             <summary>
             
@@ -140,6 +175,14 @@
             </summary>
             <remarks>
             Prior work: R5T.Magyar.
+            </remarks>
+        </member>
+        <member name="M:R5T.F0000.IFileSystemOperator.CopyDirectory(System.String,System.String,System.Boolean)">
+            <summary>
+            Copies a directory.
+            </summary>
+            <remarks>
+            It is BONKERS that C# does not have a built-in implementation of copying directories. Wut?!?
             </remarks>
         </member>
         <member name="M:R5T.F0000.IFileSystemOperator.CreateDirectory_OkIfAlreadyExists(System.String)">
@@ -237,6 +280,16 @@
             <para><inheritdoc cref="F:R5T.Y0000.Glossary.ForIndex.ExclusiveInclusiveRelationship" path="/definition"/></para>
             </summary>
         </member>
+        <member name="M:R5T.F0000.INamespacedTypeNameOperator.GetTokenSeparator">
+            <summary>
+            Chooses character as the default token separator type.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.INowOperator.GetNow">
+            <summary>
+            Chooses <see cref="M:R5T.F0000.INowOperator.GetNowLocal"/> as the default.
+            </summary>
+        </member>
         <member name="M:R5T.F0000.ISourceCodeOperator.GetCurrentSourceCodeFilePath(System.String)">
             <summary>
             Gets the file path of the source code file in which this method is called.
@@ -256,6 +309,52 @@
             <remarks>
             Source: https://andrewlock.net/why-is-string-gethashcode-different-each-time-i-run-my-program-in-net-core/#a-deterministic-gethashcode-implementation
             </remarks>
+        </member>
+        <member name="M:R5T.F0000.ITextOperator.MakeEndWithPeriod(System.String)">
+            <summary>
+            Trims the end of the text and ensures it ends with a single period.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.ITextOperator.EnsureIsSentence(System.String)">
+            <summary>
+            Trims both the start and end of the text, then ensures the text ends with a single period.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.ITextOperator.JoinSentences(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Assumes that the inputs are, in fact, sentences.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.ITypeOperator.GetTypeOf``1">
+            <summary>
+            Gets the type of the <typeparamref name="T"/>.
+            Note: same as the typeof() operator.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IVersionOperator.GetUndefinedVersionPropertyValue">
+            <summary>
+            Returns the value of undefined version properties (which is -1, negative one).
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IVersionOperator.IsNone(System.Version)">
+            <summary>
+            Determines if the version is the <see cref="P:R5T.F0000.IVersions.None"/> value.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IVersionOperator.IsUndefinedVersionPropertyValue(System.Int32)">
+            <summary>
+            Determines if the version property value is the value returned by <see cref="M:R5T.F0000.IVersionOperator.GetUndefinedVersionPropertyValue"/> (which is -1, negative one).
+            </summary>
+        </member>
+        <member name="P:R5T.F0000.IVersions.Default">
+            <summary>
+            The default version (for assuming when no version is present) is 1.0.0.
+            </summary>
+        </member>
+        <member name="P:R5T.F0000.IVersions.None">
+            <summary>
+            The none version is just null (since Version is a reference type).
+            </summary>
         </member>
     </members>
 </doc>

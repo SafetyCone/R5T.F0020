@@ -48,6 +48,7 @@
         <member name="M:R5T.F0002.Implementations.IPathOperator.IsValid_NoEndingWithSpecialDirectoryNames(System.String)">
             <summary>
             Directory names and files names cannot end with the current directory name ("."), or the parent directory name ("..").
+            This validates that the path contains no current directory or parent directory names, unless the entire path part is the current or parent directory name.
             </summary>
         </member>
         <member name="T:R5T.F0002.Documentation">
@@ -60,6 +61,13 @@
             An exception for when where the string representation of a enumeration value is unrecognizable as one of the values of the enumeration.
             Useful in the default case of a switch statement for parsing a string to an enumeration.
             </summary>
+        </member>
+        <member name="M:R5T.F0002.IDirectoryNameOperator.IsActualDirectoryName(System.String)">
+            <summary>
+            <para>Returns true if the directory name is *not* the <see cref="P:R5T.F0002.IDirectoryNames.CurrentDirectory"/> or <see cref="P:R5T.F0002.IDirectoryNames.ParentDirectory"/> name.</para>
+            <para><inheritdoc cref="M:R5T.F0002.IDirectoryNameOperator.IsActualDirectoryName(System.String)" path="/useful-when"/></para>
+            </summary>
+            <useful-when>This method is useful in the many situations where the <see cref="P:R5T.F0002.IDirectoryNames.CurrentDirectory"/> and <see cref="P:R5T.F0002.IDirectoryNames.ParentDirectory"/> names appear (such as low-level directory listings).</useful-when>
         </member>
         <member name="M:R5T.F0002.IDirectorySeparatorOperator.GetAlternateDirectorySeparator(System.Char)">
             <summary>
@@ -196,6 +204,20 @@
         <member name="M:R5T.F0002.IPathOperator.GetPathParts(System.String)">
             <summary>
             Chooses <see cref="M:R5T.F0002.IPathOperator.GetNonEmptyPathParts(System.String)"/> as the default.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.TryDetectDirectorySeparator(System.String,System.Char@,System.Char)">
+            <summary>
+            Attempts to detect the directory separator (Windows or non-Windows) used within a path segment.
+            Returns true if the a directory separator can be detected, and sets the output <paramref name="directorySeparator"/> to the detected value.
+            Returns false if a directory separator cannot be detected, and sets the output <paramref name="directorySeparator"/> to the provided <paramref name="defaultDirectorySeparator"/> value.
+            Returns true if both (mixed) directory separators are detected, and sets the sets the output <paramref name="directorySeparator"/> to the dominant value.
+            A path segment might have both Windows and non-Windows directory separators. Whichever directory separator occurs first in the path segment (thus, closer to the root) is dominant, and is returned as the path segment's directory separator.
+            </summary>
+        </member>
+        <member name="P:R5T.F0002.IDirectorySeparators.Standard">
+            <summary>
+            The standard is <see cref="P:R5T.F0002.IDirectorySeparators.Windows"/>.
             </summary>
         </member>
     </members>

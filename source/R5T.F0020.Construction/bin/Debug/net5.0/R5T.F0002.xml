@@ -10,9 +10,45 @@
             If no directory separator is found, then the specified <paramref name="assumption"/> is made.
             </summary>
         </member>
+        <member name="M:R5T.F0002.Internal.IPathOperator.IsNonWindows_AssumeTrue_NoValidation(System.String)">
+            <summary>
+            Determines if a path is a non-Windows path, assuming it is if there are no directory separators present to allow an actual determination.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.Internal.IPathOperator.IsDirectoryIndicated_NoValidation(System.String)">
+            <summary>
+            Determines whether the <paramref name="path"/> is <inheritdoc cref="F:R5T.Y0000.Glossary.ForPaths.DirectoryIndicated" path="/name"/>.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.Internal.IPathOperator.IsFileIndicated_NoValidation(System.String)">
+            <summary>
+            Determines whether the <paramref name="path"/> is <inheritdoc cref="F:R5T.Y0000.Glossary.ForPaths.FileIndicated" path="/name"/>.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.Internal.IPathOperator.IsNonWindows_Strict_NoValidation(System.String)">
+            <summary>
+            Determines if a path is a non-Windows path, making no assumption if there are no directory separators present to allow an actual determination.
+            </summary>
+        </member>
         <member name="M:R5T.F0002.Implementations.IPathOperator.IsValid_NotNullNotEmpty(System.String)">
             <summary>
             Determines whether a path is valid based solely on whether it is not null and not empty.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.Implementations.IPathOperator.IsValid_NoInvalidPathCharacters(System.String)">
+            <summary>
+            Determines whether a path is valid based on whether the path, taken as a path, contains any 
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.Implementations.IPathOperator.IsValid_NoInvalidFileNameCharactersInPathParts(System.String)">
+            <summary>
+            Breaks a path down into its path parts, then verifies there are no invalid file name characters in any of the path parts (except for a volume separator in the first path part).
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.Implementations.IPathOperator.IsValid_NoEndingWithSpecialDirectoryNames(System.String)">
+            <summary>
+            Directory names and files names cannot end with the current directory name ("."), or the parent directory name ("..").
+            This validates that the path contains no current directory or parent directory names, unless the entire path part is the current or parent directory name.
             </summary>
         </member>
         <member name="T:R5T.F0002.Documentation">
@@ -20,10 +56,70 @@
             Common operations on System namespace, and related, types, like Predicate, regular expression pattern, Index etc.
             </summary>
         </member>
+        <member name="T:R5T.F0002.UnrecognizedEnumerationValueException">
+            <summary>
+            An exception for when where the string representation of a enumeration value is unrecognizable as one of the values of the enumeration.
+            Useful in the default case of a switch statement for parsing a string to an enumeration.
+            </summary>
+        </member>
         <member name="M:R5T.F0002.IDirectorySeparatorOperator.GetAlternateDirectorySeparator(System.Char)">
             <summary>
             Given the Windows directory separator, get the non-Windows directory separator and vice-versa.
             Note: will throw an exception if the input <paramref name="directorySeparator"/> is not either the Windows or non-Windows directory separator.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IEnumerationHelper.UnexpectedEnumerationValueException``1(``0)">
+            <summary>
+            Produces an exception for the situation where a value of the <typeparamref name="TEnum"/> enumeration was unexpected.
+            This is useful in producing an error in the default case for switch statements based on enumeration values.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IEnumerationHelper.UnexpectedEnumerationValueMessage``1(``0)">
+            <summary>
+            Gets a message indicating the the input value of the <typeparamref name="TEnum"/> enumeration was unexpected.
+            This is useful in producing an error in the default case for switch statements based on enumeration values.
+            </summary>
+            <remarks>
+            See: https://stackoverflow.com/questions/13645149/what-is-the-correct-exception-to-throw-for-unhandled-enum-values
+            </remarks>
+        </member>
+        <member name="M:R5T.F0002.IEnumerationHelper.GetSwitchDefaultCaseException``1(``0)">
+            <summary>
+            Produces an exception for use in the default case of a switch statement based on values of the <typeparamref name="TEnum"/> enumeration.
+            Note: there is no method just throwing the exception, as the VS linter does not detect that a method call will always produce an exception, and thus demands that switch default case behavior cannot fall through one default case to another. The throw keyword in the switch default case must be present.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IEnumerationHelper.UnrecognizedEnumerationValueMessage(System.String,System.String)">
+            <summary>
+            Gets a message indicating that the input string representation of an enumeration value was not recognized among the string representations of a possible values of the enumeration type.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IEnumerationHelper.UnrecognizedEnumerationValueMessage``1(System.String)">
+            <summary>
+            Gets a message indicating that the input string representation of an enumeration value was not recognized among the string representations of a possible values of the <typeparamref name="TEnum"/> enumeration.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IEnumerationHelper.UnrecognizedEnumerationValueException(System.String,System.String)">
+            <summary>
+            Produces an exception in the case where the string representation of a enumeration value is unrecognizable as one of the values of the <paramref name="enumerationTypeFullName"/> enumeration.
+            Useful in the default case of a switch statement for parsing a string to an enumeration.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IEnumerationHelper.UnrecognizedEnumerationValueException(System.Type,System.String)">
+            <summary>
+            Produces an exception in the case where the string representation of a enumeration value is unrecognizable as one of the values of the <paramref name="enumerationType"/> enumeration.
+            Useful in the default case of a switch statement for parsing a string to an enumeration.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IEnumerationHelper.UnrecognizedEnumerationValueException``1(System.String)">
+            <summary>
+            Produces an exception in the case where the string representation of a enumeration value is unrecognizable as one of the values of the <typeparamref name="TEnum"/> enumeration.
+            Useful in the default case of a switch statement for parsing a string to an enumeration.
+            </summary>
+        </member>
+        <member name="T:R5T.F0002.IExecutablePathOperator">
+            <summary>
+            Inheritance required since <see cref="T:R5T.F0002.IPathOperator"/> is not in this library.
             </summary>
         </member>
         <member name="M:R5T.F0002.IPathOperator.IsDirectoryIndicated(System.String)">
@@ -49,6 +145,11 @@
         <member name="M:R5T.F0002.IPathOperator.IsNonWindows_Strict(System.String)">
             <summary>
             Determines if a path is a non-Windows path, making no assumption if there are no directory separators present to allow an actual determination.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.IsWindows(System.String)">
+            <summary>
+            Chooses <see cref="M:R5T.F0002.IPathOperator.IsWindows_AssumeTrue(System.String)"/> as the default.
             </summary>
         </member>
         <member name="M:R5T.F0002.IPathOperator.IsRootIndicated(System.String)">
@@ -96,6 +197,15 @@
         <member name="M:R5T.F0002.IPathOperator.GetPathParts(System.String)">
             <summary>
             Chooses <see cref="M:R5T.F0002.IPathOperator.GetNonEmptyPathParts(System.String)"/> as the default.
+            </summary>
+        </member>
+        <member name="M:R5T.F0002.IPathOperator.TryDetectDirectorySeparator(System.String,System.Char@,System.Char)">
+            <summary>
+            Attempts to detect the directory separator (Windows or non-Windows) used within a path segment.
+            Returns true if the a directory separator can be detected, and sets the output <paramref name="directorySeparator"/> to the detected value.
+            Returns false if a directory separator cannot be detected, and sets the output <paramref name="directorySeparator"/> to the provided <paramref name="defaultDirectorySeparator"/> value.
+            Returns true if both (mixed) directory separators are detected, and sets the sets the output <paramref name="directorySeparator"/> to the dominant value.
+            A path segment might have both Windows and non-Windows directory separators. Whichever directory separator occurs first in the path segment (thus, closer to the root) is dominant, and is returned as the path segment's directory separator.
             </summary>
         </member>
     </members>
