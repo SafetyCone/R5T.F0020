@@ -1,9 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\..\R5T.Z0008\source\R5T.Z0008\R5T.Z0008.csproj" />
-  </ItemGroup>
-</Project>
