@@ -8,6 +8,8 @@ namespace R5T.F0020.Construction
 	[ValuesMarker]
 	public partial interface IProjectFilePaths : IValuesMarker
 	{
+		public string Test => @"C:\Temp\Test.csproj";
+
 		public string R5T_A0003 => @"C:\Code\DEV\Git\GitHub\SafetyCone\R5T.A0003\source\R5T.A0003\R5T.A0003.csproj";
 		public string R5T_F0020 => @"C:\Code\DEV\Git\GitHub\SafetyCone\R5T.F0020\source\R5T.F0020\R5T.F0020.csproj";
 		public string R5T_F0020_Construction => @"C:\Code\DEV\Git\GitHub\SafetyCone\R5T.F0020\source\R5T.F0020.Construction\R5T.F0020.Construction.csproj";

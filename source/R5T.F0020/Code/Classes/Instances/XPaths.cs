@@ -7,7 +7,7 @@ namespace R5T.F0020
 	{
 		#region Infrastructure
 
-	    public static XPaths Instance { get; } = new();
+	    public static IXPaths Instance { get; } = new XPaths();
 
 	    private XPaths()
 	    {

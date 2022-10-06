@@ -1,0 +1,145 @@
+{
+  "runtimeTarget": {
+    "name": ".NETStandard,Version=v2.1/",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETStandard,Version=v2.1": {},
+    ".NETStandard,Version=v2.1/": {
+      "R5T.F0020/1.0.0": {
+        "dependencies": {
+          "R5T.F0002": "1.0.0",
+          "R5T.F0040.F000": "1.0.0",
+          "R5T.T0132": "1.0.0"
+        },
+        "runtime": {
+          "R5T.F0020.dll": {}
+        }
+      },
+      "R5T.F0000/1.0.0": {
+        "dependencies": {
+          "R5T.T0132": "1.0.0",
+          "R5T.T0142": "1.0.0",
+          "R5T.Z0000": "1.0.0"
+        },
+        "runtime": {
+          "R5T.F0000.dll": {}
+        }
+      },
+      "R5T.F0002/1.0.0": {
+        "dependencies": {
+          "R5T.F0000": "1.0.0",
+          "R5T.T0132": "1.0.0",
+          "R5T.Z0000": "1.0.0"
+        },
+        "runtime": {
+          "R5T.F0002.dll": {}
+        }
+      },
+      "R5T.F0040.F000/1.0.0": {
+        "dependencies": {
+          "R5T.F0002": "1.0.0"
+        },
+        "runtime": {
+          "R5T.F0040.F000.dll": {}
+        }
+      },
+      "R5T.T0131/1.0.0": {
+        "dependencies": {
+          "R5T.T0143": "1.0.0"
+        },
+        "runtime": {
+          "R5T.T0131.dll": {}
+        }
+      },
+      "R5T.T0132/1.0.0": {
+        "dependencies": {
+          "R5T.T0143": "1.0.0"
+        },
+        "runtime": {
+          "R5T.T0132.dll": {}
+        }
+      },
+      "R5T.T0142/1.0.0": {
+        "dependencies": {
+          "R5T.T0143": "1.0.0"
+        },
+        "runtime": {
+          "R5T.T0142.dll": {}
+        }
+      },
+      "R5T.T0143/1.0.0": {
+        "runtime": {
+          "R5T.T0143.dll": {}
+        }
+      },
+      "R5T.Y0000/1.0.0": {
+        "runtime": {
+          "R5T.Y0000.dll": {}
+        }
+      },
+      "R5T.Z0000/1.0.0": {
+        "dependencies": {
+          "R5T.T0131": "1.0.0",
+          "R5T.Y0000": "1.0.0"
+        },
+        "runtime": {
+          "R5T.Z0000.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "R5T.F0020/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "R5T.F0000/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "R5T.F0002/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "R5T.F0040.F000/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "R5T.T0131/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "R5T.T0132/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "R5T.T0142/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "R5T.T0143/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "R5T.Y0000/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "R5T.Z0000/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

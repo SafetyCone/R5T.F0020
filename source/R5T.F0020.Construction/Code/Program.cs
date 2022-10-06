@@ -7,6 +7,10 @@ namespace R5T.F0020.Construction
         static void Main()
         {
             // Demonstrations.
+            //Instances.ProjectFileGenerationDemonstrations.CreateNew_Empty();
+            //Instances.ProjectFileGenerationDemonstrations.CreateNew_Minimal();
+            Instances.ProjectFileGenerationDemonstrations.CreateNew_Standard();
+
             //Instances.ProjectFileGenerationDemonstrations.CreateNewConsole();
             //Instances.ProjectFileGenerationDemonstrations.CreateNewLibrary();
             //Instances.ProjectFileGenerationDemonstrations.CreateNewTest();
@@ -16,7 +20,7 @@ namespace R5T.F0020.Construction
             //Instances.ProjectFileOperatorDemonstrations.ListDirectProjectReferenceFilePaths();
             //Instances.ProjectFileOperatorDemonstrations.RemoveProjectReference();
             //Instances.ProjectFileOperatorDemonstrations.TestIsLibraryProject();
-            Instances.ProjectFileOperatorDemonstrations.TestHasVersion();
+            //Instances.ProjectFileOperatorDemonstrations.TestHasVersion();
         }
     }
 }

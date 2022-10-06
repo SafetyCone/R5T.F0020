@@ -9,6 +9,11 @@
             Common operations on .NET C# built-in types, like characters, strings, integers, etc.
             </summary>
         </member>
+        <member name="M:R5T.F0000.IBooleanOperator.ToString(System.Boolean)">
+            <summary>
+            Chooses <see cref="M:R5T.F0000.IBooleanOperator.ToString_Camelcase(System.Boolean)"/> as the default to match the <see cref="M:System.Boolean.ToString"/> behavior.
+            </summary>
+        </member>
         <member name="M:R5T.F0000.ICharacterOperator.Describe(System.Char)">
             <summary>
             Describes a character with its string representation, three-digit numeric value, and name. Example: 'b': 062, "lower-case b".
@@ -129,6 +134,11 @@
             Chooses <see cref="M:R5T.F0000.IDateOperator.GetToday_Local"/> as the default.
             </summary>
         </member>
+        <member name="M:R5T.F0000.IEnumerableOperator.Clear``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Returns a new enumerable (does not clear the input enumerable, but provides a clean slate for future operations).
+            </summary>
+        </member>
         <member name="M:R5T.F0000.IEnumerableOperator.Now``1(System.Collections.Generic.IEnumerable{``0})">
             <summary>
             Enumerates the enumerable.
@@ -169,12 +179,25 @@
             Chooses <see cref="M:R5T.F0000.IFileExtensionOperator.GetFileExtensionSeparator_Char"/> as the default.
             </summary>
         </member>
+        <member name="M:R5T.F0000.IFileOperator.WriteAnEmptyFile(System.String)">
+            <summary>
+            WCreates a file with nothing in it.
+            </summary>
+        </member>
         <member name="T:R5T.F0000.IFileSystemOperator">
             <summary>
             
             </summary>
             <remarks>
             Prior work: R5T.Magyar.
+            </remarks>
+        </member>
+        <member name="M:R5T.F0000.IFileSystemOperator.CopyDirectory(System.String,System.String,System.Boolean)">
+            <summary>
+            Copies a directory.
+            </summary>
+            <remarks>
+            It is BONKERS that C# does not have a built-in implementation of copying directories. Wut?!?
             </remarks>
         </member>
         <member name="M:R5T.F0000.IFileSystemOperator.CreateDirectory_OkIfAlreadyExists(System.String)">
@@ -277,6 +300,11 @@
             Chooses character as the default token separator type.
             </summary>
         </member>
+        <member name="M:R5T.F0000.INowOperator.GetNow">
+            <summary>
+            Chooses <see cref="M:R5T.F0000.INowOperator.GetNowLocal"/> as the default.
+            </summary>
+        </member>
         <member name="M:R5T.F0000.ISourceCodeOperator.GetCurrentSourceCodeFilePath(System.String)">
             <summary>
             Gets the file path of the source code file in which this method is called.
@@ -310,6 +338,92 @@
         <member name="M:R5T.F0000.ITextOperator.JoinSentences(System.Collections.Generic.IEnumerable{System.String})">
             <summary>
             Assumes that the inputs are, in fact, sentences.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.ITypeOperator.GetTypeOf``1">
+            <summary>
+            Gets the type of the <typeparamref name="T"/>.
+            Note: same as the typeof() operator.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IVersionOperator.GetUndefinedVersionPropertyValue">
+            <summary>
+            Returns the value of undefined version properties (which is -1, negative one).
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IVersionOperator.IsNone(System.Version)">
+            <summary>
+            Determines if the version is the <see cref="P:R5T.F0000.IVersions.None"/> value.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IVersionOperator.IsUndefinedVersionPropertyValue(System.Int32)">
+            <summary>
+            Determines if the version property value is the value returned by <see cref="M:R5T.F0000.IVersionOperator.GetUndefinedVersionPropertyValue"/> (which is -1, negative one).
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IXmlOperator.AddChild(System.Xml.Linq.XElement,System.String)">
+            <summary>
+            Creates an <see cref="T:System.Xml.Linq.XElement"/> with the child name, adds it to the parent, and returns the child.
+            </summary>
+            <returns>The child <see cref="T:System.Xml.Linq.XElement"/>.</returns>
+        </member>
+        <member name="M:R5T.F0000.IXmlOperator.CreateNewDocument_Empty">
+            <summary>
+            Quality-of-life overload for <see cref="M:R5T.F0000.IXmlOperator.CreateNewDocument_WithoutDefaultDeclaration"/>
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IXmlOperator.CreateNewDocument(System.Xml.Linq.XElement)">
+            <summary>
+            Chooses <see cref="M:R5T.F0000.IXmlOperator.CreateNewDocument_WithDefaultDeclaration(System.Xml.Linq.XElement)"/> as the default.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IXmlOperator.CreateNewDocumentWithRoot(System.String)">
+            <summary>
+            Chooses <see cref="M:R5T.F0000.IXmlOperator.CreateNewDocumentWithRoot_WithXsdAndXsi(System.String)"/> as the default.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IXmlOperator.CreateNewDocument">
+            <summary>
+            Chooses <see cref="M:R5T.F0000.IXmlOperator.CreateNewDocument_WithDefaultDeclaration"/> as the deafult.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IXmlOperator.Save(System.Xml.Linq.XDocument,System.String)">
+            <summary>
+            Quality-of-life overload for <see cref="M:R5T.F0000.IXmlOperator.Write(System.Xml.Linq.XDocument,System.String)"/>.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IXmlOperator.Write(System.Xml.Linq.XDocument,System.String)">
+            <summary>
+            Chooses <see cref="M:R5T.F0000.IXmlOperator.WriteToFile_EmptyIsOk(System.Xml.Linq.XDocument,System.String)"/> as the default.
+            </summary>
+        </member>
+        <member name="M:R5T.F0000.IXmlOperator.WriteToFile_EmptyIsOk(System.Xml.Linq.XDocument,System.String)">
+            <summary>
+            XML files *must* have a root: https://www.w3schools.com/xml/xml_syntax.asp
+            So if the document has no root, saving the document results in an <see cref="T:System.InvalidOperationException"/>: Token EndDocument in state Document would result in an invalid XML document.
+            This method will allow writing an empty document.
+            If the document has no root, just the declaration is written.
+            If the document also has no declaration, nothing is written.
+            </summary>
+        </member>
+        <member name="P:R5T.F0000.IVersions.Default">
+            <summary>
+            The default version (for assuming when no version is present) is 1.0.0.
+            </summary>
+        </member>
+        <member name="P:R5T.F0000.IVersions.None">
+            <summary>
+            The none version is just null (since Version is a reference type).
+            </summary>
+        </member>
+        <member name="P:R5T.F0000.IXmlNamespaceNames.XmlNamespaceName">
+            <summary>
+            xmlns
+            </summary>
+        </member>
+        <member name="M:System.Extensions.ObjectExtensions.Modify``1(``0,System.Action{``0})">
+            <summary>
+            Allows fluent modification of any object.
             </summary>
         </member>
     </members>

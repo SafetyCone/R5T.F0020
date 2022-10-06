@@ -7,7 +7,7 @@ namespace R5T.F0020
 	{
 		#region Infrastructure
 
-	    public static ProjectOperator Instance { get; } = new();
+	    public static IProjectOperator Instance { get; } = new ProjectOperator();
 
 	    private ProjectOperator()
 	    {

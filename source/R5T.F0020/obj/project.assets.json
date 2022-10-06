@@ -1,12 +1,13 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {
+    ".NETStandard,Version=v2.1": {
       "R5T.F0000/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
+        "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "R5T.T0132": "1.0.0",
+          "R5T.T0142": "1.0.0",
           "R5T.Z0000": "1.0.0"
         },
         "compile": {
@@ -18,10 +19,9 @@
       },
       "R5T.F0002/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
+        "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "R5T.F0000": "1.0.0",
-          "R5T.Magyar": "1.0.0",
           "R5T.T0132": "1.0.0",
           "R5T.Z0000": "1.0.0"
         },
@@ -32,19 +32,22 @@
           "bin/placeholder/R5T.F0002.dll": {}
         }
       },
-      "R5T.Magyar/1.0.0": {
+      "R5T.F0040.F000/1.0.0": {
         "type": "project",
-        "framework": ".NETStandard,Version=v2.0",
+        "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "R5T.F0002": "1.0.0"
+        },
         "compile": {
-          "bin/placeholder/R5T.Magyar.dll": {}
+          "bin/placeholder/R5T.F0040.F000.dll": {}
         },
         "runtime": {
-          "bin/placeholder/R5T.Magyar.dll": {}
+          "bin/placeholder/R5T.F0040.F000.dll": {}
         }
       },
       "R5T.T0131/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
+        "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "R5T.T0143": "1.0.0"
         },
@@ -57,7 +60,7 @@
       },
       "R5T.T0132/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
+        "framework": ".NETStandard,Version=v2.0",
         "dependencies": {
           "R5T.T0143": "1.0.0"
         },
@@ -68,9 +71,22 @@
           "bin/placeholder/R5T.T0132.dll": {}
         }
       },
+      "R5T.T0142/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "dependencies": {
+          "R5T.T0143": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/R5T.T0142.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/R5T.T0142.dll": {}
+        }
+      },
       "R5T.T0143/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
+        "framework": ".NETStandard,Version=v2.0",
         "compile": {
           "bin/placeholder/R5T.T0143.dll": {}
         },
@@ -80,7 +96,7 @@
       },
       "R5T.Y0000/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
+        "framework": ".NETStandard,Version=v2.1",
         "compile": {
           "bin/placeholder/R5T.Y0000.dll": {}
         },
@@ -90,7 +106,7 @@
       },
       "R5T.Z0000/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v5.0",
+        "framework": ".NETStandard,Version=v2.1",
         "dependencies": {
           "R5T.T0131": "1.0.0",
           "R5T.Y0000": "1.0.0"
@@ -115,10 +131,10 @@
       "path": "../../../R5T.F0002/source/R5T.F0002/R5T.F0002.csproj",
       "msbuildProject": "../../../R5T.F0002/source/R5T.F0002/R5T.F0002.csproj"
     },
-    "R5T.Magyar/1.0.0": {
+    "R5T.F0040.F000/1.0.0": {
       "type": "project",
-      "path": "../../../R5T.Magyar/source/R5T.Magyar/R5T.Magyar.csproj",
-      "msbuildProject": "../../../R5T.Magyar/source/R5T.Magyar/R5T.Magyar.csproj"
+      "path": "../../../R5T.F0040/source/R5T.F0040.F000/R5T.F0040.F000.csproj",
+      "msbuildProject": "../../../R5T.F0040/source/R5T.F0040.F000/R5T.F0040.F000.csproj"
     },
     "R5T.T0131/1.0.0": {
       "type": "project",
@@ -129,6 +145,11 @@
       "type": "project",
       "path": "../../../R5T.T0132/source/R5T.T0132/R5T.T0132.csproj",
       "msbuildProject": "../../../R5T.T0132/source/R5T.T0132/R5T.T0132.csproj"
+    },
+    "R5T.T0142/1.0.0": {
+      "type": "project",
+      "path": "../../../R5T.T0142/source/R5T.T0142/R5T.T0142.csproj",
+      "msbuildProject": "../../../R5T.T0142/source/R5T.T0142/R5T.T0142.csproj"
     },
     "R5T.T0143/1.0.0": {
       "type": "project",
@@ -147,9 +168,9 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net5.0": [
+    ".NETStandard,Version=v2.1": [
       "R5T.F0002 >= 1.0.0",
-      "R5T.Magyar >= 1.0.0",
+      "R5T.F0040.F000 >= 1.0.0",
       "R5T.T0132 >= 1.0.0"
     ]
   },
@@ -174,7 +195,7 @@
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
-        "net5.0"
+        "netstandard2.1"
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -183,14 +204,14 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
           "projectReferences": {
             "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0002\\source\\R5T.F0002\\R5T.F0002.csproj": {
               "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0002\\source\\R5T.F0002\\R5T.F0002.csproj"
             },
-            "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.Magyar\\source\\R5T.Magyar\\R5T.Magyar.csproj": {
-              "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.Magyar\\source\\R5T.Magyar\\R5T.Magyar.csproj"
+            "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0040\\source\\R5T.F0040.F000\\R5T.F0040.F000.csproj": {
+              "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0040\\source\\R5T.F0040.F000\\R5T.F0040.F000.csproj"
             },
             "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\R5T.T0132.csproj": {
               "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\R5T.T0132.csproj"
@@ -205,8 +226,8 @@
       }
     },
     "frameworks": {
-      "net5.0": {
-        "targetAlias": "net5.0",
+      "netstandard2.1": {
+        "targetAlias": "netstandard2.1",
         "imports": [
           "net461",
           "net462",
@@ -218,11 +239,11 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
-          "Microsoft.NETCore.App": {
+          "NETStandard.Library": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -2,9 +2,10 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using System.Xml.XPath;
 
-using R5T.Magyar;
+using R5T.F0000;
 
 using R5T.T0132;
 
@@ -20,7 +21,7 @@ namespace R5T.F0020
         {
             var xProjectFile = await Instances.ProjectFileXmlOperator.LoadProjectFile(projectFilePath);
 
-            var projectDirectoryRelativeProjectReferenceFilePath = this.GetProjectDirectoryRelativePath(
+            var projectDirectoryRelativeProjectReferenceFilePath = Instances.ProjectPathsOperator.GetProjectDirectoryRelativePath(
                 projectFilePath,
                 projectReferenceFilePath);
 
@@ -28,7 +29,7 @@ namespace R5T.F0020
                 xProjectFile,
                 projectDirectoryRelativeProjectReferenceFilePath);
 
-            await Instances.ProjectFileXmlOperator.SaveProjectFile(
+            await Instances.ProjectFileXmlOperator.SaveProject(
                 projectFilePath,
                 xProjectFile);
         }
@@ -39,7 +40,7 @@ namespace R5T.F0020
         {
             var xProjectFile = Instances.ProjectFileXmlOperator.LoadProjectFile_Synchronous(projectFilePath);
 
-            var projectDirectoryRelativeProjectReferenceFilePath = this.GetProjectDirectoryRelativePath(
+            var projectDirectoryRelativeProjectReferenceFilePath = Instances.ProjectPathsOperator.GetProjectDirectoryRelativePath(
                 projectFilePath,
                 projectReferenceFilePath);
 
@@ -57,12 +58,24 @@ namespace R5T.F0020
             Instances.ProjectFileGenerator.CreateNew(projectFilePath, projectType);
         }
 
+        public void Create(string projectFilePath,
+            Action<XElement> projectElementModifer)
+        {
+            var project = Instances.ProjectOperator.CreateNew();
+
+            project.Modify(projectElementModifer);
+
+            Instances.ProjectFileXmlOperator.Save(
+                projectFilePath,
+                project);
+        }
+
         public async Task<string[]> GetDirectProjectReferenceFilePaths(string projectFilePath)
         {
             var projectReferenceXDocumentRelativeXPath = "//Project/ItemGroup/ProjectReference";
             var projectReferenceIncludeAttributeName = "Include";
 
-            var projectDirectoryPath = this.GetProjectDirectoryPath(projectFilePath);
+            var projectDirectoryPath = Instances.ProjectPathsOperator.GetProjectDirectoryPath(projectFilePath);
 
             var projectXDocument = await Instances.ProjectFileXmlOperator.LoadProjectFile(projectFilePath);
 
@@ -90,7 +103,7 @@ namespace R5T.F0020
             var projectReferenceXDocumentRelativeXPath = "//Project/ItemGroup/ProjectReference";
             var projectReferenceIncludeAttributeName = "Include";
 
-            var projectDirectoryPath = this.GetProjectDirectoryPath(projectFilePath);
+            var projectDirectoryPath = Instances.ProjectPathsOperator.GetProjectDirectoryPath(projectFilePath);
 
             var projectXDocument = Instances.ProjectFileXmlOperator.LoadProjectFile_Synchronous(projectFilePath);
 
@@ -113,23 +126,84 @@ namespace R5T.F0020
             return output;
         }
 
-        public string GetProjectDirectoryPath(string projectFilePath)
+        /// <summary>
+        /// Gets the default namespace from the project file, or throws if not found.
+        /// Throws an <see cref="Exception"/> if the project file path does not have the <see cref="IElementNames.RootNamespace"/> element.
+        /// </summary>
+        public string GetDefaultNamespaceName_OrThrowIfNotFound(string projectFilePath)
         {
-            var projectDirectoryPath = Instances.PathOperator.GetParentDirectoryPath_ForFile(projectFilePath);
-            return projectDirectoryPath;
+            var hasDefaultNamespace = this.HasDefaultNamespace(projectFilePath);
+            if(!hasDefaultNamespace)
+            {
+                throw new Exception($"No default namespace ({ElementNames.Instance.RootNamespace} element) found in project.");
+            }
+
+            return hasDefaultNamespace;
         }
 
-        public string GetProjectDirectoryRelativePath(
-            string projectFilePath,
-            string path)
+        /// <summary>
+        /// Gets the default namespace from the project file, or throws if not found.
+        /// Returns the default project namespace name (i.e. the project name) if the project file path does not have the <see cref="IElementNames.RootNamespace"/> element.
+        /// </summary>
+        public string GetDefaultNamespaceName_OrDefaultIfNotFound(string projectFilePath)
         {
-            var projectDirectoryPath = this.GetProjectDirectoryPath(projectFilePath);
+            var hasDefaultNamespace = this.HasDefaultNamespace(projectFilePath);
 
-            var projectDirectoryRelativeFilePath = Instances.PathOperator.GetRelativePath(
-                projectDirectoryPath,
-                path);
+            var defaultNamespace = hasDefaultNamespace.ResultOrIfNotFound(
+                F0040.F000.ProjectNamespacesOperator.Instance.GetDefaultNamespaceName(projectFilePath));
 
-            return projectDirectoryRelativeFilePath;
+            return defaultNamespace;
+        }
+
+        /// <summary>
+        /// Chooses <see cref="GetDefaultNamespaceName_OrDefaultIfNotFound(string)"/> as the default.
+        /// </summary>
+        public string GetDefaultNamespaceName(string projectFilePath)
+        {
+            var output = this.GetDefaultNamespaceName_OrDefaultIfNotFound(projectFilePath);
+            return output;
+        }
+
+        public string GetTargetFramework(string projectFilePath)
+        {
+            var hasTargetFramework = this.HasTargetFramework(projectFilePath);
+            if(!hasTargetFramework)
+            {
+                throw new Exception("No target framework element found in project.");
+            }
+
+            return hasTargetFramework;
+        }
+
+        public WasFound<string> HasDefaultNamespace(string projectFilePath)
+        {
+            var hasDefaultNamespace = this.InQueryProjectFileContext(projectFilePath,
+                projectElement =>
+                {
+                    // Note: the default namespace in the Visual Studio UI is the <RootNamespace> element in the project file.
+                    var hasRootNamespace = Instances.ProjectXmlOperator.HasRootNamespace(projectElement);
+                    return hasRootNamespace;
+                });
+
+            return hasDefaultNamespace;
+        }
+
+        public WasFound<string> HasTargetFramework(string projectFilePath)
+        {
+            var hasTargetFramework = this.InQueryProjectFileContext(projectFilePath,
+                projectElement =>
+                {
+                    var hasTargetFramework = Instances.ProjectXmlOperator.HasTargetFramework(projectElement);
+                    return hasTargetFramework;
+                });
+
+            return hasTargetFramework;
+        }
+
+        public string GetProjectName(string projectFilePath)
+        {
+            var projectName = Instances.ProjectOperator.GetProjectName(projectFilePath);
+            return projectName;
         }
 
         /// <summary>
@@ -151,7 +225,7 @@ namespace R5T.F0020
         {
             var xmlProjectFile = Instances.ProjectFileXmlOperator.LoadProjectFile_Synchronous(projectFilePath);
 
-            var projectDirectoryRelativeProjectReferenceFilePath = this.GetProjectDirectoryRelativePath(
+            var projectDirectoryRelativeProjectReferenceFilePath = Instances.ProjectPathsOperator.GetProjectDirectoryRelativePath(
                 projectFilePath,
                 projectReferenceFilePath);
 
@@ -166,10 +240,37 @@ namespace R5T.F0020
         {
             var hasVersionString = Instances.ProjectFileXmlOperator.InProjectFileXDocumentContext_Synchronous(
                 projectFilePath,
-                Instances.ProjectXDocumentOperator.HasVersionString);
+                Instances.ProjectFileXDocumentOperator.HasVersionString);
 
             var output = hasVersionString.Convert(versionString => Version.Parse(versionString));
 
+            return output;
+        }
+
+        public void InProjectFileContext(
+            string projectFilePath,
+            Action<XElement> projectElementModifier)
+        {
+            var projectDocument = Instances.ProjectFileXmlOperator.LoadProjectFile_Synchronous(projectFilePath);
+
+            var projectElement = Instances.ProjectFileXPathOperator.GetProjectElement(projectDocument);
+
+            projectElementModifier(projectElement);
+
+            Instances.ProjectFileXmlOperator.SaveProjectFile_Synchronous(
+                projectFilePath,
+                projectDocument);
+        }
+
+        public TOutput InQueryProjectFileContext<TOutput>(
+            string projectFilePath,
+            Func<XElement, TOutput> projectElementFunction)
+        {
+            var projectDocument = Instances.ProjectFileXmlOperator.LoadProjectFile_Synchronous(projectFilePath);
+
+            var projectElement = Instances.ProjectFileXPathOperator.GetProjectElement(projectDocument);
+
+            var output = projectElementFunction(projectElement);
             return output;
         }
 
@@ -180,7 +281,7 @@ namespace R5T.F0020
         {
             var output = Instances.ProjectFileXmlOperator.InProjectFileXDocumentContext_Synchronous(
                 projectFilePath,
-                Instances.ProjectXDocumentOperator.IsLibraryProject);
+                Instances.ProjectFileXDocumentOperator.IsLibraryProject);
 
             return output;
         }
@@ -200,7 +301,7 @@ namespace R5T.F0020
         {
             var xProjectFile = Instances.ProjectFileXmlOperator.LoadProjectFile_Synchronous(projectFilePath);
 
-            var projectDirectoryRelativeProjectReferenceFilePath = this.GetProjectDirectoryRelativePath(
+            var projectDirectoryRelativeProjectReferenceFilePath = Instances.ProjectPathsOperator.GetProjectDirectoryRelativePath(
                 projectFilePath,
                 projectReferenceFilePath);
 

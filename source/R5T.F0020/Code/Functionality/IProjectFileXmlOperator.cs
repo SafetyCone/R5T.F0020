@@ -4,8 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-using R5T.Magyar.Xml;
-
+using R5T.F0000;
 using R5T.T0132;
 
 
@@ -14,6 +13,23 @@ namespace R5T.F0020.N000
 	[FunctionalityMarker]
 	public partial interface IProjectFileXmlOperator : IFunctionalityMarker
 	{
+		public WasFound<XElement> HasProjectElement(XDocument projectXDocument)
+		{
+			var wasFound = projectXDocument.HasElement(xDocument =>
+			{
+				var rootElementIsProject = xDocument.Root?.Name.LocalName == "Project";
+
+				var output = rootElementIsProject
+					? xDocument.Root
+					: default
+					;
+
+				return output;
+			});
+
+			return wasFound;
+		}
+
 		public async Task<TOutput> InProjectFileXDocumentContext<TOutput>(
 			string projectFilePath,
 			Func<XDocument, Task<TOutput>> functionOnProjectXDocument)
@@ -73,13 +89,33 @@ namespace R5T.F0020.N000
 			return projectXDocument;
 		}
 
-		public async Task SaveProjectFile(
+		public void Save(
+			string filePath,
+			Project project)
+        {
+			this.Save(
+				filePath,
+				project.Element);
+        }
+
+		public void Save(
+			string filePath,
+			XElement projectElement)
+		{
+			var document = Instances.ProjectFileXDocumentOperator.GetProjectDocument(projectElement);
+
+			Instances.ProjectFileXmlOperator.SaveProjectFile_Synchronous(
+				filePath,
+				document);
+		}
+
+		public async Task SaveProject(
 			string filePath,
 			XDocument xDocument)
 		{
-			using var outputFileStream = FileStreamHelper.NewWrite(filePath);
+			using var outputFileStream = F0000.FileStreamOperator.Instance.NewWrite(filePath);
 
-			using var xmlWriter = XmlWriterHelper.New(outputFileStream);
+			using var xmlWriter = F0000.XmlWriterOperator.Instance.New(outputFileStream);
 
 			await xDocument.SaveAsync(
 				xmlWriter,
@@ -90,9 +126,13 @@ namespace R5T.F0020.N000
 			string filePath,
 			XDocument xDocument)
 		{
-			using var outputFileStream = FileStreamHelper.NewWrite(filePath);
+			F0000.Instances.XmlOperator.Write(
+				xDocument,
+				filePath);
 
-			using var xmlWriter = XmlWriterHelper.New(outputFileStream);
+			using var outputFileStream = F0000.FileStreamOperator.Instance.NewWrite(filePath);
+
+			using var xmlWriter = F0000.XmlWriterOperator.Instance.New(outputFileStream);
 
 			xDocument.Save(xmlWriter);
 		}

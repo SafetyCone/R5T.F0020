@@ -7,7 +7,7 @@ namespace R5T.F0020
 	{
 		#region Infrastructure
 
-	    public static ProjectFileGenerator Instance { get; } = new();
+	    public static IProjectFileGenerator Instance { get; } = new ProjectFileGenerator();
 
 	    private ProjectFileGenerator()
 	    {

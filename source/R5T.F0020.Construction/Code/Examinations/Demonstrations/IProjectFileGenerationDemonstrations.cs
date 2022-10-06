@@ -8,6 +8,42 @@ namespace R5T.F0020.Construction
 	[DemonstrationsMarker]
 	public partial interface IProjectFileGenerationDemonstrations : IDemonstrationsMarker
 	{
+		public void CreateNew_Standard()
+		{
+			var project = F0020.Instances.ProjectOperator.CreateNew();
+
+			//project.Modify(F0020.Instances.ProjectXmlOperations.EmptyToMinimal_Console_NET_5);
+			project
+				.Modify(F0020.Instances.ProjectXmlOperations.EmptyToMinimal_Console_NET_6)
+				.Modify(F0020.Instances.ProjectXmlOperations.AddStandardFunctionality)
+				;
+
+			F0020.Instances.ProjectFileXmlOperator.Save(
+				Instances.ProjectFilePaths.Test,
+				project);
+		}
+
+		public void CreateNew_Minimal()
+        {
+			var project = F0020.Instances.ProjectOperator.CreateNew();
+
+			//project.Modify(F0020.Instances.ProjectXmlOperations.EmptyToMinimal_Console_NET_5);
+			project.Modify(F0020.Instances.ProjectXmlOperations.EmptyToMinimal_Console_NET_6);
+
+			F0020.Instances.ProjectFileXmlOperator.Save(
+				Instances.ProjectFilePaths.Test,
+				project);
+		}
+
+		public void CreateNew_Empty()
+		{
+			var project = F0020.Instances.ProjectOperator.CreateNew();
+
+			F0020.Instances.ProjectFileXmlOperator.Save(
+				Instances.ProjectFilePaths.Test,
+				project);
+		}
+
 		public void CreateNewConsole()
 		{
 			var projectFilePath =

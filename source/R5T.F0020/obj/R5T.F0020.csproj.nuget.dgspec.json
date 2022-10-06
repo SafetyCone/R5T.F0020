@@ -21,7 +21,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "netstandard2.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -30,11 +30,14 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
             "projectReferences": {
               "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\R5T.T0132.csproj": {
                 "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\R5T.T0132.csproj"
+              },
+              "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0142\\source\\R5T.T0142\\R5T.T0142.csproj": {
+                "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0142\\source\\R5T.T0142\\R5T.T0142.csproj"
               },
               "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.Z0000\\source\\R5T.Z0000\\R5T.Z0000.csproj": {
                 "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.Z0000\\source\\R5T.Z0000\\R5T.Z0000.csproj"
@@ -49,8 +52,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
           "imports": [
             "net461",
             "net462",
@@ -62,11 +65,11 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.NETCore.App": {
+            "NETStandard.Library": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -87,7 +90,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "netstandard2.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -96,14 +99,11 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
             "projectReferences": {
               "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0000\\source\\R5T.F0000\\R5T.F0000.csproj": {
                 "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0000\\source\\R5T.F0000\\R5T.F0000.csproj"
-              },
-              "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.Magyar\\source\\R5T.Magyar\\R5T.Magyar.csproj": {
-                "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.Magyar\\source\\R5T.Magyar\\R5T.Magyar.csproj"
               },
               "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\R5T.T0132.csproj": {
                 "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\R5T.T0132.csproj"
@@ -121,8 +121,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
           "imports": [
             "net461",
             "net462",
@@ -134,11 +134,11 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.NETCore.App": {
+            "NETStandard.Library": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -159,7 +159,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "netstandard2.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -168,14 +168,14 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
             "projectReferences": {
               "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0002\\source\\R5T.F0002\\R5T.F0002.csproj": {
                 "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0002\\source\\R5T.F0002\\R5T.F0002.csproj"
               },
-              "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.Magyar\\source\\R5T.Magyar\\R5T.Magyar.csproj": {
-                "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.Magyar\\source\\R5T.Magyar\\R5T.Magyar.csproj"
+              "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0040\\source\\R5T.F0040.F000\\R5T.F0040.F000.csproj": {
+                "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0040\\source\\R5T.F0040.F000\\R5T.F0040.F000.csproj"
               },
               "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\R5T.T0132.csproj": {
                 "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\R5T.T0132.csproj"
@@ -190,8 +190,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
           "imports": [
             "net461",
             "net462",
@@ -203,22 +203,280 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.NETCore.App": {
+            "NETStandard.Library": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.Magyar\\source\\R5T.Magyar\\R5T.Magyar.csproj": {
+    "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0040\\source\\R5T.F0040.F000\\R5T.F0040.F000.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.Magyar\\source\\R5T.Magyar\\R5T.Magyar.csproj",
-        "projectName": "R5T.Magyar",
-        "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.Magyar\\source\\R5T.Magyar\\R5T.Magyar.csproj",
+        "projectUniqueName": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0040\\source\\R5T.F0040.F000\\R5T.F0040.F000.csproj",
+        "projectName": "R5T.F0040.F000",
+        "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0040\\source\\R5T.F0040.F000\\R5T.F0040.F000.csproj",
         "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
-        "outputPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.Magyar\\source\\R5T.Magyar\\obj\\",
+        "outputPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0040\\source\\R5T.F0040.F000\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0002\\source\\R5T.F0002\\R5T.F0002.csproj": {
+                "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.F0002\\source\\R5T.F0002\\R5T.F0002.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0131\\source\\R5T.T0131\\R5T.T0131.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0131\\source\\R5T.T0131\\R5T.T0131.csproj",
+        "projectName": "R5T.T0131",
+        "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0131\\source\\R5T.T0131\\R5T.T0131.csproj",
+        "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
+        "outputPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0131\\source\\R5T.T0131\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj": {
+                "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\R5T.T0132.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\R5T.T0132.csproj",
+        "projectName": "R5T.T0132",
+        "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\R5T.T0132.csproj",
+        "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
+        "outputPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
+            "projectReferences": {
+              "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj": {
+                "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0142\\source\\R5T.T0142\\R5T.T0142.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0142\\source\\R5T.T0142\\R5T.T0142.csproj",
+        "projectName": "R5T.T0142",
+        "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0142\\source\\R5T.T0142\\R5T.T0142.csproj",
+        "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
+        "outputPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0142\\source\\R5T.T0142\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
+          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
+            "projectReferences": {
+              "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj": {
+                "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj",
+        "projectName": "R5T.T0143",
+        "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj",
+        "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
+        "outputPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -269,192 +527,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0131\\source\\R5T.T0131\\R5T.T0131.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0131\\source\\R5T.T0131\\R5T.T0131.csproj",
-        "projectName": "R5T.T0131",
-        "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0131\\source\\R5T.T0131\\R5T.T0131.csproj",
-        "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
-        "outputPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0131\\source\\R5T.T0131\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net5.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
-          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
-            "projectReferences": {
-              "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj": {
-                "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\R5T.T0132.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\R5T.T0132.csproj",
-        "projectName": "R5T.T0132",
-        "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\R5T.T0132.csproj",
-        "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
-        "outputPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0132\\source\\R5T.T0132\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net5.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
-          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
-            "projectReferences": {
-              "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj": {
-                "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj",
-        "projectName": "R5T.T0143",
-        "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\R5T.T0143.csproj",
-        "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
-        "outputPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0143\\source\\R5T.T0143\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "net5.0"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Packages": {},
-          "C:\\Users\\David\\Dropbox\\Organizations\\Rivet\\Shared\\Packages": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -475,7 +548,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "netstandard2.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -484,8 +557,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
             "projectReferences": {}
           }
         },
@@ -496,8 +569,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
           "imports": [
             "net461",
             "net462",
@@ -509,11 +582,11 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.NETCore.App": {
+            "NETStandard.Library": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -534,7 +607,7 @@
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "netstandard2.1"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -543,8 +616,8 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
             "projectReferences": {
               "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0131\\source\\R5T.T0131\\R5T.T0131.csproj": {
                 "projectPath": "C:\\Code\\DEV\\Git\\GitHub\\SafetyCone\\R5T.T0131\\source\\R5T.T0131\\R5T.T0131.csproj"
@@ -562,8 +635,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
           "imports": [
             "net461",
             "net462",
@@ -575,11 +648,11 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.NETCore.App": {
+            "NETStandard.Library": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.304\\RuntimeIdentifierGraph.json"
         }
       }
     }

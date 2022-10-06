@@ -7,7 +7,7 @@ namespace R5T.F0020
 	{
 		#region Infrastructure
 
-	    public static XDocumentRelativeXPaths Instance { get; } = new();
+	    public static IXDocumentRelativeXPaths Instance { get; } = new XDocumentRelativeXPaths();
 
 	    private XDocumentRelativeXPaths()
 	    {

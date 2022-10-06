@@ -1,7 +1,7 @@
 using System;
 using System.Xml.Linq;
 
-using R5T.Magyar;
+using R5T.F0000;
 
 using R5T.T0132;
 
@@ -9,8 +9,20 @@ using R5T.T0132;
 namespace R5T.F0020
 {
 	[FunctionalityMarker]
-	public partial interface IProjectXDocumentOperator : IFunctionalityMarker
+	public partial interface IProjectFileXDocumentOperator : IFunctionalityMarker
 	{
+        public XDocument GetProjectDocument(Project project)
+        {
+            var document = this.GetProjectDocument(project.Element);
+            return document;
+        }
+
+        public XDocument GetProjectDocument(XElement projectElement)
+        {
+            var document = new XDocument(projectElement);
+            return document;
+        }
+        
         public WasFound<string> HasVersionString(XDocument projectXDocument)
         {
             // If project does *not* have an output type element, then it is a class library.

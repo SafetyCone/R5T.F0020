@@ -65,6 +65,11 @@
             Sometimes the next-line character is represented as ellipsis (...).
             </summary>
         </member>
+        <member name="P:R5T.Z0000.ICharacters.Quote">
+            <summary>
+            The '"' (quote, double-quote, or quotation mark) character.
+            </summary>
+        </member>
         <member name="P:R5T.Z0000.ICharacters.VerticalTab">
             <summary>
             Strangely, in Visual Studio form-feed prints as the masculine (Mars) symbol.
@@ -85,6 +90,29 @@
         </member>
         <member name="P:R5T.Z0000.ICharacters.Thorn_Lowercase">
             <inheritdoc cref="P:R5T.Z0000.ICharacters.Thorn_Uppercase"/>
+        </member>
+        <member name="P:R5T.Z0000.IStrings.Quote">
+            <inheritdoc cref="P:R5T.Z0000.ICharacters.Quote"/>
+        </member>
+        <member name="P:R5T.Z0000.IStrings.No">
+            <summary>
+            Chooses <see cref="P:R5T.Z0000.IStrings.No_Camelcase"/> as the default.
+            </summary>
+        </member>
+        <member name="P:R5T.Z0000.IStrings.Yes">
+            <summary>
+            Chooses <see cref="P:R5T.Z0000.IStrings.Yes_Camelcase"/> as the default.
+            </summary>
+        </member>
+        <member name="P:R5T.Z0000.IStrings.True">
+            <summary>
+            Chooses <see cref="P:R5T.Z0000.IStrings.True_Camelcase"/> as the default.
+            </summary>
+        </member>
+        <member name="P:R5T.Z0000.IStrings.False">
+            <summary>
+            Chooses <see cref="P:R5T.Z0000.IStrings.False_Camelcase"/> as the default.
+            </summary>
         </member>
     </members>
 </doc>
