@@ -26,11 +26,14 @@ namespace R5T.F0020
         public static IProjectSdkStrings ProjectSdkStrings { get; } = F0020.ProjectSdkStrings.Instance;
         public static IProjectXmlOperations ProjectXmlOperations { get; } = F0020.ProjectXmlOperations.Instance;
         public static IProjectXmlOperator ProjectXmlOperator { get; } = F0020.ProjectXmlOperator.Instance;
+        public static Internal.IProjectXmlOperator ProjectXmlOperator_Internal { get; } = Internal.ProjectXmlOperator.Instance;
         public static IStrings Strings { get; } = F0020.Strings.Instance;
         public static ITargetFrameworkMonikerStrings TargetFrameworkMonikerStrings { get; } = F0020.TargetFrameworkMonikerStrings.Instance;
         public static IWarnings Warnings { get; } = F0020.Warnings.Instance;
         public static IXDocumentRelativeXPaths XDocumentRelativeXPaths { get; } = F0020.XDocumentRelativeXPaths.Instance;
+        public static IXElementOperator XElementOperator { get; } = F0000.XElementOperator.Instance;
         public static IXElementGenerator XElementGenerator { get; } = F0020.XElementGenerator.Instance;
+        public static IXmlFileOperator XmlFileOperator { get; } = F0000.XmlFileOperator.Instance;
         public static F0002.IXmlOperator XmlOperator { get; } = F0002.XmlOperator.Instance;
     }
 }

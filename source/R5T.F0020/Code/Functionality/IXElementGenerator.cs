@@ -43,13 +43,13 @@ namespace R5T.F0020
 
 		public XElement CreatePropertyGroup()
 		{
-			var itemGroup = Instances.XmlOperator.CreateElement(Instances.ElementNames.PropertyGroup);
+			var itemGroup = Instances.XElementOperator.CreateElement(Instances.ElementNames.PropertyGroup);
 			return itemGroup;
 		}
 
 		public XElement CreateOutputType()
 		{
-			var itemGroup = Instances.XmlOperator.CreateElement(Instances.ElementNames.OutputType);
+			var itemGroup = Instances.XElementOperator.CreateElement(Instances.ElementNames.OutputType);
 			return itemGroup;
 		}
 	}

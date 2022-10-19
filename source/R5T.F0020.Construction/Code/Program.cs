@@ -9,7 +9,7 @@ namespace R5T.F0020.Construction
             // Demonstrations.
             //Instances.ProjectFileGenerationDemonstrations.CreateNew_Empty();
             //Instances.ProjectFileGenerationDemonstrations.CreateNew_Minimal();
-            Instances.ProjectFileGenerationDemonstrations.CreateNew_Standard();
+            //Instances.ProjectFileGenerationDemonstrations.CreateNew_Standard();
 
             //Instances.ProjectFileGenerationDemonstrations.CreateNewConsole();
             //Instances.ProjectFileGenerationDemonstrations.CreateNewLibrary();
@@ -21,6 +21,8 @@ namespace R5T.F0020.Construction
             //Instances.ProjectFileOperatorDemonstrations.RemoveProjectReference();
             //Instances.ProjectFileOperatorDemonstrations.TestIsLibraryProject();
             //Instances.ProjectFileOperatorDemonstrations.TestHasVersion();
+
+            Instances.ProjectFileOperations.FindOldStyleCsprojFile();
         }
     }
 }

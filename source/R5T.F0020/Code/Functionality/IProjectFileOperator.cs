@@ -247,7 +247,7 @@ namespace R5T.F0020
             return output;
         }
 
-        public void InProjectFileContext(
+        public void InModifyProjectFileContext(
             string projectFilePath,
             Action<XElement> projectElementModifier)
         {
@@ -284,6 +284,49 @@ namespace R5T.F0020
                 Instances.ProjectFileXDocumentOperator.IsLibraryProject);
 
             return output;
+        }
+
+        /// <summary>
+		/// Examines file context to determine if a file is a solution file.
+		/// </summary>
+        public bool IsProjectFile(string possibleProjectFilePath)
+        {
+            // File exists?
+            Instances.FileSystemOperator.VerifyFileExists(possibleProjectFilePath);
+
+            // Is the file an XML file?
+            var isXml = Instances.XmlFileOperator.IsXmlFile(
+                possibleProjectFilePath);
+
+            if(!isXml)
+            {
+                return false;
+            }
+
+            // Does the XML file have a root Project element?
+            var xmlDocument = Instances.XmlOperator.Load(possibleProjectFilePath);
+
+            var hasProjectElement = Instances.ProjectFileXmlOperator.HasProjectElement(xmlDocument);
+            if(!hasProjectElement)
+            {
+                return false;
+            }
+
+            var projectElement = hasProjectElement.Result;
+
+            // Does the project element have a property group with a target framework element?
+            var hasTargetElement = Instances.ProjectXmlOperator.HasTargetFramework(projectElement);
+            if(!hasTargetElement)
+            {
+                // If no target element, does it have an (old-stype) target framework version element?
+                var hasTargetElementVersion = Instances.ProjectXmlOperator.HasTargetFrameworkVersion(projectElement);
+                if(!hasTargetElementVersion)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         /// <summary>

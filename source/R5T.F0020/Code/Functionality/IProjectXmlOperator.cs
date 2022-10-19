@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 
 using R5T.F0000;
@@ -78,7 +79,7 @@ namespace R5T.F0020
 			var childWasFound = targetFrameworkPropertyGroup.HasChild(targetFrameworkPropertyGroupChildElementName);
 			if (!childWasFound)
 			{
-				var childElement = Instances.XmlOperator.AddChild(targetFrameworkPropertyGroup, targetFrameworkPropertyGroupChildElementName);
+				var childElement = Instances.XElementOperator.AddChild(targetFrameworkPropertyGroup, targetFrameworkPropertyGroupChildElementName);
 				return childElement;
 			}
 
@@ -124,14 +125,20 @@ namespace R5T.F0020
 		public WasFound<XElement> HasProjectReferencesItemGroup(XElement projectElement)
 		{
 			// Assume just one project references item group.
-			var wasFound = projectElement.HasElement(Instances.ProjectElementRelativeXPaths.ItemGroupWithProjectReference);
+			var wasFound = projectElement.HasChildWithChild_Single(
+				Instances.ElementNames.ItemGroup,
+				Instances.ElementNames.ProjectReference);
+
 			return wasFound;
 		}
 
 		public WasFound<XElement> HasTargetFrameworkPropertyGroup(XElement projectElement)
 		{
 			// Assume just one project references item group.
-			var wasFound = projectElement.HasElement(Instances.ProjectElementRelativeXPaths.PropertyGroupWithProjectReference);
+			var wasFound = projectElement.HasChildWithChild_Single(
+				Instances.ElementNames.PropertyGroup,
+				Instances.ElementNames.TargetFramework);
+
 			return wasFound;
 		}
 
@@ -242,7 +249,7 @@ namespace R5T.F0020
 
 		public void SetPackageRequireLicenseAcceptance(XElement projectElement, bool requireLicenseAcceptance)
         {
-			var valueString = F0000.Instances.BooleanOperator.ToString_Camelcase(requireLicenseAcceptance);
+			var valueString = F0000.Instances.BooleanOperator.ToString_PascalCase(requireLicenseAcceptance);
 
 			this.SetPackagePropertyGroupChildElementValue(
 				projectElement,
@@ -336,11 +343,29 @@ namespace R5T.F0020
 			return hasTargetFramework;
 		}
 
+		public WasFound<string> HasTargetFrameworkVersion(XElement projectElement)
+		{
+			var hasTargetFramework = Internal.HasPropertyGroupChildElementValue(projectElement,
+				Instances.ElementNames.TargetFrameworkVersion);
+
+			return hasTargetFramework;
+		}
+
 		public void SetTargetFramework(XElement projectElement, string targetFrameworkMonikerString)
 		{
 			Internal.SetPropertyGroupChildElementValue(projectElement,
 				Instances.ElementNames.TargetFramework,
 				targetFrameworkMonikerString);
 		}
+
+		public void SetSdk(XElement projectElement, string sdk)
+        {
+			var sdkAttribute = projectElement.Attributes()
+				.Where(xAttribute => xAttribute.Name.LocalName == Instances.ElementNames.Sdk)
+				.Single();
+
+
+			sdkAttribute.Value = sdk;
+        }
 	}
 }

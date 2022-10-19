@@ -11,6 +11,33 @@ namespace R5T.F0020.Internal
 	[FunctionalityMarker]
 	public partial interface IProjectXmlOperator
 	{
+		public XElement AcquirePropertyGroupWithChildElement(XElement projectElement,
+			string propertyGroupChildElementName)
+		{
+			// Use the same child name to identify the property group.
+			var childElement = this.AcquirePropertyGroupWithChildElement(projectElement,
+				propertyGroupChildElementName,
+				propertyGroupChildElementName);
+
+			return childElement;
+		}
+
+		public XElement AcquirePropertyGroupWithChildElement(XElement projectElement,
+			string propertyGroupIdentifyingChildElementName,
+			string propertyGroupChildElementName)
+		{
+			var propertyGroupWithChildWasFound = this.HasPropertyGroupWithChildElement(
+				projectElement,
+				propertyGroupIdentifyingChildElementName);
+
+			var propertyGroup = propertyGroupWithChildWasFound
+				? propertyGroupWithChildWasFound.Result
+				: Instances.ProjectXmlOperator.AddPropertyGroup(projectElement)
+				;
+
+			return propertyGroup;
+		}
+
 		public XElement AcquirePropertyGroupChildElement(XElement projectElement,
 			string propertyGroupChildElementName)
 		{
@@ -41,7 +68,7 @@ namespace R5T.F0020.Internal
 			var childWasFound = propertyGroup.HasChild(propertyGroupChildElementName);
 			if (!childWasFound)
 			{
-				var childElement = Instances.XmlOperator.AddChild(propertyGroup, propertyGroupChildElementName);
+				var childElement = Instances.XElementOperator.AddChild(propertyGroup, propertyGroupChildElementName);
 				return childElement;
 			}
 
@@ -111,11 +138,11 @@ namespace R5T.F0020.Internal
 		public WasFound<XElement> HasPropertyGroupWithChildElement(XElement projectElement, string propertyGroupChildElementName)
 		{
 			// Assume just one property group with the element name.
-			var xPath = F0000.Instances.XPathGenerator.FromCurrentNode_SelectChildWithGrandchild(
+			var wasFound = Instances.XElementOperator.HasChildWithChild_Single(
+				projectElement,
 				Instances.ElementNames.PropertyGroup,
 				propertyGroupChildElementName);
 
-			var wasFound = projectElement.HasElement(xPath);
 			return wasFound;
 		}
 
@@ -150,8 +177,8 @@ namespace R5T.F0020.Internal
 			var hasPropertyGroupChildElement = this.HasPropertyGroupChildElement(projectElement,
 				propertyGroupChildElementName);
 
-			var value = hasPropertyGroupChildElement.Convert(x => x.Value);
-			return value;
+			var valueWasFound = hasPropertyGroupChildElement.Convert(x => x.Value);
+			return valueWasFound;
 		}
 
 		public void SetPropertyGroupChildElementValue(XElement projectElement,

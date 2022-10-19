@@ -15,5 +15,10 @@ namespace R5T.F0020
 		/// The base SDK ("Microsoft.NET.Sdk").
 		/// </summary>
 		public string NET => "Microsoft.NET.Sdk";
+
+		/// <summary>
+		/// The web SDK ("Microsoft.NET.Sdk.Web").
+		/// </summary>
+		public string Web => "Microsoft.NET.Sdk.Web";
 	}
 }

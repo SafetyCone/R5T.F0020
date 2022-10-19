@@ -21,11 +21,13 @@ namespace R5T.F0020
 		public string PackageRequireLicenseAcceptance => "PackageRequireLicenseAcceptance";
 		public string PackageTags => "PackageTags";
 		public string Project => "Project";
+		public string ProjectReference => "ProjectReference";
 		public string PropertyGroup => "PropertyGroup";
 		public string RepositoryUrl => "RepositoryUrl";
 		public string RootNamespace => "RootNamespace";
 		public string Sdk => "Sdk";
 		public string TargetFramework => "TargetFramework";
+		public string TargetFrameworkVersion => "TargetFrameworkVersion";
 		public string Version => "Version";
 	}
 }

@@ -116,7 +116,10 @@ namespace R5T.F0020.N000
 
 		public WasFound<XElement> HasOutputTypeElement(XDocument projectXDocument)
         {
-			var wasFound = projectXDocument.HasElement(Instances.XDocumentRelativeXPaths.OutputTypeElement);
+			var wasFound = projectXDocument.Root.HasChildOfChild_Single(
+				Instances.ElementNames.PropertyGroup,
+				Instances.ElementNames.OutputType);
+
 			return wasFound;
 		}
 
@@ -138,7 +141,8 @@ namespace R5T.F0020.N000
 		public WasFound<XElement> HasProjectReferenceElement(XElement projectReferencesItemGroup,
 			string projectDirectoryRelativeProjectFilePath)
         {
-			var elementOrDefault = projectReferencesItemGroup.XPathSelectElements("//ProjectReference")
+			var elementOrDefault = projectReferencesItemGroup.Elements()
+				.WhereNameIs(Instances.ElementNames.ProjectReference)
 				.Where(element => this.IsProjectReferenceTo(
 					element,
 					projectDirectoryRelativeProjectFilePath))
@@ -152,13 +156,19 @@ namespace R5T.F0020.N000
 		public WasFound<XElement> HasProjectReferencesItemGroup(XDocument projectXDocument)
         {
 			// Assume just one project references item group.
-			var wasFound = projectXDocument.HasElement(Instances.XDocumentRelativeXPaths.ItemGroupWithProjectReference);
+			var wasFound = projectXDocument.Root.HasChildWithChild_Single(
+				Instances.ElementNames.ItemGroup,
+				Instances.ElementNames.ProjectReference);
+
 			return wasFound;
 		}
 
 		public WasFound<XElement> HasVersionElement(XDocument projectXDocument)
 		{
-			var wasFound = projectXDocument.HasElement(Instances.XDocumentRelativeXPaths.VersionTypeElement);
+			var wasFound = projectXDocument.Root.HasChildOfChild_Single(
+				Instances.ElementNames.PropertyGroup,
+				Instances.ElementNames.Version);
+
 			return wasFound;
 		}
 

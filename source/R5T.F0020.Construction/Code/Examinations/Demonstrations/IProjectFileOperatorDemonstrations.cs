@@ -95,12 +95,12 @@ namespace R5T.F0020.Construction
 
 			var outputFilePath = @"C:\Temp\Project References.txt";
 
-			var lines = EnumerableHelper.From($"Project references of project:\n{projectFilePath}\n")
+			var lines = F0000.Instances.EnumerableOperator.From($"Project references of project:\n{projectFilePath}\n")
 				.Append(projectReferenceFilePaths
 					.OrderAlphabetically())
 				;
 
-			FileHelper.WriteAllLines_Synchronous(
+			F0000.Instances.FileOperator.WriteLines(
 				outputFilePath,
 				lines);
         }
