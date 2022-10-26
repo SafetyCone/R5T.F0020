@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,16 +7,15 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 
 using R5T.F0000;
-
 using R5T.T0132;
 
 
 namespace R5T.F0020
 {
-	[FunctionalityMarker]
+    [FunctionalityMarker]
 	public partial interface IProjectFileOperator : IFunctionalityMarker
 	{
-        public async Task AddProjectReference(
+        public async Task AddProjectReference_Idempotent(
             string projectFilePath,
             string projectReferenceFilePath)
         {
@@ -25,7 +25,7 @@ namespace R5T.F0020
                 projectFilePath,
                 projectReferenceFilePath);
 
-            Instances.ProjectFileXPathOperator.AddProjectReference(
+            Instances.ProjectFileXPathOperator.AddProjectReference_Idempotent(
                 xProjectFile,
                 projectDirectoryRelativeProjectReferenceFilePath);
 
@@ -34,7 +34,7 @@ namespace R5T.F0020
                 xProjectFile);
         }
 
-        public void AddProjectReference_Synchronous(
+        public void AddProjectReference_Idempotent_Synchronous(
            string projectFilePath,
            string projectReferenceFilePath)
         {
@@ -44,9 +44,28 @@ namespace R5T.F0020
                 projectFilePath,
                 projectReferenceFilePath);
 
-            Instances.ProjectFileXPathOperator.AddProjectReference(
+            Instances.ProjectFileXPathOperator.AddProjectReference_Idempotent(
                 xProjectFile,
                 projectDirectoryRelativeProjectReferenceFilePath);
+
+            Instances.ProjectFileXmlOperator.SaveProjectFile_Synchronous(
+                projectFilePath,
+                xProjectFile);
+        }
+
+        public void AddProjectReferences_Idempotent_Synchronous(
+           string projectFilePath,
+           IEnumerable<string> projectReferenceFilePaths)
+        {
+            var xProjectFile = Instances.ProjectFileXmlOperator.LoadProjectFile_Synchronous(projectFilePath);
+
+            var projectDirectoryRelativeProjectReferenceFilePaths = Instances.ProjectPathsOperator.GetProjectDirectoryRelativePaths(
+                projectFilePath,
+                projectReferenceFilePaths);
+
+            Instances.ProjectFileXPathOperator.AddProjectReferences_Idempotent(
+                xProjectFile,
+                projectDirectoryRelativeProjectReferenceFilePaths.Values);
 
             Instances.ProjectFileXmlOperator.SaveProjectFile_Synchronous(
                 projectFilePath,

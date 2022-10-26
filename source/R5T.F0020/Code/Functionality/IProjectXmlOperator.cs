@@ -4,13 +4,12 @@ using System.Linq;
 using System.Xml.Linq;
 
 using R5T.F0000;
-
 using R5T.T0132;
 
 
 namespace R5T.F0020
 {
-	[FunctionalityMarker]
+    [FunctionalityMarker]
 	public partial interface IProjectXmlOperator : IFunctionalityMarker
 	{
 		private static Internal.IProjectXmlOperator Internal => F0020.Internal.ProjectXmlOperator.Instance;

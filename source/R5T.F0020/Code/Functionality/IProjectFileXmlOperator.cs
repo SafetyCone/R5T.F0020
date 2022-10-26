@@ -10,7 +10,7 @@ using R5T.T0132;
 
 namespace R5T.F0020.N000
 {
-	[FunctionalityMarker]
+    [FunctionalityMarker]
 	public partial interface IProjectFileXmlOperator : IFunctionalityMarker
 	{
 		public WasFound<XElement> HasProjectElement(XDocument projectXDocument)

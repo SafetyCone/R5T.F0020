@@ -2,13 +2,12 @@ using System;
 using System.Xml.Linq;
 
 using R5T.F0000;
-
 using R5T.T0132;
 
 
 namespace R5T.F0020
 {
-	[FunctionalityMarker]
+    [FunctionalityMarker]
 	public partial interface IProjectFileXDocumentOperator : IFunctionalityMarker
 	{
         public XDocument GetProjectDocument(Project project)

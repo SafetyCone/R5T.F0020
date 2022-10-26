@@ -1,16 +1,16 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
 using R5T.F0000;
-
 using R5T.T0132;
 
 
 namespace R5T.F0020.N000
 {
-	[FunctionalityMarker]
+    [FunctionalityMarker]
 	public partial interface IProjectFileXPathOperator : IFunctionalityMarker
 	{
 		public XElement AcquireProjectReferencesItemGroup(XDocument projectXDocument)
@@ -25,13 +25,14 @@ namespace R5T.F0020.N000
 			return wasFound.Result;
 		}
 
-		public void AddProjectReference(XDocument projectXDocument,
+		public void AddProjectReference_Idempotent(XDocument projectXDocument,
 			string projectDirectoryRelativeProjectFilePath)
         {
 			// Short-circuit if already present.
 			var alreadyHasReference = this.HasProjectReferenceElement(
 				projectXDocument,
 				projectDirectoryRelativeProjectFilePath);
+
 			if(alreadyHasReference)
             {
 				return;
@@ -42,6 +43,29 @@ namespace R5T.F0020.N000
 			this.AddProjectReference(
 				projectReferencesItemGroup,
 				projectDirectoryRelativeProjectFilePath);
+		}
+
+		public void AddProjectReferences_Idempotent(XDocument projectXDocument,
+			IEnumerable<string> projectDirectoryRelativeProjectFilePaths)
+		{
+			// Short-circuit if already present.
+			var hasReferences = this.HasProjectReferenceElements(
+				projectXDocument,
+				projectDirectoryRelativeProjectFilePaths);
+
+			var projectReferencesItemGroup = this.AcquireProjectReferencesItemGroup(projectXDocument);
+
+            foreach (var pair in hasReferences)
+            {
+				if(pair.Value.NotFound())
+                {
+					var projectDirectoryRelativeProjectFilePath = pair.Key;
+
+					this.AddProjectReference(
+						projectReferencesItemGroup,
+						projectDirectoryRelativeProjectFilePath);
+				}
+            }
 		}
 
 		public void AddProjectReference(XElement projectReferencesItemGroup,
@@ -134,6 +158,30 @@ namespace R5T.F0020.N000
 
 			var output = this.HasProjectReferenceElement(hasProjectReferencesItemGroup.Result,
 				projectDirectoryRelativeProjectFilePath);
+
+			return output;
+		}
+
+		public Dictionary<string, WasFound<XElement>> HasProjectReferenceElements(XDocument projectXDocument,
+			IEnumerable<string> projectDirectoryRelativeProjectFilePaths)
+		{
+			var hasProjectReferencesItemGroup = this.HasProjectReferencesItemGroup(projectXDocument);
+			if (!hasProjectReferencesItemGroup)
+			{
+				return projectDirectoryRelativeProjectFilePaths
+					.ToDictionary(
+						x => x,
+						x => WasFound.NotFound<XElement>());
+			}
+
+			var projectReferencesItemGroup = hasProjectReferencesItemGroup.Result;
+
+			var output = projectDirectoryRelativeProjectFilePaths
+				.ToDictionary(
+					x => x,
+					x => this.HasProjectReferenceElement(
+						projectReferencesItemGroup,
+						x));
 
 			return output;
 		}
