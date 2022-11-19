@@ -23,6 +23,10 @@ namespace R5T.F0020.Construction
             //Instances.ProjectFileOperatorDemonstrations.TestHasVersion();
 
             Instances.ProjectFileOperations.FindOldStyleCsprojFile();
+            //Instances.ProjectFileOperations.FindBAKProjects();
+            //Instances.ProjectFileOperations.DeleteBAKProjects();
+
+            //Try.Instance.DetermineIfHasComReference();
         }
     }
 }

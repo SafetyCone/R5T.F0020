@@ -6,6 +6,8 @@ using System.Xml.Linq;
 using R5T.F0000;
 using R5T.T0132;
 
+using R5T.F0020.Extensions;
+
 
 namespace R5T.F0020
 {
@@ -22,6 +24,18 @@ namespace R5T.F0020
 				Instances.ElementNames.OutputType);
 
 			return outputTypeElement;
+		}
+
+		public XElement AcquirePackageReferencesItemGroup(XElement projectElement)
+		{
+			var wasFound = this.HasPackageReferencesItemGroup(projectElement);
+			if (!wasFound)
+			{
+				var itemGroup = this.AddItemGroup(projectElement);
+				return itemGroup;
+			}
+
+			return wasFound.Result;
 		}
 
 		public XElement AcquireProjectReferencesItemGroup(XElement projectElement)
@@ -94,6 +108,74 @@ namespace R5T.F0020
 			return itemGroup;
 		}
 
+		public void AddPackageReference_Idempotent(XElement projectElement,
+			string packageIdentity,
+			Version version)
+        {
+			var versionString = VersionOperator.Instance.ToString_Major_Minor_Build(version);
+
+			this.AddPackageReference_Idempotent(
+				projectElement,
+				packageIdentity,
+				versionString);
+        }
+
+		public void AddPackageReference_Idempotent(XElement projectElement,
+			string packageIdentity,
+			string version)
+        {
+			// Short-circuit if already present.
+			var alreadyHasReference = this.HasPackageReferenceElement(
+				projectElement,
+				packageIdentity,
+				version);
+
+			if (alreadyHasReference)
+			{
+				return;
+			}
+
+			var projectReferencesItemGroup = this.AcquirePackageReferencesItemGroup(projectElement);
+
+			ItemGroupXmlOperator.Instance.AddPackageReference(
+				projectReferencesItemGroup,
+				packageIdentity,
+				version);
+		}
+
+		public void AddProjectReference_Idempotent(XElement projectElement,
+			string projectFilePath,
+			string referenceProjectFilePath)
+        {
+			var projectDirectoryRelativeProjectReferenceFilePath = Instances.ProjectPathsOperator.GetProjectDirectoryRelativePath(
+				projectFilePath,
+				referenceProjectFilePath);
+
+			this.AddProjectReference_Idempotent(
+				projectElement,
+				projectDirectoryRelativeProjectReferenceFilePath);
+		}
+
+		public void AddProjectReference_Idempotent(XElement projectElement,
+			string projectDirectoryRelativeReferenceProjectFilePath)
+		{
+			// Short-circuit if already present.
+			var alreadyHasReference = this.HasProjectReferenceElement(
+				projectElement,
+				projectDirectoryRelativeReferenceProjectFilePath);
+
+			if (alreadyHasReference)
+			{
+				return;
+			}
+
+			var projectReferencesItemGroup = this.AcquireProjectReferencesItemGroup(projectElement);
+
+			ItemGroupXmlOperator.Instance.AddProjectReference(
+				projectReferencesItemGroup,
+				projectDirectoryRelativeReferenceProjectFilePath);
+		}
+
 		public XElement AddPropertyGroup(XElement projectElement)
 		{
 			var propertyGroup = Instances.XElementGenerator.CreatePropertyGroup();
@@ -103,6 +185,7 @@ namespace R5T.F0020
 			return propertyGroup;
 		}
 
+		/// <inheritdoc cref="IXElementGenerator.CreateProject(bool)"/>
 		public XElement CreateNew()
         {
 			var output = Instances.XElementGenerator.CreateProject();
@@ -115,11 +198,96 @@ namespace R5T.F0020
 			return tokenSeparator;
         }
 
+		public IEnumerable<XElement> GetItemGroups(XElement projectElement)
+        {
+			var output = projectElement.Children()
+				.WhereNameIs(Instances.ElementNames.ItemGroup)
+				;
+
+			return output;
+        }
+
 		public string GetPackageTagsTokenSeparator()
         {
 			var tokenSeparator = Z0000.Instances.Strings.Semicolon;
 			return tokenSeparator;
         }
+
+		public WasFound<XElement> HasPackageReferenceElement(XElement projectElement,
+			string packageIdentity,
+			string version)
+        {
+			var hasPackageReferencesItemGroup = this.HasPackageReferencesItemGroup(projectElement);
+			if(!hasPackageReferencesItemGroup)
+            {
+				return WasFound.NotFound<XElement>();
+            }
+
+			var output = this.HasPackageReferenceElement_ForPackageReferencesItemGroup(
+				hasPackageReferencesItemGroup.Result,
+				packageIdentity,
+				version);
+
+			return output;
+        }
+
+		public WasFound<XElement> HasProjectReferenceElement(XElement projectElement,
+			string projectDirectoryRelativeProjectFilePath)
+		{
+			var hasProjectReferencesItemGroup = this.HasProjectReferencesItemGroup(projectElement);
+			if (!hasProjectReferencesItemGroup)
+			{
+				return WasFound.NotFound<XElement>();
+			}
+
+			var output = this.HasProjectReferenceElement_ForProjectReferencesItemGroup(
+				hasProjectReferencesItemGroup.Result,
+				projectDirectoryRelativeProjectFilePath);
+
+			return output;
+		}
+
+		public WasFound<XElement> HasPackageReferenceElement_ForPackageReferencesItemGroup(XElement packageReferencesItemGroup,
+			string packageIdentity,
+			string version)
+        {
+			var elementOrDefault = packageReferencesItemGroup.Elements()
+				.WhereNameIs(Instances.ElementNames.PackageReference)
+				.Where(element => this.IsPackageReferenceTo(
+					element,
+					packageIdentity,
+					version))
+				.SingleOrDefault()
+				;
+
+			var output = WasFound.From(elementOrDefault);
+			return output;
+		}
+
+		public WasFound<XElement> HasProjectReferenceElement_ForProjectReferencesItemGroup(XElement projectReferencesItemGroup,
+			string projectDirectoryRelativeProjectFilePath)
+		{
+			var elementOrDefault = projectReferencesItemGroup.Elements()
+				.WhereNameIs(Instances.ElementNames.ProjectReference)
+				.Where(element => this.IsProjectReferenceTo(
+					element,
+					projectDirectoryRelativeProjectFilePath))
+				.SingleOrDefault()
+				;
+
+			var output = WasFound.From(elementOrDefault);
+			return output;
+		}
+
+		public WasFound<XElement> HasPackageReferencesItemGroup(XElement projectElement)
+        {
+			// Assume just one package item group.
+			var wasFound = projectElement.HasChildWithChild_Single(
+				Instances.ElementNames.ItemGroup,
+				Instances.ElementNames.PackageReference);
+
+			return wasFound;
+		}
 
 		public WasFound<XElement> HasProjectReferencesItemGroup(XElement projectElement)
 		{
@@ -154,6 +322,68 @@ namespace R5T.F0020
 				authorsString);
         }
 
+		public bool IsPackageReferenceTo(XElement element,
+			string packageIdentity,
+			string version)
+        {
+			var includeAttributeValue = element.Attribute(AttributeNames.Instance.Include)?.Value;
+			var versionAttributeValue = element.Attribute(AttributeNames.Instance.Include)?.Value;
+
+			var output = true
+				&& includeAttributeValue == packageIdentity
+				&& versionAttributeValue == version
+				;
+
+			return output;
+		}
+
+		public bool IsProjectReferenceTo(XElement element,
+			string projectDirectoryRelativeProjectFilePath)
+		{
+			var projectDirectoryRelativeProjectFilePathNonWindows = projectDirectoryRelativeProjectFilePath.Replace('\\', '/');
+			var projectDirectoryRelativeProjectFilePathWindows = projectDirectoryRelativeProjectFilePath.Replace('/', '\\');
+
+			var includeAttributeValue = element.Attribute(AttributeNames.Instance.Include)?.Value;
+
+			var output = false
+				|| includeAttributeValue == projectDirectoryRelativeProjectFilePathNonWindows
+				|| includeAttributeValue == projectDirectoryRelativeProjectFilePathWindows
+				;
+
+			return output;
+		}
+
+		public void RemoveProjectReference(XElement projectElement,
+			string projectDirectoryRelativeProjectFilePath)
+		{
+			// Short-circuit if not already present.
+			var hasReference = this.HasProjectReferenceElement(
+				projectElement,
+				projectDirectoryRelativeProjectFilePath);
+
+			if (!hasReference)
+			{
+				return;
+			}
+
+			var projectReferenceElement = this.GetProjectReferenceElement(
+				projectElement,
+				projectDirectoryRelativeProjectFilePath);
+
+			projectReferenceElement.Remove();
+		}
+
+		public void RemoveProjectReferences(XElement projectElement,
+			IEnumerable<string> projectDirectoryRelativeProjectFilePath)
+        {
+            foreach (var path in projectDirectoryRelativeProjectFilePath)
+            {
+				this.RemoveProjectReference(
+					projectElement,
+					path);
+            }
+        }
+
 		public void SetAuthors(XElement projectElement, string authorsString)
         {
 			this.SetPackagePropertyGroupChildElementValue(
@@ -161,6 +391,17 @@ namespace R5T.F0020
 				Instances.ElementNames.Authors,
 				authorsString);
         }
+
+		public void SetCheckEolTargetFramework(XElement projectElement,
+			bool value)
+		{
+			var valueString = BooleanOperator.Instance.ToString_ForProjectFile(value);
+
+			this.SetMainPropertyGroupChildElementValue(
+				projectElement,
+				ElementNames.Instance.CheckEolTargetFramework,
+				valueString);
+		}
 
 		public void SetCompany(XElement projectElement, string company)
         {
@@ -203,8 +444,10 @@ namespace R5T.F0020
 		{
 			var valueString = Instances.BooleanOperator.ToString_ForProjectFile(value);
 
-			this.SetMainPropertyGroupChildElementValue(projectElement,
-				Instances.ElementNames.ItemGroup,
+			// Put the property in the packages property group since the documentation file is generated by default in Visual Studio, but not during packaging.
+			// Thus the generate documentation file property is only relevant to the packaging process, and so should go with the other packaging properties.
+			this.SetPackagePropertyGroupChildElementValue(projectElement,
+				Instances.ElementNames.GenerateDocumentationFile,
 				valueString);
 		}
 
@@ -300,6 +543,15 @@ namespace R5T.F0020
 				repositoryUrl);
         }
 
+		public void SetGenerateDocumentationFile_True(XElement projectElement)
+        {
+			var value = true;
+
+			this.SetGenerateDocumentationFile(
+				projectElement,
+				value);
+        }
+
 		public void SetVersion(XElement projectElement, Version version)
         {
 			var versionString = F0000.Instances.VersionOperator.ToString_Major_Minor_Build(version);
@@ -315,6 +567,21 @@ namespace R5T.F0020
 				versionString);
         }
 
+		public XElement GetProjectReferenceElement(XElement projectElement,
+			string projectDirectoryRelativeProjectFilePath)
+		{
+			var wasFound = this.HasProjectReferenceElement(
+				projectElement,
+				projectDirectoryRelativeProjectFilePath);
+
+			if (!wasFound)
+			{
+				throw new Exception($"Project references element not found for:\n{projectDirectoryRelativeProjectFilePath}");
+			}
+
+			return wasFound.Result;
+		}
+
 		public string GetTargetFramework(XElement projectElement)
 		{
 			var hasTargetFramework = this.HasTargetFramework(projectElement);
@@ -325,6 +592,16 @@ namespace R5T.F0020
 
 			return hasTargetFramework;
 		}
+
+		public bool HasAnyCOMReferences(XElement projectElement)
+        {
+			var hasAnyCOMReferences = projectElement.ItemGroups()
+				.SelectMany(itemGroup => itemGroup.Children()
+					.WhereNameIs(Instances.ElementNames.COMReference))
+				.Any();
+
+			return hasAnyCOMReferences;
+        }
 
 		public WasFound<string> HasRootNamespace(XElement projectElement)
 		{

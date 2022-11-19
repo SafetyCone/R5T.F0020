@@ -9,7 +9,9 @@ namespace R5T.F0020
 	public partial interface IElementNames : IValuesMarker
 	{
 		public string Authors => "Authors";
-		public string Company => "Company";
+		public string CheckEolTargetFramework => "CheckEolTargetFramework";
+        public string Company => "Company";
+		public string COMReference => "COMReference";
 		public string Copyright => "Copyright";
 		public string Description => "Description";
 		public string GenerateDocumentationFile => "GenerateDocumentationFile";
@@ -18,6 +20,7 @@ namespace R5T.F0020
 		public string OutputType => "OutputType";
 		public string PackageLicenseExpression => "PackageLicenseExpression";
 		public string PackageReadmeFile => "PackageReadmeFile";
+		public string PackageReference => "PackageReference";
 		public string PackageRequireLicenseAcceptance => "PackageRequireLicenseAcceptance";
 		public string PackageTags => "PackageTags";
 		public string Project => "Project";

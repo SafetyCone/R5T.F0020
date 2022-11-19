@@ -40,7 +40,7 @@ namespace R5T.F0020.N000
 
 			var projectReferencesItemGroup = this.AcquireProjectReferencesItemGroup(projectXDocument);
 
-			this.AddProjectReference(
+			ItemGroupXmlOperator.Instance.AddProjectReference(
 				projectReferencesItemGroup,
 				projectDirectoryRelativeProjectFilePath);
 		}
@@ -61,20 +61,12 @@ namespace R5T.F0020.N000
                 {
 					var projectDirectoryRelativeProjectFilePath = pair.Key;
 
-					this.AddProjectReference(
+					ItemGroupXmlOperator.Instance.AddProjectReference(
 						projectReferencesItemGroup,
 						projectDirectoryRelativeProjectFilePath);
 				}
             }
 		}
-
-		public void AddProjectReference(XElement projectReferencesItemGroup,
-			string projectDirectoryRelativeProjectFilePath)
-        {
-			var projectReferenceElement = this.CreateProjectReferenceElement(projectDirectoryRelativeProjectFilePath);
-
-			projectReferencesItemGroup.Add(projectReferenceElement);
-        }
 
 		public XElement AddItemGroup(XDocument projectXDocument)
         {
@@ -85,20 +77,6 @@ namespace R5T.F0020.N000
 			projectElement.Add(itemGroup);
 
 			return itemGroup;
-		}
-
-		public XElement CreateProjectReferenceElement(
-			string projectDirectoryRelativeProjectFilePath)
-		{
-			var projectDirectoryRelativeProjectFilePathWindows = projectDirectoryRelativeProjectFilePath.Replace('/', '\\');
-
-			var includeAttribute = new XAttribute("Include", projectDirectoryRelativeProjectFilePathWindows);
-
-			var output = new XElement("ProjectReference");
-
-			output.Add(includeAttribute);
-
-			return output;
 		}
 
 		public XElement GetProjectElement(XDocument projectXDocument)
@@ -156,7 +134,8 @@ namespace R5T.F0020.N000
 				return WasFound.NotFound<XElement>();
 			}
 
-			var output = this.HasProjectReferenceElement(hasProjectReferencesItemGroup.Result,
+			var output = ProjectXmlOperator.Instance.HasProjectReferenceElement_ForProjectReferencesItemGroup(
+				hasProjectReferencesItemGroup,
 				projectDirectoryRelativeProjectFilePath);
 
 			return output;
@@ -179,34 +158,18 @@ namespace R5T.F0020.N000
 			var output = projectDirectoryRelativeProjectFilePaths
 				.ToDictionary(
 					x => x,
-					x => this.HasProjectReferenceElement(
+					x => ProjectXmlOperator.Instance.HasProjectReferenceElement_ForProjectReferencesItemGroup(
 						projectReferencesItemGroup,
 						x));
 
 			return output;
 		}
 
-		public WasFound<XElement> HasProjectReferenceElement(XElement projectReferencesItemGroup,
-			string projectDirectoryRelativeProjectFilePath)
-        {
-			var elementOrDefault = projectReferencesItemGroup.Elements()
-				.WhereNameIs(Instances.ElementNames.ProjectReference)
-				.Where(element => this.IsProjectReferenceTo(
-					element,
-					projectDirectoryRelativeProjectFilePath))
-				.SingleOrDefault()
-				;
-
-			var output = WasFound.From(elementOrDefault);
-			return output;
-        }
-
 		public WasFound<XElement> HasProjectReferencesItemGroup(XDocument projectXDocument)
         {
 			// Assume just one project references item group.
-			var wasFound = projectXDocument.Root.HasChildWithChild_Single(
-				Instances.ElementNames.ItemGroup,
-				Instances.ElementNames.ProjectReference);
+			var wasFound = ProjectXmlOperator.Instance.HasProjectReferencesItemGroup(
+				projectXDocument.Root);
 
 			return wasFound;
 		}
@@ -219,22 +182,6 @@ namespace R5T.F0020.N000
 
 			return wasFound;
 		}
-
-		public bool IsProjectReferenceTo(XElement element,
-			string projectDirectoryRelativeProjectFilePath)
-        {
-			var projectDirectoryRelativeProjectFilePathNonWindows = projectDirectoryRelativeProjectFilePath.Replace('\\', '/');
-			var projectDirectoryRelativeProjectFilePathWindows = projectDirectoryRelativeProjectFilePath.Replace('/', '\\');
-
-			var includeAttributeValue = element.Attribute("Include")?.Value;
-
-			var output = false
-				|| includeAttributeValue == projectDirectoryRelativeProjectFilePathNonWindows
-				|| includeAttributeValue == projectDirectoryRelativeProjectFilePathWindows
-				;
-
-			return output;
-        }
 
 		public void RemoveProjectReference(XDocument projectXDocument,
 			string projectDirectoryRelativeProjectFilePath)

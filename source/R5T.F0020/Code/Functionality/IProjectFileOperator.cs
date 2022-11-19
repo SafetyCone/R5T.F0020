@@ -19,7 +19,7 @@ namespace R5T.F0020
             string projectFilePath,
             string projectReferenceFilePath)
         {
-            var xProjectFile = await Instances.ProjectFileXmlOperator.LoadProjectFile(projectFilePath);
+            var xProjectFile = await Instances.ProjectFileXmlOperator.LoadProjectDocument(projectFilePath);
 
             var projectDirectoryRelativeProjectReferenceFilePath = Instances.ProjectPathsOperator.GetProjectDirectoryRelativePath(
                 projectFilePath,
@@ -29,7 +29,7 @@ namespace R5T.F0020
                 xProjectFile,
                 projectDirectoryRelativeProjectReferenceFilePath);
 
-            await Instances.ProjectFileXmlOperator.SaveProject(
+            await Instances.ProjectFileXmlOperator.SaveProjectDocument(
                 projectFilePath,
                 xProjectFile);
         }
@@ -38,7 +38,7 @@ namespace R5T.F0020
            string projectFilePath,
            string projectReferenceFilePath)
         {
-            var xProjectFile = Instances.ProjectFileXmlOperator.LoadProjectFile_Synchronous(projectFilePath);
+            var xProjectFile = Instances.ProjectFileXmlOperator.LoadProjectDocument_Synchronous(projectFilePath);
 
             var projectDirectoryRelativeProjectReferenceFilePath = Instances.ProjectPathsOperator.GetProjectDirectoryRelativePath(
                 projectFilePath,
@@ -57,7 +57,7 @@ namespace R5T.F0020
            string projectFilePath,
            IEnumerable<string> projectReferenceFilePaths)
         {
-            var xProjectFile = Instances.ProjectFileXmlOperator.LoadProjectFile_Synchronous(projectFilePath);
+            var xProjectFile = Instances.ProjectFileXmlOperator.LoadProjectDocument_Synchronous(projectFilePath);
 
             var projectDirectoryRelativeProjectReferenceFilePaths = Instances.ProjectPathsOperator.GetProjectDirectoryRelativePaths(
                 projectFilePath,
@@ -84,7 +84,7 @@ namespace R5T.F0020
 
             project.Modify(projectElementModifer);
 
-            Instances.ProjectFileXmlOperator.Save(
+            Instances.ProjectFileXmlOperator.SaveProject(
                 projectFilePath,
                 project);
         }
@@ -96,7 +96,7 @@ namespace R5T.F0020
 
             var projectDirectoryPath = Instances.ProjectPathsOperator.GetProjectDirectoryPath(projectFilePath);
 
-            var projectXDocument = await Instances.ProjectFileXmlOperator.LoadProjectFile(projectFilePath);
+            var projectXDocument = await Instances.ProjectFileXmlOperator.LoadProjectDocument(projectFilePath);
 
             var projectReferenceXElements = projectXDocument.XPathSelectElements(projectReferenceXDocumentRelativeXPath);
 
@@ -124,7 +124,7 @@ namespace R5T.F0020
 
             var projectDirectoryPath = Instances.ProjectPathsOperator.GetProjectDirectoryPath(projectFilePath);
 
-            var projectXDocument = Instances.ProjectFileXmlOperator.LoadProjectFile_Synchronous(projectFilePath);
+            var projectXDocument = Instances.ProjectFileXmlOperator.LoadProjectDocument_Synchronous(projectFilePath);
 
             var projectReferenceXElements = projectXDocument.XPathSelectElements(projectReferenceXDocumentRelativeXPath);
 
@@ -194,6 +194,14 @@ namespace R5T.F0020
             return hasTargetFramework;
         }
 
+        public bool HasAnyCOMReferences(string projectFilePath)
+        {
+            var hasAnyCOMReferences = this.InQueryProjectFileContext(projectFilePath,
+                projectElement => Instances.ProjectXmlOperator.HasAnyCOMReferences(projectElement));
+
+            return hasAnyCOMReferences;
+        }
+
         public WasFound<string> HasDefaultNamespace(string projectFilePath)
         {
             var hasDefaultNamespace = this.InQueryProjectFileContext(projectFilePath,
@@ -242,7 +250,7 @@ namespace R5T.F0020
             string projectFilePath,
             string projectReferenceFilePath)
         {
-            var xmlProjectFile = Instances.ProjectFileXmlOperator.LoadProjectFile_Synchronous(projectFilePath);
+            var xmlProjectFile = Instances.ProjectFileXmlOperator.LoadProjectDocument_Synchronous(projectFilePath);
 
             var projectDirectoryRelativeProjectReferenceFilePath = Instances.ProjectPathsOperator.GetProjectDirectoryRelativePath(
                 projectFilePath,
@@ -266,26 +274,50 @@ namespace R5T.F0020
             return output;
         }
 
-        public void InModifyProjectFileContext(
+        public async Task InModifyProjectFileContext(
             string projectFilePath,
             Action<XElement> projectElementModifier)
         {
-            var projectDocument = Instances.ProjectFileXmlOperator.LoadProjectFile_Synchronous(projectFilePath);
-
-            var projectElement = Instances.ProjectFileXPathOperator.GetProjectElement(projectDocument);
+            var projectElement = await this.Load(projectFilePath);
 
             projectElementModifier(projectElement);
 
-            Instances.ProjectFileXmlOperator.SaveProjectFile_Synchronous(
+            await this.Save(
                 projectFilePath,
-                projectDocument);
+                projectElement);
+        }
+
+        public async Task InModifyProjectFileContext(
+            string projectFilePath,
+            Func<XElement, Task> projectElementModifier)
+        {
+            var projectElement = await this.Load(projectFilePath);
+
+            await projectElementModifier(projectElement);
+
+            await this.Save(
+                projectFilePath,
+                projectElement);
+        }
+
+        public void InModifyProjectFileContext_Synchronous(
+            string projectFilePath,
+            Action<XElement> projectElementModifier)
+        {
+            var projectElement = this.Load_Synchronous(projectFilePath);
+
+            projectElementModifier(projectElement);
+
+            this.Save_Synchronous(
+                projectFilePath,
+                projectElement);
         }
 
         public TOutput InQueryProjectFileContext<TOutput>(
             string projectFilePath,
             Func<XElement, TOutput> projectElementFunction)
         {
-            var projectDocument = Instances.ProjectFileXmlOperator.LoadProjectFile_Synchronous(projectFilePath);
+            var projectDocument = Instances.ProjectFileXmlOperator.LoadProjectDocument_Synchronous(projectFilePath);
 
             var projectElement = Instances.ProjectFileXPathOperator.GetProjectElement(projectDocument);
 
@@ -348,32 +380,81 @@ namespace R5T.F0020
             return true;
         }
 
-        /// <summary>
-        /// Eases construction of a new <see cref="FileStream"/> for reading.
-        /// </summary>
-        public FileStream NewRead(string filePath)
+        public async Task<XElement> Load(string projectFilePath)
         {
-            var fileStream = new FileStream(filePath, FileMode.Open);
-            return fileStream;
+            var projectElement = await N000.ProjectFileXmlOperator.Instance.LoadProjectElement(
+                projectFilePath);
+
+            return projectElement;
+        }
+
+        public XElement Load_Synchronous(string projectFilePath)
+        {
+            var projectElement = N000.ProjectFileXmlOperator.Instance.LoadProjectElement_Synchronous(
+                projectFilePath);
+
+            return projectElement;
         }
 
         public void RemoveProjectReference_Synchronous(
             string projectFilePath,
             string projectReferenceFilePath)
         {
-            var xProjectFile = Instances.ProjectFileXmlOperator.LoadProjectFile_Synchronous(projectFilePath);
-
-            var projectDirectoryRelativeProjectReferenceFilePath = Instances.ProjectPathsOperator.GetProjectDirectoryRelativePath(
+            this.RemoveProjectReferences_Synchronous(
                 projectFilePath,
-                projectReferenceFilePath);
+                EnumerableOperator.Instance.From(projectReferenceFilePath));
+        }
 
-            Instances.ProjectFileXPathOperator.RemoveProjectReference(
-                xProjectFile,
-                projectDirectoryRelativeProjectReferenceFilePath);
+        public void RemoveProjectReferences_Synchronous(
+            string projectFilePath,
+            IEnumerable<string> projectReferenceFilePaths)
+        {
+            var projectDirectoryRelativeProjectReferenceFilePaths = projectReferenceFilePaths
+                .Select(projectReferenceFilePath => Instances.ProjectPathsOperator.GetProjectDirectoryRelativePath(
+                    projectFilePath,
+                    projectReferenceFilePath))
+                .Now();
 
-            Instances.ProjectFileXmlOperator.SaveProjectFile_Synchronous(
+            ProjectFileOperator.Instance.InModifyProjectFileContext_Synchronous(
                 projectFilePath,
-                xProjectFile);
+                projectElement =>
+                {
+                    Instances.ProjectXmlOperator.RemoveProjectReferences(
+                        projectElement,
+                        projectDirectoryRelativeProjectReferenceFilePaths);
+                });
+        }
+
+        public async Task Save(
+            string projectFilePath,
+            XElement projectElement)
+        {
+            await N000.ProjectFileXmlOperator.Instance.SaveProjectElement(
+                projectFilePath,
+                projectElement);
+        }
+
+        public void Save_Synchronous(
+            string projectFilePath,
+            XElement projectElement)
+        {
+            N000.ProjectFileXmlOperator.Instance.SaveProjectElement_Synchronous(
+                projectFilePath,
+                projectElement);
+        }
+
+        public async Task SetCheckEolTargetFramework(
+            string projectFilePath,
+            bool value)
+        {
+            await ProjectFileOperator.Instance.InModifyProjectFileContext(
+                projectFilePath,
+                projectElement =>
+                {
+                    ProjectXmlOperator.Instance.SetCheckEolTargetFramework(
+                        projectElement,
+                        value);
+                });
         }
     }
 }

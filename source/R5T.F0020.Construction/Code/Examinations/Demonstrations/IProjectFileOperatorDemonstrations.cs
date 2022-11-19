@@ -56,7 +56,7 @@ namespace R5T.F0020.Construction
 
 			var referenceProjectFilePath = Instances.ProjectFilePaths.R5T_A0003;
 
-			Instances.ProjectFileOperator.AddProjectReference_Synchronous(
+			Instances.ProjectFileOperator.AddProjectReference_Idempotent_Synchronous(
 				projectFilePath,
 				referenceProjectFilePath);
 		}

@@ -13,9 +13,19 @@ namespace R5T.F0020.N000
     [FunctionalityMarker]
 	public partial interface IProjectFileXmlOperator : IFunctionalityMarker
 	{
-		public WasFound<XElement> HasProjectElement(XDocument projectXDocument)
+		public XElement GetProjectElement(XDocument projectDocument)
 		{
-			var wasFound = projectXDocument.HasElement(xDocument =>
+			var hasProjectElement = this.HasProjectElement(projectDocument);
+
+			var projectElement = hasProjectElement.GetOrExceptionIfNotFound(
+				"No project element found.");
+
+			return projectElement;
+		}
+
+		public WasFound<XElement> HasProjectElement(XDocument projectDocument)
+		{
+			var wasFound = projectDocument.HasElement(xDocument =>
 			{
 				var rootElementIsProject = xDocument.Root?.Name.LocalName == "Project";
 
@@ -34,7 +44,7 @@ namespace R5T.F0020.N000
 			string projectFilePath,
 			Func<XDocument, Task<TOutput>> functionOnProjectXDocument)
         {
-			var projectXDocument = await this.LoadProjectFile(projectFilePath);
+			var projectXDocument = await this.LoadProjectDocument(projectFilePath);
 
 			var output = await functionOnProjectXDocument(projectXDocument);
 			return output;
@@ -44,13 +54,31 @@ namespace R5T.F0020.N000
 			string projectFilePath,
 			Func<XDocument, TOutput> functionOnProjectXDocument)
 		{
-			var projectXDocument = this.LoadProjectFile_Synchronous(projectFilePath);
+			var projectXDocument = this.LoadProjectDocument_Synchronous(projectFilePath);
 
 			var output = functionOnProjectXDocument(projectXDocument);
 			return output;
 		}
 
-		public async Task<XDocument> LoadProjectFile(
+        public async Task<XElement> LoadProjectElement(
+            string projectFilePath)
+        {
+            var projectDocument = await this.LoadProjectDocument(projectFilePath);
+
+            var projectElement = this.GetProjectElement(projectDocument);
+            return projectElement;
+        }
+
+        public XElement LoadProjectElement_Synchronous(
+            string projectFilePath)
+        {
+            var projectDocument = this.LoadProjectDocument_Synchronous(projectFilePath);
+
+            var projectElement = this.GetProjectElement(projectDocument);
+            return projectElement;
+        }
+
+        public async Task<XDocument> LoadProjectDocument(
 			Stream stream)
         {
 			var projectXDocument = await XDocument.LoadAsync(
@@ -61,7 +89,7 @@ namespace R5T.F0020.N000
 			return projectXDocument;
 		}
 
-		public XDocument LoadProjectFile_Synchronous(
+		public XDocument LoadProjectDocument_Synchronous(
 			Stream stream)
 		{
 			var projectXDocument = XDocument.Load(
@@ -71,34 +99,45 @@ namespace R5T.F0020.N000
 			return projectXDocument;
 		}
 
-		public async Task<XDocument> LoadProjectFile(
+		public async Task<XDocument> LoadProjectDocument(
 			string projectFilePath)
 		{
-			using var fileStream = Instances.ProjectFileOperator.NewRead(projectFilePath);
+			using var fileStream = FileStreamOperator.Instance.NewRead(projectFilePath);
 
-			var projectXDocument = await this.LoadProjectFile(fileStream);
+			var projectXDocument = await this.LoadProjectDocument(fileStream);
 			return projectXDocument;
 		}
 
-		public XDocument LoadProjectFile_Synchronous(
+		public XDocument LoadProjectDocument_Synchronous(
 			string projectFilePath)
 		{
-			using var fileStream = Instances.ProjectFileOperator.NewRead(projectFilePath);
+			using var fileStream = FileStreamOperator.Instance.NewRead(projectFilePath);
 
-			var projectXDocument = this.LoadProjectFile_Synchronous(fileStream);
+			var projectXDocument = this.LoadProjectDocument_Synchronous(fileStream);
 			return projectXDocument;
 		}
 
-		public void Save(
+		public void SaveProject(
 			string filePath,
 			Project project)
         {
-			this.Save(
+			this.SaveProjectElement_Synchronous(
 				filePath,
 				project.Element);
         }
 
-		public void Save(
+        public async Task SaveProjectElement(
+            string filePath,
+            XElement projectElement)
+        {
+            var document = Instances.ProjectFileXDocumentOperator.GetProjectDocument(projectElement);
+
+            await Instances.ProjectFileXmlOperator.SaveProjectDocument(
+                filePath,
+                document);
+        }
+
+        public void SaveProjectElement_Synchronous(
 			string filePath,
 			XElement projectElement)
 		{
@@ -109,13 +148,13 @@ namespace R5T.F0020.N000
 				document);
 		}
 
-		public async Task SaveProject(
+		public async Task SaveProjectDocument(
 			string filePath,
 			XDocument xDocument)
 		{
-			using var outputFileStream = F0000.FileStreamOperator.Instance.NewWrite(filePath);
+			using var outputFileStream = FileStreamOperator.Instance.NewWrite(filePath);
 
-			using var xmlWriter = F0000.XmlWriterOperator.Instance.New(outputFileStream);
+			using var xmlWriter = XmlWriterOperator.Instance.New(outputFileStream);
 
 			await xDocument.SaveAsync(
 				xmlWriter,
@@ -126,13 +165,13 @@ namespace R5T.F0020.N000
 			string filePath,
 			XDocument xDocument)
 		{
-			F0000.Instances.XmlOperator.Write(
+			XmlOperator.Instance.Write(
 				xDocument,
 				filePath);
 
-			using var outputFileStream = F0000.FileStreamOperator.Instance.NewWrite(filePath);
+			using var outputFileStream = FileStreamOperator.Instance.NewWrite(filePath);
 
-			using var xmlWriter = F0000.XmlWriterOperator.Instance.New(outputFileStream);
+			using var xmlWriter = XmlWriterOperator.Instance.New(outputFileStream);
 
 			xDocument.Save(xmlWriter);
 		}

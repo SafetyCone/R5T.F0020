@@ -9,7 +9,7 @@ namespace R5T.F0020
 	public partial interface IBooleanOperator : IFunctionalityMarker
 	{
 		/// <summary>
-		/// Returns the boolean representation needed for project files.
+		/// Returns the boolean representation needed for project files, which is the values "true" or "false" (lower values).
 		/// </summary>
 		public string ToString_ForProjectFile(bool value)
         {

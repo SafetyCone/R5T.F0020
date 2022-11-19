@@ -15,6 +15,9 @@ namespace R5T.F0020
 			return itemGroup;
 		}
 
+		/// <summary>
+		/// Creates a new project with the specified SDK.
+		/// </summary>
 		public XElement CreateProject(string sdkString, bool selfClosing = true)
         {
 			var project = new XElement(Instances.ElementNames.Project);
@@ -32,6 +35,9 @@ namespace R5T.F0020
 			return project;
         }
 
+		/// <summary>
+		/// Creates a new project with the <see cref="IProjectSdkStrings.NET"/> SDK.
+		/// </summary>
 		public XElement CreateProject(bool selfClosing = true)
         {
 			var projectElement = this.CreateProject(
@@ -40,6 +46,36 @@ namespace R5T.F0020
 
 			return projectElement;
         }
+
+		public XElement CreatePackageReferenceElement(
+			string packageIdentity,
+			string version)
+		{
+			var includeAttribute = new XAttribute(AttributeNames.Instance.Include, packageIdentity);
+			var versionAttribute = new XAttribute(AttributeNames.Instance.Version, version);
+
+			var output = new XElement(ElementNames.Instance.PackageReference);
+
+			output.Add(
+				includeAttribute,
+				versionAttribute);
+
+			return output;
+		}
+
+		public XElement CreateProjectReferenceElement(
+			string projectDirectoryRelativeProjectFilePath)
+		{
+			var projectDirectoryRelativeProjectFilePathWindows = projectDirectoryRelativeProjectFilePath.Replace('/', '\\');
+
+			var includeAttribute = new XAttribute(AttributeNames.Instance.Include, projectDirectoryRelativeProjectFilePathWindows);
+
+			var output = new XElement(ElementNames.Instance.ProjectReference);
+
+			output.Add(includeAttribute);
+
+			return output;
+		}
 
 		public XElement CreatePropertyGroup()
 		{
