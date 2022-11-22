@@ -20,5 +20,11 @@ namespace R5T.F0020
 		/// The web SDK ("Microsoft.NET.Sdk.Web").
 		/// </summary>
 		public string Web => "Microsoft.NET.Sdk.Web";
-	}
+
+        /// <summary>
+        /// The Blazor WebAssembly SDK ("Microsoft.NET.Sdk.BlazorWebAssembly").
+        /// </summary>
+        public string BlazorWebAssembly => "Microsoft.NET.Sdk.BlazorWebAssembly";
+
+    }
 }

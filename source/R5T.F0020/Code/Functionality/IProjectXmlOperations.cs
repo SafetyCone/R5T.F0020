@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 using R5T.T0132;
@@ -9,10 +10,26 @@ namespace R5T.F0020
 	[FunctionalityMarker]
 	public partial interface IProjectXmlOperations : IFunctionalityMarker
 	{
-		/// <summary>
-		/// Upgrades an empty project to a minimal project.
-		/// </summary>
-		public void EmptyToMinimal(XElement projectElement,
+        /// <summary>
+        /// <inheritdoc cref="IXElementGenerator.NewProjectElement"/>
+		/// Then runs the provided project element action.
+        /// </summary>
+        public async Task<XElement> CreateNewProjectElement(
+			Func<XElement, Task> projectElementAction = default)
+        {
+            var projectElement = XElementGenerator.Instance.NewProjectElement();
+
+			await F0000.ActionOperator.Instance.Run(
+				projectElementAction,
+				projectElement);
+
+            return projectElement;
+        }
+
+        /// <summary>
+        /// Upgrades an empty project to a minimal project.
+        /// </summary>
+        public void EmptyToMinimal(XElement projectElement,
 			string targetFrameworkMonikerString,
 			string outputTypeString)
 		{

@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 
 using R5T.F0000;
 using R5T.T0132;
+using R5T.T0152.N001;
 
 using R5T.F0020.Extensions;
 
@@ -108,7 +110,44 @@ namespace R5T.F0020
 			return itemGroup;
 		}
 
-		public void AddPackageReference_Idempotent(XElement projectElement,
+        public void AddProjectReferences_Idempotent(
+			XElement projectElement,
+			string projectFilePath,
+			IEnumerable<string> referenceProjectFilePaths)
+        {
+            var projectDirectoryRelativeProjectReferenceFilePaths = Instances.ProjectPathsOperator.GetProjectDirectoryRelativePaths(
+                projectFilePath,
+                referenceProjectFilePaths);
+
+			this.AddProjectReferences_Idempotent(
+				projectElement,
+				projectDirectoryRelativeProjectReferenceFilePaths.Values);
+        }
+
+        public void AddProjectReferences_Idempotent(
+            XElement projectElement,
+            IEnumerable<string> projectDirectoryRelativeProjectFilePaths)
+        {
+            var hasReferences = this.HasProjectReferenceElements(
+                projectElement,
+                projectDirectoryRelativeProjectFilePaths);
+
+            var projectReferencesItemGroup = this.AcquireProjectReferencesItemGroup(projectElement);
+
+            foreach (var pair in hasReferences)
+            {
+                if (pair.Value.NotFound())
+                {
+                    var projectDirectoryRelativeProjectFilePath = pair.Key;
+
+                    ItemGroupXmlOperator.Instance.AddProjectReference(
+                        projectReferencesItemGroup,
+                        projectDirectoryRelativeProjectFilePath);
+                }
+            }
+        }
+
+        public void AddPackageReference_Idempotent(XElement projectElement,
 			string packageIdentity,
 			Version version)
         {
@@ -141,6 +180,29 @@ namespace R5T.F0020
 				projectReferencesItemGroup,
 				packageIdentity,
 				version);
+		}
+
+		public void AddPackageReferences_Idempotent(XElement projectElement,
+			IEnumerable<PackageReference> packageReferences)
+		{
+			// Short-circuit if already present.
+			var hasPackageReferenceByPackageReference = this.HasPackageReferenceElements(
+				projectElement,
+				packageReferences);
+
+			var packageReferencesItemGroup = this.AcquirePackageReferencesItemGroup(projectElement);
+
+			foreach (var pair in hasPackageReferenceByPackageReference)
+			{
+				if (pair.Value.NotFound())
+				{
+					var packageReference = pair.Key;
+
+					ItemGroupXmlOperator.Instance.AddPackageReference(
+						packageReferencesItemGroup,
+						packageReference);
+				}
+			}
 		}
 
 		public void AddProjectReference_Idempotent(XElement projectElement,
@@ -192,7 +254,23 @@ namespace R5T.F0020
 			return output;
         }
 
-		public string GetAuthorsTokenSeparator()
+        /// <summary>
+        /// <inheritdoc cref="IXElementGenerator.NewProjectElement"/>
+		/// Then runs the provided action.
+        /// </summary>
+        public async Task<XElement> CreateNewProjectElement(
+			Func<XElement, Task> projectElementAction = default)
+        {
+            var output = Instances.XElementGenerator.NewProjectElement();
+
+			await ActionOperator.Instance.Run(
+				projectElementAction,
+				output);
+
+            return output;
+        }
+
+        public string GetAuthorsTokenSeparator()
         {
 			var tokenSeparator = Z0000.Instances.Strings.Comma;
 			return tokenSeparator;
@@ -212,6 +290,32 @@ namespace R5T.F0020
 			var tokenSeparator = Z0000.Instances.Strings.Semicolon;
 			return tokenSeparator;
         }
+
+		public Dictionary<PackageReference, WasFound<XElement>> HasPackageReferenceElements(
+			XElement projectElement,
+			IEnumerable<PackageReference> packageReferences)
+		{
+			var hasPackageReferencesItemGroup = this.HasPackageReferencesItemGroup(projectElement);
+			if (!hasPackageReferencesItemGroup)
+			{
+				// None were found.
+				return packageReferences
+					.ToDictionary(
+						x => x,
+						x => WasFound.NotFound<XElement>());
+			}
+
+			var packageReferencesItemGroup = hasPackageReferencesItemGroup.Result;
+
+			var output = packageReferences
+				.ToDictionary(
+					x => x,
+					x => this.HasPackageReferenceElement_ForPackageReferencesItemGroup(
+						packageReferencesItemGroup,
+						x));
+
+			return output;
+		}
 
 		public WasFound<XElement> HasPackageReferenceElement(XElement projectElement,
 			string packageIdentity,
@@ -247,7 +351,33 @@ namespace R5T.F0020
 			return output;
 		}
 
-		public WasFound<XElement> HasPackageReferenceElement_ForPackageReferencesItemGroup(XElement packageReferencesItemGroup,
+        public Dictionary<string, WasFound<XElement>> HasProjectReferenceElements(
+			XElement projectElement,
+            IEnumerable<string> projectDirectoryRelativeProjectFilePaths)
+        {
+            var hasProjectReferencesItemGroup = this.HasProjectReferencesItemGroup(projectElement);
+            if (!hasProjectReferencesItemGroup)
+            {
+				// None were found.
+                return projectDirectoryRelativeProjectFilePaths
+                    .ToDictionary(
+                        x => x,
+                        x => WasFound.NotFound<XElement>());
+            }
+
+            var projectReferencesItemGroup = hasProjectReferencesItemGroup.Result;
+
+            var output = projectDirectoryRelativeProjectFilePaths
+                .ToDictionary(
+                    x => x,
+                    x => this.HasProjectReferenceElement_ForProjectReferencesItemGroup(
+                        projectReferencesItemGroup,
+                        x));
+
+            return output;
+        }
+
+        public WasFound<XElement> HasPackageReferenceElement_ForPackageReferencesItemGroup(XElement packageReferencesItemGroup,
 			string packageIdentity,
 			string version)
         {
@@ -257,6 +387,21 @@ namespace R5T.F0020
 					element,
 					packageIdentity,
 					version))
+				.SingleOrDefault()
+				;
+
+			var output = WasFound.From(elementOrDefault);
+			return output;
+		}
+
+		public WasFound<XElement> HasPackageReferenceElement_ForPackageReferencesItemGroup(XElement packageReferencesItemGroup,
+			PackageReference packageReference)
+		{
+			var elementOrDefault = packageReferencesItemGroup.Elements()
+				.WhereNameIs(Instances.ElementNames.PackageReference)
+				.Where(element => this.IsPackageReferenceTo(
+					element,
+					packageReference))
 				.SingleOrDefault()
 				;
 
@@ -333,6 +478,16 @@ namespace R5T.F0020
 				&& includeAttributeValue == packageIdentity
 				&& versionAttributeValue == version
 				;
+
+			return output;
+		}
+
+		public bool IsPackageReferenceTo(XElement element,
+			PackageReference packageReference)
+		{
+			var output = this.IsPackageReferenceTo(element,
+				packageReference.Identity,
+				packageReference.Version);
 
 			return output;
 		}
@@ -449,6 +604,17 @@ namespace R5T.F0020
 			this.SetPackagePropertyGroupChildElementValue(projectElement,
 				Instances.ElementNames.GenerateDocumentationFile,
 				valueString);
+		}
+
+		public WasFound<XElement> HasMainPropertyGroupChildElement(XElement projectElement,
+            string mainPropertyGroupChildElementName)
+		{
+			var wasFound = Internal.HasPropertyGroupChildElement(
+				projectElement,
+				Instances.ElementNames.TargetFramework,
+				mainPropertyGroupChildElementName);
+
+			return wasFound;
 		}
 
 		/// <summary>
@@ -603,7 +769,15 @@ namespace R5T.F0020
 			return hasAnyCOMReferences;
         }
 
-		public WasFound<string> HasRootNamespace(XElement projectElement)
+        public WasFound<XElement> HasCheckEolTargetFrameworkElement(XElement projectElement)
+        {
+            var hasCheckEolTargetFrameworkElement = Internal.HasPropertyGroupChildElement(projectElement,
+                Instances.ElementNames.CheckEolTargetFramework);
+
+            return hasCheckEolTargetFrameworkElement;
+        }
+
+        public WasFound<string> HasRootNamespace(XElement projectElement)
 		{
 			var hasRootNamespace = Internal.HasPropertyGroupChildElementValue(projectElement,
 				Instances.ElementNames.RootNamespace);
@@ -634,12 +808,40 @@ namespace R5T.F0020
 				targetFrameworkMonikerString);
 		}
 
+		public XAttribute AcquireSdkAttribute(XElement projectElement)
+		{
+			var hasSdkAttribute = this.HasSdkAttribute(projectElement);
+
+			var sdkAttribute = hasSdkAttribute
+				? hasSdkAttribute.Result
+				: this.AddSdkAttribute(projectElement)
+				;
+
+			return sdkAttribute;
+		}
+
+		public XAttribute AddSdkAttribute(XElement projectElement)
+		{
+			var sdkAttribute = XElementGenerator.Instance.NewSdkAttribute();
+
+			projectElement.Add(sdkAttribute);
+
+			return sdkAttribute;
+		}
+
+		public WasFound<XAttribute> HasSdkAttribute(XElement projectElement)
+		{
+            var sdkAttributeOrDefault = projectElement.Attributes()
+                .Where(xAttribute => xAttribute.Name.LocalName == Instances.ElementNames.Sdk)
+                .SingleOrDefault();
+
+			var output = WasFound.From(sdkAttributeOrDefault);
+			return output;
+        }
+
 		public void SetSdk(XElement projectElement, string sdk)
         {
-			var sdkAttribute = projectElement.Attributes()
-				.Where(xAttribute => xAttribute.Name.LocalName == Instances.ElementNames.Sdk)
-				.Single();
-
+			var sdkAttribute = this.AcquireSdkAttribute(projectElement);
 
 			sdkAttribute.Value = sdk;
         }

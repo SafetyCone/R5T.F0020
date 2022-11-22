@@ -31,7 +31,7 @@ namespace R5T.F0020
 		/// </summary>
 		public string NET_Standard_2_0 => "netstandard2.0";
 		/// <summary>
-		/// Note: the old .NET framework is no longer supported.
+		/// Note: as of this version of .NET Standard, the old .NET framework is no longer supported.
 		/// </summary>
 		public string NET_Standard2_1 => "netstandard2.1";
 		public string NET_Core3_1 => "netcoreapp3.1";

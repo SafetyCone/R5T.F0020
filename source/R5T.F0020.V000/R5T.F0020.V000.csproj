@@ -1,14 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\R5T.L0020\source\R5T.L0020\R5T.L0020.csproj" />
     <ProjectReference Include="..\..\..\R5T.T0119\source\R5T.T0119.X001\R5T.T0119.X001.csproj" />
@@ -16,5 +14,4 @@
     <ProjectReference Include="..\..\..\R5T.Z0008\source\R5T.Z0008\R5T.Z0008.csproj" />
     <ProjectReference Include="..\R5T.F0020\R5T.F0020.csproj" />
   </ItemGroup>
-
 </Project>

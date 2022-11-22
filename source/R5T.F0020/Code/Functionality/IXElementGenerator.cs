@@ -1,4 +1,5 @@
 using System;
+using System.Data.SqlTypes;
 using System.Xml.Linq;
 
 using R5T.T0132;
@@ -28,9 +29,9 @@ namespace R5T.F0020
 				project.SetValue(Z0000.Instances.Strings.Empty);
             }
 
-			var sdk = new XAttribute(Instances.ElementNames.Sdk, sdkString);
+			var sdkAttribute = this.NewSdkAttribute(sdkString);
 
-			project.Add(sdk);
+			project.Add(sdkAttribute);
 
 			return project;
         }
@@ -88,5 +89,28 @@ namespace R5T.F0020
 			var itemGroup = Instances.XElementOperator.CreateElement(Instances.ElementNames.OutputType);
 			return itemGroup;
 		}
+
+        public XAttribute NewSdkAttribute(string sdkString)
+        {
+            var sdkAttribute = new XAttribute(Instances.ElementNames.Sdk, sdkString);
+			return sdkAttribute;
+        }
+
+        public XAttribute NewSdkAttribute()
+		{
+			var sdkAttribute = this.NewSdkAttribute(
+				ProjectSdkStrings.Instance.NET);
+
+			return sdkAttribute;
+        }
+
+		/// <summary>
+		/// Creates a new project element with no attributes (not even the SDK).
+		/// </summary>
+		public XElement NewProjectElement()
+		{
+            var projectElement = new XElement(Instances.ElementNames.Project);
+			return projectElement;
+        }
 	}
 }

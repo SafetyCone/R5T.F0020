@@ -2,6 +2,7 @@ using System;
 using System.Xml.Linq;
 
 using R5T.T0132;
+using R5T.T0152.N001;
 
 
 namespace R5T.F0020
@@ -18,6 +19,14 @@ namespace R5T.F0020
 				version);
 
 			projectReferencesItemGroup.Add(projectReferenceElement);
+		}
+
+		public void AddPackageReference(XElement projectReferencesItemGroup,
+			PackageReference packageReference)
+		{
+			this.AddPackageReference(projectReferencesItemGroup,
+				packageReference.Identity,
+				packageReference.Version);
 		}
 
 		public void AddProjectReference(XElement projectReferencesItemGroup,
