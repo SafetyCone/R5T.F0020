@@ -10,7 +10,16 @@ namespace R5T.F0020
 	[FunctionalityMarker]
 	public partial interface IItemGroupXmlOperator : IFunctionalityMarker
 	{
-		public void AddPackageReference(XElement projectReferencesItemGroup,
+        public void AddSupportedPlatform(XElement supportedPlatformItemGroup,
+            string supportedPlatform)
+        {
+            var projectReferenceElement = XElementGenerator.Instance.CreateSupportedPlatformElement(
+                supportedPlatform);
+
+            supportedPlatformItemGroup.Add(projectReferenceElement);
+        }
+
+        public void AddPackageReference(XElement projectReferencesItemGroup,
 			string packageIdentity,
 			string version)
 		{

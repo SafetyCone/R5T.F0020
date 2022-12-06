@@ -196,7 +196,7 @@ namespace R5T.F0020
 
         public bool HasAnyCOMReferences(string projectFilePath)
         {
-            var hasAnyCOMReferences = this.InQueryProjectFileContext(projectFilePath,
+            var hasAnyCOMReferences = this.InQueryProjectFileContext_Synchronous(projectFilePath,
                 projectElement => Instances.ProjectXmlOperator.HasAnyCOMReferences(projectElement));
 
             return hasAnyCOMReferences;
@@ -204,7 +204,7 @@ namespace R5T.F0020
 
         public WasFound<string> HasDefaultNamespace(string projectFilePath)
         {
-            var hasDefaultNamespace = this.InQueryProjectFileContext(projectFilePath,
+            var hasDefaultNamespace = this.InQueryProjectFileContext_Synchronous(projectFilePath,
                 projectElement =>
                 {
                     // Note: the default namespace in the Visual Studio UI is the <RootNamespace> element in the project file.
@@ -217,7 +217,7 @@ namespace R5T.F0020
 
         public WasFound<string> HasTargetFramework(string projectFilePath)
         {
-            var hasTargetFramework = this.InQueryProjectFileContext(projectFilePath,
+            var hasTargetFramework = this.InQueryProjectFileContext_Synchronous(projectFilePath,
                 projectElement =>
                 {
                     var hasTargetFramework = Instances.ProjectXmlOperator.HasTargetFramework(projectElement);
@@ -313,7 +313,19 @@ namespace R5T.F0020
                 projectElement);
         }
 
-        public TOutput InQueryProjectFileContext<TOutput>(
+        public async Task<TOutput> InQueryProjectFileContext<TOutput>(
+            string projectFilePath,
+            Func<XElement, TOutput> projectElementFunction)
+        {
+            var projectDocument = await Instances.ProjectFileXmlOperator.LoadProjectDocument(projectFilePath);
+
+            var projectElement = Instances.ProjectFileXPathOperator.GetProjectElement(projectDocument);
+
+            var output = projectElementFunction(projectElement);
+            return output;
+        }
+
+        public TOutput InQueryProjectFileContext_Synchronous<TOutput>(
             string projectFilePath,
             Func<XElement, TOutput> projectElementFunction)
         {

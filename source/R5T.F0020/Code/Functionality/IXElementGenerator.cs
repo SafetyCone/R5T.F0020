@@ -48,7 +48,19 @@ namespace R5T.F0020
 			return projectElement;
         }
 
-		public XElement CreatePackageReferenceElement(
+        public XElement CreateSupportedPlatformElement(
+            string supportedPlatform)
+        {
+            var includeAttribute = new XAttribute(AttributeNames.Instance.Include, supportedPlatform);
+
+            var output = new XElement(ElementNames.Instance.SupportedPlatform);
+
+            output.Add(includeAttribute);
+
+            return output;
+        }
+
+        public XElement CreatePackageReferenceElement(
 			string packageIdentity,
 			string version)
 		{

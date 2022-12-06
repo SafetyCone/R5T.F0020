@@ -40,7 +40,19 @@ namespace R5T.F0020
 			return wasFound.Result;
 		}
 
-		public XElement AcquireProjectReferencesItemGroup(XElement projectElement)
+        public XElement AcquireSupportedPlatformItemGroup(XElement projectElement)
+        {
+            var wasFound = this.HasSupportedPlatformItemGroup(projectElement);
+            if (!wasFound)
+            {
+                var itemGroup = this.AddItemGroup(projectElement);
+                return itemGroup;
+            }
+
+            return wasFound.Result;
+        }
+
+        public XElement AcquireProjectReferencesItemGroup(XElement projectElement)
 		{
 			var wasFound = this.HasProjectReferencesItemGroup(projectElement);
 			if (!wasFound)
@@ -182,6 +194,34 @@ namespace R5T.F0020
 				version);
 		}
 
+		public void AddBrowserSupportedPlatform(XElement projectElement)
+		{
+			var alreadyHasSupportedPlatform = this.HasSupportedPlatformElement(projectElement);
+			if(alreadyHasSupportedPlatform)
+			{
+				var supportedPlatformElement = alreadyHasSupportedPlatform.Result;
+
+				var supportedPlatformIsBrowser = this.IncludeAttributeValueIs(
+					supportedPlatformElement,
+					SupportedPlatforms.Instance.Browser);
+
+				if(!supportedPlatformIsBrowser)
+				{
+					var includeAttributeValue = this.GetIncludeAttributeValueOrNull(supportedPlatformElement);
+
+					throw new Exception($"Will not overwrite supported platform with value \"{SupportedPlatforms.Instance.Browser}\". Existing supported platform value found: {includeAttributeValue}.");
+				}
+
+				// Else, already set.
+				return;
+			}
+
+			var supportedPlatformItemGroup = this.AcquireSupportedPlatformItemGroup(projectElement);
+
+            ItemGroupXmlOperator.Instance.AddSupportedPlatform(supportedPlatformItemGroup,
+                SupportedPlatforms.Instance.Browser);
+        }
+
 		public void AddPackageReferences_Idempotent(XElement projectElement,
 			IEnumerable<PackageReference> packageReferences)
 		{
@@ -291,6 +331,20 @@ namespace R5T.F0020
 			return tokenSeparator;
         }
 
+		public WasFound<XElement> HasSupportedPlatformElement(XElement projectElement)
+		{
+			var hasSupportedPlatformItemGroup = this.HasSupportedPlatformItemGroup(projectElement);
+			if(!hasSupportedPlatformItemGroup)
+			{
+                return WasFound.NotFound<XElement>();
+            }
+
+            var hasSupportedPlatform = this.HasSupportedPlatform_ForSupportedPlatformItemGroup(
+                hasSupportedPlatformItemGroup.Result);
+
+            return hasSupportedPlatform;
+        }
+
 		public Dictionary<PackageReference, WasFound<XElement>> HasPackageReferenceElements(
 			XElement projectElement,
 			IEnumerable<PackageReference> packageReferences)
@@ -317,7 +371,24 @@ namespace R5T.F0020
 			return output;
 		}
 
-		public WasFound<XElement> HasPackageReferenceElement(XElement projectElement,
+        public bool HasPackageReferenceElement(XElement projectElement,
+            string packageIdentity)
+		{
+            var hasPackageReferencesItemGroup = this.HasPackageReferencesItemGroup(projectElement);
+            if (!hasPackageReferencesItemGroup)
+            {
+                return WasFound.NotFound<XElement>();
+            }
+
+            var output = this.HasPackageReferenceElement_ForPackageReferencesItemGroup(
+                hasPackageReferencesItemGroup.Result,
+                packageIdentity);
+
+            return output;
+        }
+
+
+        public WasFound<XElement> HasPackageReferenceElement(XElement projectElement,
 			string packageIdentity,
 			string version)
         {
@@ -377,6 +448,32 @@ namespace R5T.F0020
             return output;
         }
 
+		public WasFound<XElement> HasSupportedPlatform_ForSupportedPlatformItemGroup(XElement supportedPlatformItemGroup)
+		{
+            var elementOrDefault = supportedPlatformItemGroup.Elements()
+                .WhereNameIs(Instances.ElementNames.SupportedPlatform)
+                .SingleOrDefault()
+                ;
+
+            var output = WasFound.From(elementOrDefault);
+            return output;
+        }
+
+        public WasFound<XElement> HasPackageReferenceElement_ForPackageReferencesItemGroup(XElement packageReferencesItemGroup,
+            string packageIdentity)
+        {
+            var elementOrDefault = packageReferencesItemGroup.Elements()
+                .WhereNameIs(Instances.ElementNames.PackageReference)
+                .Where(element => this.IsPackageReferenceTo(
+                    element,
+                    packageIdentity))
+                .SingleOrDefault()
+                ;
+
+            var output = WasFound.From(elementOrDefault);
+            return output;
+        }
+
         public WasFound<XElement> HasPackageReferenceElement_ForPackageReferencesItemGroup(XElement packageReferencesItemGroup,
 			string packageIdentity,
 			string version)
@@ -424,7 +521,17 @@ namespace R5T.F0020
 			return output;
 		}
 
-		public WasFound<XElement> HasPackageReferencesItemGroup(XElement projectElement)
+        public WasFound<XElement> HasSupportedPlatformItemGroup(XElement projectElement)
+        {
+            // Assume just one package item group.
+            var wasFound = projectElement.HasChildWithChild_Single(
+                Instances.ElementNames.ItemGroup,
+                Instances.ElementNames.SupportedPlatform);
+
+            return wasFound;
+        }
+
+        public WasFound<XElement> HasPackageReferencesItemGroup(XElement projectElement)
         {
 			// Assume just one package item group.
 			var wasFound = projectElement.HasChildWithChild_Single(
@@ -467,18 +574,45 @@ namespace R5T.F0020
 				authorsString);
         }
 
-		public bool IsPackageReferenceTo(XElement element,
+		public string GetIncludeAttributeValueOrNull(XElement elementWithIncludeAttribute)
+		{
+            var includeAttributeValue = elementWithIncludeAttribute.Attribute(AttributeNames.Instance.Include)?.Value;
+			return includeAttributeValue;
+        }
+
+		public bool IncludeAttributeValueIs(XElement elementWithIncludeAttribute,
+			string value)
+		{
+			var includeAttributeValue = this.GetIncludeAttributeValueOrNull(elementWithIncludeAttribute);
+
+			var output = includeAttributeValue == value;
+			return output;
+        }
+
+        public bool IsPackageReferenceTo(XElement element,
+            string packageIdentity)
+        {
+            var includeAttributeValue = element.Attribute(AttributeNames.Instance.Include)?.Value;
+
+            var output = includeAttributeValue == packageIdentity;
+            return output;
+        }
+
+        public bool IsPackageReferenceTo(XElement element,
 			string packageIdentity,
 			string version)
         {
-			var includeAttributeValue = element.Attribute(AttributeNames.Instance.Include)?.Value;
+			var isPackageReferenceToPackage = this.IsPackageReferenceTo(element,
+				packageIdentity);
+
+			if(!isPackageReferenceToPackage)
+			{
+				return false;
+			}
+
 			var versionAttributeValue = element.Attribute(AttributeNames.Instance.Include)?.Value;
 
-			var output = true
-				&& includeAttributeValue == packageIdentity
-				&& versionAttributeValue == version
-				;
-
+			var output = versionAttributeValue == version;
 			return output;
 		}
 
@@ -845,5 +979,49 @@ namespace R5T.F0020
 
 			sdkAttribute.Value = sdk;
         }
+
+		public WasFound<string> HasSdk(XElement projectElement)
+		{
+			var hasSdkAttribute = this.HasSdkAttribute(projectElement);
+			if(!hasSdkAttribute)
+			{
+				return WasFound.NotFound<string>();
+			}
+
+			var sdkAttribute = hasSdkAttribute.Result;
+
+			var sdk = sdkAttribute.Value;
+
+			var output = WasFound.Found(sdk);
+			return output;
+		}
+
+		public WasFound<XAttribute> HasIncludeAttribute(XElement includeAttributedElement)
+		{
+            var includeAttributeOrDefault = includeAttributedElement.Attributes()
+                .Where(xAttribute => xAttribute.Name.LocalName == AttributeNames.Instance.Include)
+                .SingleOrDefault();
+
+            var output = WasFound.From(includeAttributeOrDefault);
+            return output;
+        }
+
+        public XAttribute GetIncludeAttribute(XElement includeAttributedElement)
+        {
+            var hasIncludeAttribute = this.HasIncludeAttribute(includeAttributedElement);
+
+            hasIncludeAttribute.ExceptionIfNotFound("Include attribute not found.");
+
+			var includeAttribute = hasIncludeAttribute.Result;
+			return includeAttribute;
+        }
+
+        public string GetIncludeAttributeValue(XElement includeAttributedElement)
+		{
+			var includeAttribute = this.GetIncludeAttribute(includeAttributedElement);
+
+			var value = includeAttribute.Value;
+			return value;
+		}
 	}
 }

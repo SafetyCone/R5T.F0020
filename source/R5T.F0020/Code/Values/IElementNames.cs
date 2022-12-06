@@ -29,6 +29,7 @@ namespace R5T.F0020
 		public string RepositoryUrl => "RepositoryUrl";
 		public string RootNamespace => "RootNamespace";
 		public string Sdk => "Sdk";
+		public string SupportedPlatform => "SupportedPlatform";
 		public string TargetFramework => "TargetFramework";
 		public string TargetFrameworkVersion => "TargetFrameworkVersion";
 		public string Version => "Version";
