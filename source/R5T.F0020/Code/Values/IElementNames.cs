@@ -32,6 +32,7 @@ namespace R5T.F0020
 		public string SupportedPlatform => "SupportedPlatform";
 		public string TargetFramework => "TargetFramework";
 		public string TargetFrameworkVersion => "TargetFrameworkVersion";
+		public string UseWindowsForms => "UseWindowsForms";
 		public string Version => "Version";
 	}
 }

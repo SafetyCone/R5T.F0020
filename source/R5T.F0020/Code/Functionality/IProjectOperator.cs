@@ -16,7 +16,7 @@ namespace R5T.F0020
 	{
 		public Project CreateNew()
         {
-			var projectElement = Instances.ProjectXmlOperator.CreateNew();
+			var projectElement = Instances.ProjectXmlOperations.NewProjectElement();
 
 			var project = new Project()
 			{

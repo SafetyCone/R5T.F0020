@@ -16,5 +16,10 @@ namespace R5T.F0020
 		/// The package property group is the property group that has the <see cref="IElementNames.Version"/> element.
 		/// </summary>
 		public static readonly object PackagePropertyGroup;
+
+        /// <summary>
+        /// Remote existing project references and replace them with the provided values.
+        /// </summary>
+        public static readonly object SetProjectReferences;
 	}
 }

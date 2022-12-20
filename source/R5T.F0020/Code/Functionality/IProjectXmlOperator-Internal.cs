@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Xml.Linq;
 
 using R5T.F0000;
@@ -48,6 +49,22 @@ namespace R5T.F0020.Internal
 			return childElement;
 		}
 
+		public XElement AcquireFirstPropertyGroup(XElement projectElement)
+		{
+			var firstPropertyGroupOrDefault = projectElement.Children()
+				.WhereNameIs(ElementNames.Instance.PropertyGroup)
+				.FirstOrDefault();
+
+			var firstPropertyGroupWasFound = firstPropertyGroupOrDefault != default;
+
+			var firstPropertyGroup = firstPropertyGroupWasFound
+				? firstPropertyGroupOrDefault
+				: Instances.ProjectXmlOperator.AddPropertyGroup(projectElement)
+				;
+
+			return firstPropertyGroup;
+		}
+
 		/// <summary>
 		/// Allows using one property group child element name to identify the property group of interest, while selecting a different child element from the property group.
 		/// </summary>
@@ -61,7 +78,7 @@ namespace R5T.F0020.Internal
 
 			var propertyGroup = propertyGroupWithChildWasFound
 				? propertyGroupWithChildWasFound.Result
-				: Instances.ProjectXmlOperator.AddPropertyGroup(projectElement)
+				: this.AcquireFirstPropertyGroup(projectElement)
 				;
 
 			var childWasFound = propertyGroup.HasChild(propertyGroupChildElementName);

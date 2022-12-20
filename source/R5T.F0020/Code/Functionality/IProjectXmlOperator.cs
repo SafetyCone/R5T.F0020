@@ -69,7 +69,7 @@ namespace R5T.F0020
 		/// </summary>
 		public XElement AcquireMainPropertyGroup(XElement projectElement)
         {
-			var mainPropertyGroup = Internal.AcquirePropertyGroupChildElement(projectElement,
+			var mainPropertyGroup = Internal.AcquirePropertyGroupWithChildElement(projectElement,
 				Instances.ElementNames.TargetFramework);
 
 			return mainPropertyGroup;
@@ -138,6 +138,44 @@ namespace R5T.F0020
 
         public void AddProjectReferences_Idempotent(
             XElement projectElement,
+            string projectFilePath,
+            params string[] referenceProjectFilePaths)
+		{
+			this.AddProjectReferences_Idempotent(
+				projectElement,
+				projectFilePath,
+				referenceProjectFilePaths.AsEnumerable());
+		}
+
+        /// <inheritdoc cref="Documentation.SetProjectReferences"/>
+        public void SetProjectReferences(
+            XElement projectElement,
+            string projectFilePath,
+            IEnumerable<string> referenceProjectFilePaths)
+        {
+            var projectDirectoryRelativeProjectReferenceFilePaths = Instances.ProjectPathsOperator.GetProjectDirectoryRelativePaths(
+                projectFilePath,
+                referenceProjectFilePaths);
+
+            this.SetProjectReferences(
+                projectElement,
+                projectDirectoryRelativeProjectReferenceFilePaths.Values);
+        }
+
+        /// <inheritdoc cref="Documentation.SetProjectReferences"/>
+        public void SetProjectReferences(
+            XElement projectElement,
+            string projectFilePath,
+            params string[] referenceProjectFilePaths)
+        {
+            this.SetProjectReferences(
+                projectElement,
+                projectFilePath,
+                referenceProjectFilePaths.AsEnumerable());
+        }
+
+        public void AddProjectReferences_Idempotent(
+            XElement projectElement,
             IEnumerable<string> projectDirectoryRelativeProjectFilePaths)
         {
             var hasReferences = this.HasProjectReferenceElements(
@@ -156,6 +194,25 @@ namespace R5T.F0020
                         projectReferencesItemGroup,
                         projectDirectoryRelativeProjectFilePath);
                 }
+            }
+        }
+
+        /// <inheritdoc cref="Documentation.SetProjectReferences"/>
+        public void SetProjectReferences(
+            XElement projectElement,
+            IEnumerable<string> projectDirectoryRelativeProjectFilePaths)
+        {
+            var projectReferencesItemGroup = this.AcquireProjectReferencesItemGroup(projectElement);
+
+			// Remove all.
+			projectReferencesItemGroup.RemoveNodes();
+
+			// Add new.
+            foreach (var projectDirectoryRelativeProjectFilePath in projectDirectoryRelativeProjectFilePaths)
+            {
+                ItemGroupXmlOperator.Instance.AddProjectReference(
+                    projectReferencesItemGroup,
+                    projectDirectoryRelativeProjectFilePath);
             }
         }
 
@@ -287,27 +344,96 @@ namespace R5T.F0020
 			return propertyGroup;
 		}
 
-		/// <inheritdoc cref="IXElementGenerator.CreateProject(bool)"/>
-		public XElement CreateNew()
+		///// <inheritdoc cref="IXElementGenerator.CreateProject(bool)"/>
+		//public XElement CreateNew()
+  //      {
+		//	var output = Instances.XElementGenerator.CreateProject();
+		//	return output;
+  //      }
+
+  //      /// <summary>
+  //      /// <inheritdoc cref="IXElementGenerator.NewProjectElement"/>
+		///// Then runs the provided action.
+  //      /// </summary>
+  //      public async Task<XElement> CreateNewProjectElement(
+		//	Func<XElement, Task> projectElementAction = default)
+  //      {
+  //          var output = Instances.XElementGenerator.NewProjectElement();
+
+		//	await ActionOperator.Instance.Run(
+		//		projectElementAction,
+		//		output);
+
+  //          return output;
+  //      }
+
+		public XElement CreateProjectElement(
+			params Action<XElement>[] modifiers)
+		{
+			var projectElement = this.CreateProjectElement(
+				modifiers.AsEnumerable());
+
+			return projectElement;
+		}
+
+        public XElement CreateProjectElement(
+            IEnumerable<Action<XElement>> modifiers)
         {
-			var output = Instances.XElementGenerator.CreateProject();
-			return output;
+            var projectElement = ConstructionOperator.Instance.Create(
+                ProjectXmlOperations.Instance.NewProjectElement,
+                modifiers);
+
+            return projectElement;
         }
 
-        /// <summary>
-        /// <inheritdoc cref="IXElementGenerator.NewProjectElement"/>
-		/// Then runs the provided action.
-        /// </summary>
-        public async Task<XElement> CreateNewProjectElement(
-			Func<XElement, Task> projectElementAction = default)
+        public async Task<XElement> CreateProjectElement(
+            Func<Task<XElement>> constructor,
+            params Func<XElement, Task>[] modifiers)
         {
-            var output = Instances.XElementGenerator.NewProjectElement();
+			var projectElement = await constructor();
 
 			await ActionOperator.Instance.Run(
-				projectElementAction,
-				output);
+				projectElement,
+				modifiers);
 
-            return output;
+			return projectElement;
+        }
+
+        public async Task<XElement> CreateProjectElement(
+            Func<XElement> constructor,
+            params Func<XElement, Task>[] modifiers)
+        {
+            var projectElement = constructor();
+
+            await ActionOperator.Instance.Run(
+                projectElement,
+                modifiers);
+
+            return projectElement;
+        }
+
+        public XElement CreateProjectElement(
+            Func<XElement> constructor,
+            params Action<XElement>[] modifiers)
+        {
+			var projectElement = this.CreateProjectElement(
+				constructor,
+				modifiers.AsEnumerable());
+
+			return projectElement;
+        }
+
+        public XElement CreateProjectElement(
+            Func<XElement> constructor,
+            IEnumerable<Action<XElement>> modifiers)
+        {
+            var projectElement = constructor();
+
+            ActionOperator.Instance.Run(
+                projectElement,
+                modifiers);
+
+            return projectElement;
         }
 
         public string GetAuthorsTokenSeparator()
@@ -942,7 +1068,16 @@ namespace R5T.F0020
 				targetFrameworkMonikerString);
 		}
 
-		public XAttribute AcquireSdkAttribute(XElement projectElement)
+        public void SetUseWindowsForms(XElement projectElement, bool value)
+        {
+			var valueString = BooleanOperator.Instance.ToString_ForProjectFile(value);
+
+            this.SetMainPropertyGroupChildElementValue(projectElement,
+                Instances.ElementNames.UseWindowsForms,
+                valueString);
+        }
+
+        public XAttribute AcquireSdkAttribute(XElement projectElement)
 		{
 			var hasSdkAttribute = this.HasSdkAttribute(projectElement);
 

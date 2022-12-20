@@ -25,6 +25,7 @@ namespace R5T.F0020
 
 
         public string NET_6 => "net6.0";
+        public string NET_6_Windows => "net6.0-windows";
         public string NET_5 => "net5.0";
 		/// <summary>
 		/// Useful if you want to allow old .NET Framework (4.6.2 and higher) support.

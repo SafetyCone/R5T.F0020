@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
 using R5T.F0000;
+using R5T.F0020.Extensions;
 using R5T.T0132;
 
 
@@ -72,21 +74,82 @@ namespace R5T.F0020
                 xProjectFile);
         }
 
-        public void Create_New(string projectFilePath, ProjectType projectType)
+        public async Task CreateProjectFile(
+            string projectFilePath,
+            Func<XElement> projectElementConstructor)
         {
-            Instances.ProjectFileGenerator.CreateNew(projectFilePath, projectType);
+            var projectElement = projectElementConstructor();
+
+            await Instances.ProjectFileXmlOperator.SaveProjectElement(
+                projectFilePath,
+                projectElement);
         }
 
-        public void Create(string projectFilePath,
-            Action<XElement> projectElementModifer)
+        public async Task CreateProjectFile(
+            string projectFilePath,
+            IEnumerable<Action<XElement>> projectElementActions)
         {
-            var project = Instances.ProjectOperator.CreateNew();
+            var projectElement = ProjectXmlOperator.Instance.CreateProjectElement(
+                projectElementActions);
 
-            project.Modify(projectElementModifer);
-
-            Instances.ProjectFileXmlOperator.SaveProject(
+            await Instances.ProjectFileXmlOperator.SaveProjectElement(
                 projectFilePath,
-                project);
+                projectElement);
+        }
+
+        public void CreateProjectFile_Synchronous(
+            string projectFilePath,
+            IEnumerable<Action<XElement>> projectElementActions)
+        {
+            var projectElement = ProjectXmlOperator.Instance.CreateProjectElement(
+                projectElementActions);
+
+            Instances.ProjectFileXmlOperator.SaveProjectElement_Synchronous(
+                projectFilePath,
+                projectElement);
+        }
+
+        public void CreateProjectFile_Synchronous(
+            string projectFilePath,
+            params Action<XElement>[] projectElementActions)
+        {
+            this.CreateProjectFile_Synchronous(
+                projectFilePath,
+                projectElementActions.AsEnumerable());
+        }
+
+        public async Task CreateProjectFile(
+            string projectFilePath,
+            Func<string, IEnumerable<Action<XElement>>> projectElementActionsConstructor)
+        {
+            var projectElementActions = projectElementActionsConstructor(projectFilePath);
+
+            await this.CreateProjectFile(
+                projectFilePath,
+                projectElementActions);
+        }
+
+        public async Task CreateProjectFile(
+            string projectFilePath,
+            Func<Task<XElement>> projectElementConstructor)
+        {
+            var projectElement = await projectElementConstructor();
+
+            await Instances.ProjectFileXmlOperator.SaveProjectElement(
+                projectFilePath,
+                projectElement);
+        }
+
+        public async Task CreateProjectFile(
+            string projectFilePath,
+            Func<Task<XElement>> projectElementConstructor,
+            params Func<XElement, Task>[] modifiers)
+        {
+            await this.CreateProjectFile(
+                projectFilePath,
+                ConstructionOperations.Instance.New(
+                    projectElementConstructor,
+                    modifiers));
         }
 
         public async Task<string[]> GetDirectProjectReferenceFilePaths(string projectFilePath)
