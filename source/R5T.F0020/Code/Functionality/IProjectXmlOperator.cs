@@ -1008,6 +1008,17 @@ namespace R5T.F0020
 			return wasFound.Result;
 		}
 
+		public string GetSdk(XElement projectElement)
+		{
+			var hasSdk = this.HasSdk(projectElement);
+
+			var sdk = Instances.WasFoundOperator.ResultOrExceptionIfNotFound(
+				hasSdk,
+				"SDK attribute not found.");
+
+			return sdk;
+		}
+
 		public string GetTargetFramework(XElement projectElement)
 		{
 			var hasTargetFramework = this.HasTargetFramework(projectElement);

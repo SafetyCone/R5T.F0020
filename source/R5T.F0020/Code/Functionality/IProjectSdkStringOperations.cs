@@ -13,5 +13,11 @@ namespace R5T.F0020
 			var isRazorSdk = ProjectSdkStrings.Instance.Razor == projectSdkString;
 			return isRazorSdk;
 		}
+
+		public bool Is_WebSdk(string projectSdkString)
+		{
+			var isWeb = ProjectSdkStrings.Instance.Web == projectSdkString;
+			return isWeb;
+		}
 	}
 }
