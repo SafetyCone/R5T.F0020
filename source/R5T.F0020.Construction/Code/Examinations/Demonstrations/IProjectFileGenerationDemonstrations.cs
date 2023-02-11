@@ -18,7 +18,7 @@ namespace R5T.F0020.Construction
 				.Modify(F0020.Instances.ProjectXmlOperations.AddStandardFunctionality)
 				;
 
-			F0020.Instances.ProjectFileXmlOperator.Save(
+			F0020.Instances.ProjectFileXmlOperator.SaveProject(
 				Instances.ProjectFilePaths.Test,
 				project);
 		}
@@ -30,7 +30,7 @@ namespace R5T.F0020.Construction
 			//project.Modify(F0020.Instances.ProjectXmlOperations.EmptyToMinimal_Console_NET_5);
 			project.Modify(F0020.Instances.ProjectXmlOperations.EmptyToMinimal_Console_NET_6);
 
-			F0020.Instances.ProjectFileXmlOperator.Save(
+			F0020.Instances.ProjectFileXmlOperator.SaveProject(
 				Instances.ProjectFilePaths.Test,
 				project);
 		}
@@ -39,7 +39,7 @@ namespace R5T.F0020.Construction
 		{
 			var project = F0020.Instances.ProjectOperator.CreateNew();
 
-			F0020.Instances.ProjectFileXmlOperator.Save(
+			F0020.Instances.ProjectFileXmlOperator.SaveProject(
 				Instances.ProjectFilePaths.Test,
 				project);
 		}

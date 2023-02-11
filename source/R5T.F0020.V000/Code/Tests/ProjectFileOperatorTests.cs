@@ -14,19 +14,19 @@ namespace R5T.F0020.V000
         {
             // Copy an example project file to the output location.
             File.Copy(
-                Instances.ExampleFilePaths.ExampleConsole,
+                Instances.ExampleFilePaths.ExampleConsoleProject,
                 Instances.ProjectFilePaths.ForTestingOutput,
                 true);
 
             // Now add a project reference.
-            Instances.ProjectFileOperator.AddProjectReference_Synchronous(
+            Instances.ProjectFileOperator.AddProjectReference_Idempotent_Synchronous(
                 Instances.ProjectFilePaths.ForTestingOutput,
                 Instances.ProjectFilePaths.Z0008);
 
             // Now test equality.
             Instances.FileEqualityVerifier.VerifyFileByteLevelEquality(
                 Instances.ProjectFilePaths.ForTestingOutput,
-                Instances.ExampleFilePaths.ExampleConsole_WithF0020ProjectReference);
+                Instances.ExampleFilePaths.ExampleConsoleProject_WithZ0008ProjectReference);
         }
 
         [TestMethod]
