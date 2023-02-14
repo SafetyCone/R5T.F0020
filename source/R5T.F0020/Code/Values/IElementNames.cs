@@ -14,6 +14,7 @@ namespace R5T.F0020
 		public string COMReference => "COMReference";
 		public string Copyright => "Copyright";
 		public string Description => "Description";
+		public string FrameworkReference => "FrameworkReference";
 		public string GenerateDocumentationFile => "GenerateDocumentationFile";
 		public string ItemGroup => "ItemGroup";
 		public string NoWarn => "NoWarn";

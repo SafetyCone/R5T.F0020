@@ -24,7 +24,10 @@ namespace R5T.F0020
         /// <summary>
         /// The Blazor WebAssembly SDK. (Microsoft.NET.Sdk.BlazorWebAssembly)
         /// </summary>
-        public string BlazorWebAssembly => "Microsoft.NET.Sdk.BlazorWebAssembly";
+		public const string BlazorWebAssembly_Constant = "Microsoft.NET.Sdk.BlazorWebAssembly";
+
+		/// <inheritdoc cref="BlazorWebAssembly_Constant"/>
+        public string BlazorWebAssembly => IProjectSdkStrings.BlazorWebAssembly_Constant;
 
 		/// <summary>
 		/// The Razor SDK. (Microsoft.NET.Sdk.Razor)

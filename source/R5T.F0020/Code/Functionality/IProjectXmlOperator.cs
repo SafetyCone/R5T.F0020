@@ -471,7 +471,23 @@ namespace R5T.F0020
             return hasSupportedPlatform;
         }
 
-		public Dictionary<PackageReference, WasFound<XElement>> HasPackageReferenceElements(
+        public bool HasFrameworkReference(XElement projectElement,
+            string frameworkName)
+        {
+            var hasFrameworkReferencesItemGroup = this.HasFrameworkReferencesItemGroup(projectElement);
+            if (!hasFrameworkReferencesItemGroup)
+            {
+                return WasFound.NotFound<XElement>();
+            }
+
+            var output = this.HasFrameworkReferenceElement_ForFrameworkReferencesItemGroup(
+                hasFrameworkReferencesItemGroup.Result,
+                frameworkName);
+
+            return output.Exists;
+        }
+
+        public Dictionary<PackageReference, WasFound<XElement>> HasPackageReferenceElements(
 			XElement projectElement,
 			IEnumerable<PackageReference> packageReferences)
 		{
@@ -512,7 +528,6 @@ namespace R5T.F0020
 
             return output;
         }
-
 
         public WasFound<XElement> HasPackageReferenceElement(XElement projectElement,
 			string packageIdentity,
@@ -578,6 +593,21 @@ namespace R5T.F0020
 		{
             var elementOrDefault = supportedPlatformItemGroup.Elements()
                 .WhereNameIs(Instances.ElementNames.SupportedPlatform)
+                .SingleOrDefault()
+                ;
+
+            var output = WasFound.From(elementOrDefault);
+            return output;
+        }
+
+        public WasFound<XElement> HasFrameworkReferenceElement_ForFrameworkReferencesItemGroup(XElement frameworkReferencesItemGroup,
+            string frameworkName)
+        {
+            var elementOrDefault = frameworkReferencesItemGroup.Elements()
+                .WhereNameIs(Instances.ElementNames.FrameworkReference)
+                .Where(element => this.IncludeAttributeValueIs(
+                    element,
+                    frameworkName))
                 .SingleOrDefault()
                 ;
 
@@ -653,6 +683,16 @@ namespace R5T.F0020
             var wasFound = projectElement.HasChildWithChild_Single(
                 Instances.ElementNames.ItemGroup,
                 Instances.ElementNames.SupportedPlatform);
+
+            return wasFound;
+        }
+
+        public WasFound<XElement> HasFrameworkReferencesItemGroup(XElement projectElement)
+        {
+            // Assume just one package item group.
+            var wasFound = projectElement.HasChildWithChild_Single(
+                Instances.ElementNames.ItemGroup,
+                Instances.ElementNames.FrameworkReference);
 
             return wasFound;
         }

@@ -246,6 +246,17 @@ namespace R5T.F0020
             return output;
         }
 
+        public string GetSdk(string projectFilePath)
+        {
+            var hasSdk = this.HasSdk(projectFilePath);
+            if (!hasSdk)
+            {
+                throw new Exception("No SDK element found in project.");
+            }
+
+            return hasSdk;
+        }
+
         public string GetTargetFramework(string projectFilePath)
         {
             var hasTargetFramework = this.HasTargetFramework(projectFilePath);
@@ -276,6 +287,18 @@ namespace R5T.F0020
                 });
 
             return hasDefaultNamespace;
+        }
+
+        public WasFound<string> HasSdk(string projectFilePath)
+        {
+            var hasSdk = this.InQueryProjectFileContext_Synchronous(projectFilePath,
+                projectElement =>
+                {
+                    var hasSdk = Instances.ProjectXmlOperator.HasSdk(projectElement);
+                    return hasSdk;
+                });
+
+            return hasSdk;
         }
 
         public WasFound<string> HasTargetFramework(string projectFilePath)
@@ -398,6 +421,17 @@ namespace R5T.F0020
 
             var output = projectElementFunction(projectElement);
             return output;
+        }
+
+        public void InReadonlyProjectFileContext_Synchronous(
+            string projectFilePath,
+            Action<XElement> projectElementAction)
+        {
+            var projectDocument = Instances.ProjectFileXmlOperator.LoadProjectDocument_Synchronous(projectFilePath);
+
+            var projectElement = Instances.ProjectFileXPathOperator.GetProjectElement(projectDocument);
+
+            projectElementAction(projectElement);
         }
 
         /// <summary>
