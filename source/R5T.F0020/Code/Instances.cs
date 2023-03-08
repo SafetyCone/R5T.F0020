@@ -19,6 +19,7 @@ namespace R5T.F0020
         public static N000.IProjectFileXPathOperator ProjectFileXPathOperator => N000.ProjectFileXPathOperator.Instance;
         public static IProjectOperator ProjectOperator => F0020.ProjectOperator.Instance;
         public static F0040.F000.IProjectPathsOperator ProjectPathsOperator => F0040.F000.ProjectPathsOperator.Instance;
+        public static IProjectSdkStringOperations ProjectSdkStringOperations => F0020.ProjectSdkStringOperations.Instance;
         public static IProjectSdkStrings ProjectSdkStrings => F0020.ProjectSdkStrings.Instance;
         public static IProjectXmlOperations ProjectXmlOperations => F0020.ProjectXmlOperations.Instance;
         public static IProjectXmlOperator ProjectXmlOperator => F0020.ProjectXmlOperator.Instance;

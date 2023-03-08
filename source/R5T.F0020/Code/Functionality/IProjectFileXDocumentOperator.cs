@@ -39,12 +39,25 @@ namespace R5T.F0020
             return output;
         }
 
-        public bool IsLibraryProject(XDocument projectXDocument)
+        public bool IsLibraryProject(XDocument projectDocument)
         {
+            var projectElement = Instances.ProjectFileXmlOperator.GetProjectElement(projectDocument);
+
             // If project does *not* have an output type element, then it is a class library.
-            var hasOutputTypeElement = Instances.ProjectFileXPathOperator.HasOutputTypeElement(projectXDocument);
+            var hasOutputTypeElement = Instances.ProjectFileXPathOperator.HasOutputTypeElement(projectDocument);
             if (!hasOutputTypeElement)
             {
+                // Unless it is a Web SDK project.
+                var sdk = Instances.ProjectXmlOperator.GetSdk(projectElement);
+
+                var isWebSdk = Instances.ProjectSdkStringOperations.Is_WebSdk(sdk);
+
+                if(isWebSdk)
+                {
+                    return false;
+                }
+
+                // Else, return true.
                 return true;
             }
 
