@@ -26,7 +26,9 @@ namespace R5T.F0020
         public static Internal.IProjectXmlOperator ProjectXmlOperator_Internal => Internal.ProjectXmlOperator.Instance;
         public static IStrings Strings => F0020.Strings.Instance;
         public static ITargetFrameworkMonikerStrings TargetFrameworkMonikerStrings => F0020.TargetFrameworkMonikerStrings.Instance;
+#pragma warning disable CS0618 // Type or member is obsolete
         public static IWarnings Warnings => F0020.Warnings.Instance;
+#pragma warning restore CS0618 // Type or member is obsolete
         public static F0000.IWasFoundOperator WasFoundOperator => F0000.WasFoundOperator.Instance;
         public static IXDocumentRelativeXPaths XDocumentRelativeXPaths => F0020.XDocumentRelativeXPaths.Instance;
         public static F0000.IXElementOperator XElementOperator => F0000.XElementOperator.Instance;

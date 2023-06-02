@@ -75,13 +75,15 @@ namespace R5T.F0020
 		public void AddStandardFunctionality(XElement projectElement)
         {
 			Instances.ProjectXmlOperator.SetGenerateDocumentationFile(projectElement, true);
-			Instances.ProjectXmlOperator.SetDisabledWarnings(projectElement, new[]
+#pragma warning disable CS0618 // Type or member is obsolete
+            Instances.ProjectXmlOperator.SetDisabledWarnings(projectElement, new[]
 			{
 				Instances.Warnings.CS1573,
 				Instances.Warnings.CS1587,
 				Instances.Warnings.CS1591,
 			});
-		}
+#pragma warning restore CS0618 // Type or member is obsolete
+        }
 
 		public Action<XElement> EmptyToStandard(
 			string targetFrameworkMonikerString,

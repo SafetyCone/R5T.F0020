@@ -175,5 +175,15 @@ namespace R5T.F0020.N000
 
 			xDocument.Save(xmlWriter);
 		}
-	}
+
+        public Task SaveProjectFile(
+            string filePath,
+            XDocument xDocument)
+		{
+			return this.SaveProjectDocument(
+				filePath,
+				xDocument);
+		}
+
+    }
 }

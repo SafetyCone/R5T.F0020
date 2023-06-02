@@ -3,7 +3,8 @@ using System;
 
 namespace R5T.F0020
 {
-	public class Warnings : IWarnings
+    [Obsolete("See R5T.Z0048.")]
+    public class Warnings : IWarnings
 	{
 		#region Infrastructure
 

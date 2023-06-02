@@ -74,6 +74,43 @@ namespace R5T.F0020
                 xProjectFile);
         }
 
+        public void AddProjectReferences_Idempotent_Synchronous(
+           string projectFilePath,
+           params string[] projectReferenceFilePaths)
+        {
+            this.AddProjectReferences_Idempotent_Synchronous(
+                projectFilePath,
+                projectReferenceFilePaths.AsEnumerable());
+        }
+
+        public async Task AddProjectReferences_Idempotent(
+           string projectFilePath,
+           IEnumerable<string> projectReferenceFilePaths)
+        {
+            var xProjectFile = await Instances.ProjectFileXmlOperator.LoadProjectDocument(projectFilePath);
+
+            var projectDirectoryRelativeProjectReferenceFilePaths = Instances.ProjectPathsOperator.GetProjectDirectoryRelativePaths(
+                projectFilePath,
+                projectReferenceFilePaths);
+
+            Instances.ProjectFileXPathOperator.AddProjectReferences_Idempotent(
+                xProjectFile,
+                projectDirectoryRelativeProjectReferenceFilePaths.Values);
+
+            await Instances.ProjectFileXmlOperator.SaveProjectFile(
+                projectFilePath,
+                xProjectFile);
+        }
+
+        public Task AddProjectReferences_Idempotent(
+           string projectFilePath,
+           params string[] projectReferenceFilePaths)
+        {
+            return this.AddProjectReferences_Idempotent(
+                projectFilePath,
+                projectReferenceFilePaths.AsEnumerable());
+        }
+
         public async Task CreateProjectFile(
             string projectFilePath,
             Func<XElement> projectElementConstructor)
