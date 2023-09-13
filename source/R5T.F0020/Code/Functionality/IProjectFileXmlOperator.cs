@@ -102,7 +102,7 @@ namespace R5T.F0020.N000
 		public async Task<XDocument> LoadProjectDocument(
 			string projectFilePath)
 		{
-			using var fileStream = FileStreamOperator.Instance.NewRead(projectFilePath);
+			using var fileStream = FileStreamOperator.Instance.Open_Read(projectFilePath);
 
 			var projectXDocument = await this.LoadProjectDocument(fileStream);
 			return projectXDocument;
@@ -111,7 +111,7 @@ namespace R5T.F0020.N000
 		public XDocument LoadProjectDocument_Synchronous(
 			string projectFilePath)
 		{
-			using var fileStream = FileStreamOperator.Instance.NewRead(projectFilePath);
+			using var fileStream = FileStreamOperator.Instance.Open_Read(projectFilePath);
 
 			var projectXDocument = this.LoadProjectDocument_Synchronous(fileStream);
 			return projectXDocument;
@@ -152,7 +152,7 @@ namespace R5T.F0020.N000
 			string filePath,
 			XDocument xDocument)
 		{
-			using var outputFileStream = FileStreamOperator.Instance.NewWrite(filePath);
+			using var outputFileStream = FileStreamOperator.Instance.Open_Write(filePath);
 
 			using var xmlWriter = XmlWriterOperator.Instance.New(outputFileStream);
 
@@ -169,7 +169,7 @@ namespace R5T.F0020.N000
 				xDocument,
 				filePath);
 
-			using var outputFileStream = FileStreamOperator.Instance.NewWrite(filePath);
+			using var outputFileStream = FileStreamOperator.Instance.Open_Write(filePath);
 
 			using var xmlWriter = XmlWriterOperator.Instance.New(outputFileStream);
 
