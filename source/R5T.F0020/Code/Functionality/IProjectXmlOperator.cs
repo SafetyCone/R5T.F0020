@@ -429,7 +429,7 @@ namespace R5T.F0020
         {
             var projectElement = constructor();
 
-            ActionOperator.Instance.Run(
+            ActionOperator.Instance.Run_Actions(
                 projectElement,
                 modifiers);
 
