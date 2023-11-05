@@ -143,7 +143,7 @@ namespace R5T.F0020
 			// Ensure the directory exists.
 			var directoryPath = Instances.PathOperator.GetParentDirectoryPath(filePath);
 			
-			Instances.FileSystemOperator.CreateDirectory_OkIfAlreadyExists(directoryPath);
+			Instances.FileSystemOperator.Create_Directory_OkIfAlreadyExists(directoryPath);
 
 			// Trim text.
 			var outputText = text.Trim();
