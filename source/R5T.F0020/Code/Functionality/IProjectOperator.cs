@@ -51,7 +51,7 @@ namespace R5T.F0020
 		/// </summary>
 		public Version GetDefaultVersion()
 		{
-			var output = F0000.Instances.Versions._1_0_0;
+			var output = F0000.Instances.Versions._Raw._1_0_0;
 			return output;
 		}
 

@@ -12,31 +12,19 @@ namespace R5T.F0020.Internal
 	public partial interface IProjectXmlOperator
 	{
 		public XElement AcquirePropertyGroupWithChildElement(XElement projectElement,
-			string propertyGroupChildElementName)
+			string propertyGroupIdentifyingChildElementName)
 		{
-			// Use the same child name to identify the property group.
-			var childElement = this.AcquirePropertyGroupWithChildElement(projectElement,
-				propertyGroupChildElementName,
-				propertyGroupChildElementName);
+            var propertyGroupWithChildWasFound = this.HasPropertyGroupWithChildElement(
+                projectElement,
+                propertyGroupIdentifyingChildElementName);
 
-			return childElement;
-		}
+            var propertyGroup = propertyGroupWithChildWasFound
+                ? propertyGroupWithChildWasFound.Result
+                : Instances.ProjectXmlOperator.AddPropertyGroup(projectElement)
+                ;
 
-		public XElement AcquirePropertyGroupWithChildElement(XElement projectElement,
-			string propertyGroupIdentifyingChildElementName,
-			string propertyGroupChildElementName)
-		{
-			var propertyGroupWithChildWasFound = this.HasPropertyGroupWithChildElement(
-				projectElement,
-				propertyGroupIdentifyingChildElementName);
-
-			var propertyGroup = propertyGroupWithChildWasFound
-				? propertyGroupWithChildWasFound.Result
-				: Instances.ProjectXmlOperator.AddPropertyGroup(projectElement)
-				;
-
-			return propertyGroup;
-		}
+            return propertyGroup;
+        }
 
 		public XElement AcquirePropertyGroupChildElement(XElement projectElement,
 			string propertyGroupChildElementName)
