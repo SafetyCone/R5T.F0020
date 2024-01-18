@@ -1,5 +1,4 @@
 using System;
-using System.Data.SqlTypes;
 using System.Xml.Linq;
 
 using R5T.T0132;
@@ -92,13 +91,13 @@ namespace R5T.F0020
 
 		public XElement CreatePropertyGroup()
 		{
-			var itemGroup = Instances.XElementOperator.Create_Element(Instances.ElementNames.PropertyGroup);
+			var itemGroup = Instances.XElementOperator.Create_Element_FromName(Instances.ElementNames.PropertyGroup);
 			return itemGroup;
 		}
 
 		public XElement CreateOutputType()
 		{
-			var itemGroup = Instances.XElementOperator.Create_Element(Instances.ElementNames.OutputType);
+			var itemGroup = Instances.XElementOperator.Create_Element_FromName(Instances.ElementNames.OutputType);
 			return itemGroup;
 		}
 
