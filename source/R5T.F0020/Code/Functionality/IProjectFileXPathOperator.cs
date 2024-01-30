@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
+using R5T.L0089.T000;
 using R5T.T0132;
-using R5T.T0221;
 
 
 namespace R5T.F0020.N000
@@ -56,7 +56,7 @@ namespace R5T.F0020.N000
 
             foreach (var pair in hasReferences)
             {
-				if(pair.Value.NotFound())
+				if(pair.Value.Is_NotFound())
                 {
 					var projectDirectoryRelativeProjectFilePath = pair.Key;
 

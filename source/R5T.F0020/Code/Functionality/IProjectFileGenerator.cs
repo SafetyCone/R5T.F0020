@@ -141,7 +141,7 @@ namespace R5T.F0020
 			string text)
 		{
 			// Ensure the directory exists.
-			var directoryPath = Instances.PathOperator.GetParentDirectoryPath(filePath);
+			var directoryPath = Instances.PathOperator.Get_ParentDirectoryPath_ForFile(filePath);
 			
 			Instances.FileSystemOperator.Create_Directory_OkIfAlreadyExists(directoryPath);
 

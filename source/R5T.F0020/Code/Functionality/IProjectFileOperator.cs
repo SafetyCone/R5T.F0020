@@ -6,8 +6,8 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 
 using R5T.F0000;
+using R5T.L0089.T000;
 using R5T.T0132;
-using R5T.T0221;
 
 
 namespace R5T.F0020
@@ -207,7 +207,7 @@ namespace R5T.F0020
                 {
                     var unresolvedPath = projectDirectoryPath + relativeFilePath;
 
-                    var resolvedPath = Instances.PathOperator.ResolvePath(unresolvedPath);
+                    var resolvedPath = Instances.PathOperator.Resolve_Path(unresolvedPath);
                     return resolvedPath;
                 })
                 .ToArray();
@@ -235,7 +235,7 @@ namespace R5T.F0020
                 {
                     var unresolvedPath = projectDirectoryPath + relativeFilePath;
 
-                    var resolvedPath = Instances.PathOperator.ResolvePath(unresolvedPath);
+                    var resolvedPath = Instances.PathOperator.Resolve_Path(unresolvedPath);
                     return resolvedPath;
                 })
                 .ToArray();
@@ -266,7 +266,7 @@ namespace R5T.F0020
         {
             var hasDefaultNamespace = this.HasDefaultNamespace(projectFilePath);
 
-            var defaultNamespace = hasDefaultNamespace.ResultOrIfNotFound(
+            var defaultNamespace = hasDefaultNamespace.Get_Result_OrIfNotFound(
                 F0040.F000.ProjectNamespacesOperator.Instance.GetDefaultNamespaceName(projectFilePath));
 
             return defaultNamespace;
@@ -361,7 +361,7 @@ namespace R5T.F0020
         {
             var hasVersion = this.HasVersion(projectFilePath);
 
-            var output = hasVersion.ResultOrIfNotFound(
+            var output = hasVersion.Get_Result_OrIfNotFound(
                 () => Instances.ProjectOperator.GetDefaultVersion());
 
             return output;

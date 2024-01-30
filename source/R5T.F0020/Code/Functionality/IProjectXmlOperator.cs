@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 using R5T.F0000;
+using R5T.L0089.T000;
 using R5T.T0132;
 using R5T.T0152.N001;
-using R5T.T0221;
 
 using R5T.F0020.Extensions;
 
@@ -187,7 +187,7 @@ namespace R5T.F0020
 
             foreach (var pair in hasReferences)
             {
-                if (pair.Value.NotFound())
+                if (pair.Value.Is_NotFound())
                 {
                     var projectDirectoryRelativeProjectFilePath = pair.Key;
 
@@ -292,7 +292,7 @@ namespace R5T.F0020
 
 			foreach (var pair in hasPackageReferenceByPackageReference)
 			{
-				if (pair.Value.NotFound())
+				if (pair.Value.Is_NotFound())
 				{
 					var packageReference = pair.Key;
 
@@ -1053,7 +1053,7 @@ namespace R5T.F0020
 		{
 			var hasSdk = this.HasSdk(projectElement);
 
-			var sdk = Instances.WasFoundOperator.ResultOrExceptionIfNotFound(
+			var sdk = Instances.WasFoundOperator.Get_Result_OrExceptionIfNotFound(
 				hasSdk,
 				"SDK attribute not found.");
 
@@ -1197,7 +1197,7 @@ namespace R5T.F0020
         {
             var hasIncludeAttribute = this.HasIncludeAttribute(includeAttributedElement);
 
-            hasIncludeAttribute.ExceptionIfNotFound("Include attribute not found.");
+            hasIncludeAttribute.Throw_ExceptionIfNotFound("Include attribute not found.");
 
 			var includeAttribute = hasIncludeAttribute.Result;
 			return includeAttribute;

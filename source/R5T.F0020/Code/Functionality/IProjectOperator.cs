@@ -57,7 +57,7 @@ namespace R5T.F0020
 
 		public string GetProjectName(string projectFilePath)
         {
-			var projectName = Instances.PathOperator.GetFileNameStem(projectFilePath);
+			var projectName = Instances.PathOperator.Get_FileNameStem(projectFilePath);
 			return projectName;
         }
 
