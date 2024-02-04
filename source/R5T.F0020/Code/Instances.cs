@@ -7,10 +7,10 @@ namespace R5T.F0020
     {
         public static IBooleanOperator BooleanOperator => F0020.BooleanOperator.Instance;
         public static IElementNames ElementNames => F0020.ElementNames.Instance;
-        public static F0002.IEnumerationHelper EnumerationHelper => F0002.EnumerationHelper.Instance;
+        public static L0066.IEnumerationOperator EnumerationHelper => L0066.EnumerationOperator.Instance;
         public static F0000.IFileSystemOperator FileSystemOperator => F0000.FileSystemOperator.Instance;
         public static IOutputTypeStrings OutputTypeStrings => F0020.OutputTypeStrings.Instance;
-        public static F0002.IPathOperator PathOperator => F0002.PathOperator.Instance;
+        public static L0066.IPathOperator PathOperator => L0066.PathOperator.Instance;
         public static IProjectElementRelativeXPaths ProjectElementRelativeXPaths => F0020.ProjectElementRelativeXPaths.Instance;
         public static IProjectFileGenerator ProjectFileGenerator => F0020.ProjectFileGenerator.Instance;
         public static IProjectFileOperator ProjectFileOperator => F0020.ProjectFileOperator.Instance;
@@ -34,6 +34,6 @@ namespace R5T.F0020
         public static F0000.IXElementOperator XElementOperator => F0000.XElementOperator.Instance;
         public static IXElementGenerator XElementGenerator => F0020.XElementGenerator.Instance;
         public static F0000.IXmlFileOperator XmlFileOperator => F0000.XmlFileOperator.Instance;
-        public static F0002.IXmlOperator XmlOperator => F0002.XmlOperator.Instance;
+        public static L0066.IXmlOperator XmlOperator => L0066.XmlOperator.Instance;
     }
 }

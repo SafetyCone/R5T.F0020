@@ -267,7 +267,7 @@ namespace R5T.F0020
             var hasDefaultNamespace = this.HasDefaultNamespace(projectFilePath);
 
             var defaultNamespace = hasDefaultNamespace.Get_Result_OrIfNotFound(
-                F0040.F000.ProjectNamespacesOperator.Instance.GetDefaultNamespaceName(projectFilePath));
+                F0040.F000.ProjectNamespacesOperator.Instance.Get_DefaultNamespaceName(projectFilePath));
 
             return defaultNamespace;
         }
@@ -487,7 +487,7 @@ namespace R5T.F0020
         public bool IsProjectFile(string possibleProjectFilePath)
         {
             // File exists?
-            Instances.FileSystemOperator.VerifyFileExists(possibleProjectFilePath);
+            Instances.FileSystemOperator.Verify_File_Exists(possibleProjectFilePath);
 
             // Is the file an XML file?
             var isXml = Instances.XmlFileOperator.IsXmlFile(
@@ -499,7 +499,7 @@ namespace R5T.F0020
             }
 
             // Does the XML file have a root Project element?
-            var xmlDocument = Instances.XmlOperator.Load(possibleProjectFilePath);
+            var xmlDocument = Instances.XmlOperator.Load_XDocument_Synchronous(possibleProjectFilePath);
 
             var hasProjectElement = Instances.ProjectFileXmlOperator.HasProjectElement(xmlDocument);
             if(!hasProjectElement)

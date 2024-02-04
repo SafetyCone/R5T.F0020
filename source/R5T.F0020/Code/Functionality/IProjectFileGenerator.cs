@@ -52,7 +52,7 @@ namespace R5T.F0020
 					break;
 
 				default:
-					throw Instances.EnumerationHelper.UnexpectedEnumerationValueException(projectType);
+					throw Instances.EnumerationHelper.Get_UnexpectedEnumerationValueException(projectType);
 			}
         }
 
