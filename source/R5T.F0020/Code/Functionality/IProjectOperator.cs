@@ -55,6 +55,9 @@ namespace R5T.F0020
 			return output;
 		}
 
+		/// <summary>
+		/// Gets the project name from the path of the project only (does not examine project file contents, so does not require the project file to exist).
+		/// </summary>
 		public string GetProjectName(string projectFilePath)
         {
 			var projectName = Instances.PathOperator.Get_FileNameStem(projectFilePath);

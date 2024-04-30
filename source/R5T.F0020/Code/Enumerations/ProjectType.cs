@@ -1,8 +1,11 @@
 ﻿using System;
 
+using R5T.T0142;
+
 
 namespace R5T.F0020
 {
+    [DataTypeMarker]
     public enum ProjectType
     {
         /// <summary>

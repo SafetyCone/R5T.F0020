@@ -348,6 +348,7 @@ namespace R5T.F0020
             return hasTargetFramework;
         }
 
+        /// <inheritdoc cref="IProjectOperator.GetProjectName(string)"/>
         public string GetProjectName(string projectFilePath)
         {
             var projectName = Instances.ProjectOperator.GetProjectName(projectFilePath);
