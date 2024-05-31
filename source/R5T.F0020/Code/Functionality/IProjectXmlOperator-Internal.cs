@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using System.Xml.Linq;
-
+using R5T.Extensions;
 using R5T.L0089.T000;
 using R5T.T0132;
 
@@ -39,8 +39,8 @@ namespace R5T.F0020.Internal
 
 		public XElement AcquireFirstPropertyGroup(XElement projectElement)
 		{
-			var firstPropertyGroupOrDefault = projectElement.Children()
-				.WhereNameIs(ElementNames.Instance.PropertyGroup)
+			var firstPropertyGroupOrDefault = projectElement.Enumerate_Children()
+				.Where_NameIs(ElementNames.Instance.PropertyGroup)
 				.FirstOrDefault();
 
 			var firstPropertyGroupWasFound = firstPropertyGroupOrDefault != default;
@@ -69,14 +69,20 @@ namespace R5T.F0020.Internal
 				: this.AcquireFirstPropertyGroup(projectElement)
 				;
 
-			var childWasFound = propertyGroup.HasChild(propertyGroupChildElementName);
+			var childWasFound = propertyGroup.HasChild(
+				propertyGroupChildElementName,
+				out var childElement);
+
 			if (!childWasFound)
 			{
-				var childElement = Instances.XElementOperator.AddChild(propertyGroup, propertyGroupChildElementName);
+				childElement = Instances.XElementOperator.Add_Child(
+					propertyGroup,
+					propertyGroupChildElementName);
+
 				return childElement;
 			}
 
-			return childWasFound.Result;
+			return childElement;
 		}
 
 		public WasFound<XElement> HasPropertyGroupChildElement(XElement projectElement,
@@ -94,8 +100,15 @@ namespace R5T.F0020.Internal
 
 			var propertyGroup = propertyGroupWithChildWasFound.Result;
 
-			var child = propertyGroup.HasChild(propertyGroupChildElementName);
-			return child;
+			var exists = propertyGroup.HasChild(
+				propertyGroupChildElementName,
+				out var child);
+
+			var output = WasFound.From(
+				exists,
+				child);
+
+			return output;
 		}
 
 		public WasFound<XElement> HasPropertyGroupChildElement(XElement projectElement,
@@ -142,12 +155,17 @@ namespace R5T.F0020.Internal
 		public WasFound<XElement> HasPropertyGroupWithChildElement(XElement projectElement, string propertyGroupChildElementName)
 		{
 			// Assume just one property group with the element name.
-			var wasFound = Instances.XElementOperator.HasChildWithChild_Single(
+			var exists = Instances.XElementOperator.HasChildWithChild_Single(
 				projectElement,
 				Instances.ElementNames.PropertyGroup,
-				propertyGroupChildElementName);
+				propertyGroupChildElementName,
+				out var grandChildOrDefault);
 
-			return wasFound;
+			var output = WasFound.From(
+				exists,
+				grandChildOrDefault);
+
+			return output;
 		}
 
 		/// <summary>

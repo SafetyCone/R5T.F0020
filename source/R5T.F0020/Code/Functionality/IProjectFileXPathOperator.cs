@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 
+using R5T.Extensions;
 using R5T.L0089.T000;
 using R5T.T0132;
 
@@ -117,11 +119,16 @@ namespace R5T.F0020.N000
 
 		public WasFound<XElement> HasOutputTypeElement(XDocument projectXDocument)
         {
-			var wasFound = projectXDocument.Root.HasChildOfChild_Single(
+			var exists = projectXDocument.Root.HasChildOfChild_Single(
 				Instances.ElementNames.PropertyGroup,
-				Instances.ElementNames.OutputType);
+				Instances.ElementNames.OutputType,
+				out var grandChildOrChild);
 
-			return wasFound;
+			var output = WasFound.From(
+				exists,
+				grandChildOrChild);
+
+			return output;
 		}
 
 		public WasFound<XElement> HasProjectReferenceElement(XDocument projectXDocument,
@@ -175,11 +182,16 @@ namespace R5T.F0020.N000
 
 		public WasFound<XElement> HasVersionElement(XDocument projectXDocument)
 		{
-			var wasFound = projectXDocument.Root.HasChildOfChild_Single(
+			var exists = projectXDocument.Root.HasChildOfChild_Single(
 				Instances.ElementNames.PropertyGroup,
-				Instances.ElementNames.Version);
+				Instances.ElementNames.Version,
+				out var grandChildOrChild);
 
-			return wasFound;
+			var output = WasFound.From(
+				exists,
+				grandChildOrChild);
+
+			return output;
 		}
 
 		public void RemoveProjectReference(XDocument projectXDocument,

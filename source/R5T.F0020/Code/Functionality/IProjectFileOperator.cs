@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-using R5T.F0000;
 using R5T.L0089.T000;
 using R5T.T0132;
 
@@ -182,7 +181,7 @@ namespace R5T.F0020
         {
             await this.CreateProjectFile(
                 projectFilePath,
-                ConstructionOperations.Instance.New(
+                Instances.ConstructionOperator.Get_New(
                     projectElementConstructor,
                     modifiers));
         }
@@ -292,6 +291,17 @@ namespace R5T.F0020
             return hasSdk;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        // TODO: this *should* be an asynchronous operation since it accesses the file-system.
+        public Task<string> Get_TargetFrameworkMoniker(string projectFilePath)
+        {
+            var output = this.GetTargetFramework(projectFilePath);
+
+            return Task.FromResult(output);
+        }
+
         public string GetTargetFramework(string projectFilePath)
         {
             var hasTargetFramework = this.HasTargetFramework(projectFilePath);
@@ -305,8 +315,9 @@ namespace R5T.F0020
 
         public bool HasAnyCOMReferences(string projectFilePath)
         {
-            var hasAnyCOMReferences = this.InQueryProjectFileContext_Synchronous(projectFilePath,
-                projectElement => Instances.ProjectXmlOperator.HasAnyCOMReferences(projectElement));
+            var hasAnyCOMReferences = this.InQueryProjectFileContext_Synchronous(
+                projectFilePath,
+                Instances.ProjectXmlOperator.HasAnyCOMReferences);
 
             return hasAnyCOMReferences;
         }
@@ -547,7 +558,7 @@ namespace R5T.F0020
         {
             this.RemoveProjectReferences_Synchronous(
                 projectFilePath,
-                EnumerableOperator.Instance.From(projectReferenceFilePath));
+                Instances.EnumerableOperator.From(projectReferenceFilePath));
         }
 
         public void RemoveProjectReferences_Synchronous(

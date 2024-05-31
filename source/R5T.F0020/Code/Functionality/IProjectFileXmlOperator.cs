@@ -1,10 +1,11 @@
 using System;
 using System.IO;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-using R5T.F0000;
+using R5T.Extensions;
 using R5T.L0089.T000;
 using R5T.T0132;
 
@@ -26,7 +27,7 @@ namespace R5T.F0020.N000
 
 		public WasFound<XElement> HasProjectElement(XDocument projectDocument)
 		{
-			var wasFound = projectDocument.HasElement(xDocument =>
+			var exists = projectDocument.HasElement(xDocument =>
 			{
 				var rootElementIsProject = xDocument.Root?.Name.LocalName == "Project";
 
@@ -36,9 +37,14 @@ namespace R5T.F0020.N000
 					;
 
 				return output;
-			});
+			},
+			out var element);
 
-			return wasFound;
+			var output = WasFound.From(
+				exists,
+				element);
+
+			return output;
 		}
 
 		public async Task<TOutput> InProjectFileXDocumentContext<TOutput>(
@@ -103,7 +109,7 @@ namespace R5T.F0020.N000
 		public async Task<XDocument> LoadProjectDocument(
 			string projectFilePath)
 		{
-			using var fileStream = FileStreamOperator.Instance.Open_Read(projectFilePath);
+			using var fileStream = Instances.FileStreamOperator.Open_Read(projectFilePath);
 
 			var projectXDocument = await this.LoadProjectDocument(fileStream);
 			return projectXDocument;
@@ -112,7 +118,7 @@ namespace R5T.F0020.N000
 		public XDocument LoadProjectDocument_Synchronous(
 			string projectFilePath)
 		{
-			using var fileStream = FileStreamOperator.Instance.Open_Read(projectFilePath);
+			using var fileStream = Instances.FileStreamOperator.Open_Read(projectFilePath);
 
 			var projectXDocument = this.LoadProjectDocument_Synchronous(fileStream);
 			return projectXDocument;
@@ -153,9 +159,9 @@ namespace R5T.F0020.N000
 			string filePath,
 			XDocument xDocument)
 		{
-			using var outputFileStream = FileStreamOperator.Instance.Open_Write(filePath);
+			using var outputFileStream = Instances.FileStreamOperator.Open_Write(filePath);
 
-			using var xmlWriter = XmlWriterOperator.Instance.New(outputFileStream);
+			using var xmlWriter = Instances.XmlWriterOperator.New(outputFileStream);
 
 			await xDocument.SaveAsync(
 				xmlWriter,
@@ -166,13 +172,13 @@ namespace R5T.F0020.N000
 			string filePath,
 			XDocument xDocument)
 		{
-			XmlOperator.Instance.Write(
+			Instances.XmlOperator.Write(
 				xDocument,
 				filePath);
 
-			using var outputFileStream = FileStreamOperator.Instance.Open_Write(filePath);
+			using var outputFileStream = Instances.FileStreamOperator.Open_Write(filePath);
 
-			using var xmlWriter = XmlWriterOperator.Instance.New(outputFileStream);
+			using var xmlWriter = Instances.XmlWriterOperator.New(outputFileStream);
 
 			xDocument.Save(xmlWriter);
 		}

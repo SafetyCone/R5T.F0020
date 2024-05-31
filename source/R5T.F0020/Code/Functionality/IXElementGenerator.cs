@@ -25,7 +25,7 @@ namespace R5T.F0020
 			if(!selfClosing)
             {
 				// Adding an empty string of content will make the *not* self-closing.
-				project.SetValue(Z0000.Instances.Strings.Empty);
+				project.SetValue(Instances.Strings.Empty);
             }
 
 			var sdkAttribute = this.NewSdkAttribute(sdkString);

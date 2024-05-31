@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-using R5T.F0000;
+using R5T.Extensions;
 using R5T.L0089.T000;
 using R5T.T0132;
 using R5T.T0152.N001;
@@ -104,14 +104,20 @@ namespace R5T.F0020
 		{
 			var targetFrameworkPropertyGroup = this.AcquireTargetFrameworkPropertyGroup(projectElement);
 
-			var childWasFound = targetFrameworkPropertyGroup.HasChild(targetFrameworkPropertyGroupChildElementName);
+			var childWasFound = targetFrameworkPropertyGroup.HasChild(
+				targetFrameworkPropertyGroupChildElementName,
+				out var childElement);
+
 			if (!childWasFound)
 			{
-				var childElement = Instances.XElementOperator.AddChild(targetFrameworkPropertyGroup, targetFrameworkPropertyGroupChildElementName);
+				childElement = Instances.XElementOperator.Add_Child(
+					targetFrameworkPropertyGroup,
+					targetFrameworkPropertyGroupChildElementName);
+
 				return childElement;
 			}
 
-			return childWasFound.Result;
+			return childElement;
 		}
 
 		public XElement AddItemGroup(XElement projectElement)
@@ -221,7 +227,7 @@ namespace R5T.F0020
 			string packageIdentity,
 			Version version)
         {
-			var versionString = VersionOperator.Instance.ToString_Major_Minor_Build(version);
+			var versionString = Instances.VersionOperator.ToString_Major_Minor_Build(version);
 
 			this.AddPackageReference_Idempotent(
 				projectElement,
@@ -380,7 +386,7 @@ namespace R5T.F0020
         public XElement CreateProjectElement(
             IEnumerable<Action<XElement>> modifiers)
         {
-            var projectElement = ConstructionOperator.Instance.Create(
+            var projectElement = Instances.ConstructionOperator.Create(
                 ProjectXmlOperations.Instance.NewProjectElement,
                 modifiers);
 
@@ -393,7 +399,7 @@ namespace R5T.F0020
         {
 			var projectElement = await constructor();
 
-			await ActionOperator.Instance.Run(
+			await Instances.ActionOperator.Run(
 				projectElement,
 				modifiers);
 
@@ -406,7 +412,7 @@ namespace R5T.F0020
         {
             var projectElement = constructor();
 
-            await ActionOperator.Instance.Run(
+            await Instances.ActionOperator.Run(
                 projectElement,
                 modifiers);
 
@@ -430,7 +436,7 @@ namespace R5T.F0020
         {
             var projectElement = constructor();
 
-            ActionOperator.Instance.Run_Actions(
+            Instances.ActionOperator.Run_Actions(
                 projectElement,
                 modifiers);
 
@@ -439,14 +445,14 @@ namespace R5T.F0020
 
         public string GetAuthorsTokenSeparator()
         {
-			var tokenSeparator = Z0000.Instances.Strings.Comma;
+			var tokenSeparator = Instances.Strings.Comma;
 			return tokenSeparator;
         }
 
 		public IEnumerable<XElement> GetItemGroups(XElement projectElement)
         {
-			var output = projectElement.Children()
-				.WhereNameIs(Instances.ElementNames.ItemGroup)
+			var output = projectElement.Enumerate_Children()
+				.Where_NameIs(Instances.ElementNames.ItemGroup)
 				;
 
 			return output;
@@ -454,7 +460,7 @@ namespace R5T.F0020
 
 		public string GetPackageTagsTokenSeparator()
         {
-			var tokenSeparator = Z0000.Instances.Strings.Semicolon;
+			var tokenSeparator = Instances.Strings.Semicolon;
 			return tokenSeparator;
         }
 
@@ -593,7 +599,7 @@ namespace R5T.F0020
 		public WasFound<XElement> HasSupportedPlatform_ForSupportedPlatformItemGroup(XElement supportedPlatformItemGroup)
 		{
             var elementOrDefault = supportedPlatformItemGroup.Elements()
-                .WhereNameIs(Instances.ElementNames.SupportedPlatform)
+                .Where_NameIs(Instances.ElementNames.SupportedPlatform)
                 .SingleOrDefault()
                 ;
 
@@ -605,7 +611,7 @@ namespace R5T.F0020
             string frameworkName)
         {
             var elementOrDefault = frameworkReferencesItemGroup.Elements()
-                .WhereNameIs(Instances.ElementNames.FrameworkReference)
+                .Where_NameIs(Instances.ElementNames.FrameworkReference)
                 .Where(element => this.IncludeAttributeValueIs(
                     element,
                     frameworkName))
@@ -620,7 +626,7 @@ namespace R5T.F0020
             string packageIdentity)
         {
             var elementOrDefault = packageReferencesItemGroup.Elements()
-                .WhereNameIs(Instances.ElementNames.PackageReference)
+                .Where_NameIs(Instances.ElementNames.PackageReference)
                 .Where(element => this.IsPackageReferenceTo(
                     element,
                     packageIdentity))
@@ -636,7 +642,7 @@ namespace R5T.F0020
 			string version)
         {
 			var elementOrDefault = packageReferencesItemGroup.Elements()
-				.WhereNameIs(Instances.ElementNames.PackageReference)
+				.Where_NameIs(Instances.ElementNames.PackageReference)
 				.Where(element => this.IsPackageReferenceTo(
 					element,
 					packageIdentity,
@@ -652,7 +658,7 @@ namespace R5T.F0020
 			PackageReference packageReference)
 		{
 			var elementOrDefault = packageReferencesItemGroup.Elements()
-				.WhereNameIs(Instances.ElementNames.PackageReference)
+				.Where_NameIs(Instances.ElementNames.PackageReference)
 				.Where(element => this.IsPackageReferenceTo(
 					element,
 					packageReference))
@@ -667,7 +673,7 @@ namespace R5T.F0020
 			string projectDirectoryRelativeProjectFilePath)
 		{
 			var elementOrDefault = projectReferencesItemGroup.Elements()
-				.WhereNameIs(Instances.ElementNames.ProjectReference)
+				.Where_NameIs(Instances.ElementNames.ProjectReference)
 				.Where(element => this.IsProjectReferenceTo(
 					element,
 					projectDirectoryRelativeProjectFilePath))
@@ -681,58 +687,83 @@ namespace R5T.F0020
         public WasFound<XElement> HasSupportedPlatformItemGroup(XElement projectElement)
         {
             // Assume just one package item group.
-            var wasFound = projectElement.HasChildWithChild_Single(
+            var exists = projectElement.HasChildWithChild_Single(
                 Instances.ElementNames.ItemGroup,
-                Instances.ElementNames.SupportedPlatform);
+                Instances.ElementNames.SupportedPlatform,
+				out var result);
 
-            return wasFound;
+			var output = WasFound.From(
+				exists,
+				result);
+
+			return output;
         }
 
         public WasFound<XElement> HasFrameworkReferencesItemGroup(XElement projectElement)
         {
             // Assume just one package item group.
-            var wasFound = projectElement.HasChildWithChild_Single(
+            var exists = projectElement.HasChildWithChild_Single(
                 Instances.ElementNames.ItemGroup,
-                Instances.ElementNames.FrameworkReference);
+                Instances.ElementNames.FrameworkReference,
+                out var result);
 
-            return wasFound;
+            var output = WasFound.From(
+                exists,
+                result);
+
+            return output;
         }
 
         public WasFound<XElement> HasPackageReferencesItemGroup(XElement projectElement)
         {
 			// Assume just one package item group.
-			var wasFound = projectElement.HasChildWithChild_Single(
+			var exists = projectElement.HasChildWithChild_Single(
 				Instances.ElementNames.ItemGroup,
-				Instances.ElementNames.PackageReference);
+				Instances.ElementNames.PackageReference,
+                out var result);
 
-			return wasFound;
-		}
+            var output = WasFound.From(
+                exists,
+                result);
+
+            return output;
+        }
 
 		public WasFound<XElement> HasProjectReferencesItemGroup(XElement projectElement)
 		{
 			// Assume just one project references item group.
-			var wasFound = projectElement.HasChildWithChild_Single(
+			var exists = projectElement.HasChildWithChild_Single(
 				Instances.ElementNames.ItemGroup,
-				Instances.ElementNames.ProjectReference);
+				Instances.ElementNames.ProjectReference,
+                out var result);
 
-			return wasFound;
-		}
+            var output = WasFound.From(
+                exists,
+                result);
+
+            return output;
+        }
 
 		public WasFound<XElement> HasTargetFrameworkPropertyGroup(XElement projectElement)
 		{
 			// Assume just one project references item group.
-			var wasFound = projectElement.HasChildWithChild_Single(
+			var exists = projectElement.HasChildWithChild_Single(
 				Instances.ElementNames.PropertyGroup,
-				Instances.ElementNames.TargetFramework);
+				Instances.ElementNames.TargetFramework,
+                out var result);
 
-			return wasFound;
-		}
+            var output = WasFound.From(
+                exists,
+                result);
+
+            return output;
+        }
 
 		public void SetAuthors(XElement projectElement, string[] authors)
         {
 			var authorsTokenSeparator = this.GetAuthorsTokenSeparator();
 
-			var authorsString = F0000.Instances.StringOperator.Join(
+			var authorsString = Instances.StringOperator.Join(
 				authorsTokenSeparator,
 				authors);
 
@@ -958,7 +989,7 @@ namespace R5T.F0020
 
 		public void SetPackageRequireLicenseAcceptance(XElement projectElement, bool requireLicenseAcceptance)
         {
-			var valueString = F0000.Instances.BooleanOperator.ToString_PascalCase(requireLicenseAcceptance);
+			var valueString = Instances.BooleanOperator.ToString_PascalCase(requireLicenseAcceptance);
 
 			this.SetPackagePropertyGroupChildElementValue(
 				projectElement,
@@ -978,7 +1009,7 @@ namespace R5T.F0020
         {
 			var tokenSeparator = this.GetPackageTagsTokenSeparator();
 
-			var packageTagsString = F0000.Instances.StringOperator.Join(
+			var packageTagsString = Instances.StringOperator.Join(
 				tokenSeparator,
 				packageTags);
 
@@ -1021,7 +1052,7 @@ namespace R5T.F0020
 
 		public void SetVersion(XElement projectElement, Version version)
         {
-			var versionString = F0000.Instances.VersionOperator.ToString_Major_Minor_Build(version);
+			var versionString = Instances.VersionOperator.ToString_Major_Minor_Build(version);
 
 			this.SetVersion(projectElement, versionString);
         }
@@ -1074,8 +1105,8 @@ namespace R5T.F0020
 		public bool HasAnyCOMReferences(XElement projectElement)
         {
 			var hasAnyCOMReferences = projectElement.ItemGroups()
-				.SelectMany(itemGroup => itemGroup.Children()
-					.WhereNameIs(Instances.ElementNames.COMReference))
+				.SelectMany(itemGroup => itemGroup.Enumerate_Children()
+					.Where_NameIs(Instances.ElementNames.COMReference))
 				.Any();
 
 			return hasAnyCOMReferences;

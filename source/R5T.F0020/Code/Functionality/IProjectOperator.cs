@@ -51,7 +51,7 @@ namespace R5T.F0020
 		/// </summary>
 		public Version GetDefaultVersion()
 		{
-			var output = F0000.Instances.Versions._Raw._1_0_0;
+			var output = Instances.Versions._Raw._1_0_0;
 			return output;
 		}
 
@@ -66,8 +66,8 @@ namespace R5T.F0020
 
 		public string GetWarningsConcatentation(IEnumerable<int> warnings)
         {
-			var output = F0000.Instances.StringOperator.Join(
-				Z0000.Instances.Characters.Semicolon,
+			var output = Instances.StringOperator.Join(
+				Instances.Characters.Semicolon,
 				warnings
 					.Select(warning => warning.ToString()));
 
