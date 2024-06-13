@@ -1026,6 +1026,18 @@ namespace R5T.F0020
 				packageTagsString);
         }
 
+		public bool Has_OutputType(
+			XElement projectElement,
+			out string outputType)
+		{
+            var hasOutputType = Internal.HasPropertyGroupChildElementValue(projectElement,
+                Instances.ElementNames.OutputType);
+
+			outputType = hasOutputType.Result;
+
+            return hasOutputType.Exists;
+        }
+
 		public void SetOutputType(XElement projectElement, string outputTypeString)
 		{
 			this.SetMainPropertyGroupChildElementValue(projectElement,
@@ -1150,6 +1162,21 @@ namespace R5T.F0020
 				Instances.ElementNames.TargetFramework,
 				targetFrameworkMonikerString);
 		}
+
+		public bool Has_UseWindowsForms(
+			XElement projectElement,
+			out bool value)
+		{
+            var hasTargetFramework = Internal.HasPropertyGroupChildElementValue(projectElement,
+                Instances.ElementNames.UseWindowsForms);
+
+			value = hasTargetFramework
+				? Instances.BooleanOperator.From(hasTargetFramework.Result)
+				: false
+				;
+
+			return hasTargetFramework.Exists;
+        }
 
         public void SetUseWindowsForms(XElement projectElement, bool value)
         {
