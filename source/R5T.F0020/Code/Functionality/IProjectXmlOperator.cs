@@ -17,12 +17,14 @@ namespace R5T.F0020
     [FunctionalityMarker]
 	public partial interface IProjectXmlOperator : IFunctionalityMarker
 	{
-		private static Internal.IProjectXmlOperator Internal => F0020.Internal.ProjectXmlOperator.Instance;
+#pragma warning disable IDE1006 // Naming Styles
+        public Internal.IProjectXmlOperator _Internal => Internal.ProjectXmlOperator.Instance;
+#pragma warning restore IDE1006 // Naming Styles
 
 
-		public XElement AcquireOutputTypeElement(XElement projectElement)
+        public XElement AcquireOutputTypeElement(XElement projectElement)
 		{
-			var outputTypeElement = Internal.AcquirePropertyGroupChildElement(
+			var outputTypeElement = _Internal.AcquirePropertyGroupChildElement(
 				projectElement,
 				Instances.ElementNames.OutputType);
 
@@ -70,7 +72,7 @@ namespace R5T.F0020
 		/// </summary>
 		public XElement AcquireMainPropertyGroup(XElement projectElement)
         {
-			var mainPropertyGroup = Internal.AcquirePropertyGroupWithChildElement(projectElement,
+			var mainPropertyGroup = _Internal.AcquirePropertyGroupWithChildElement(projectElement,
 				Instances.ElementNames.TargetFramework);
 
 			return mainPropertyGroup;
@@ -81,7 +83,7 @@ namespace R5T.F0020
 		/// </summary>
 		public XElement AcquirePackagePropertyGroup(XElement projectElement)
 		{
-			var packagePropertyGroup = Internal.AcquirePropertyGroupChildElement(projectElement,
+			var packagePropertyGroup = _Internal.AcquirePropertyGroupChildElement(projectElement,
 				Instances.ElementNames.Version);
 
 			return packagePropertyGroup;
@@ -941,7 +943,7 @@ namespace R5T.F0020
 		public WasFound<XElement> HasMainPropertyGroupChildElement(XElement projectElement,
             string mainPropertyGroupChildElementName)
 		{
-			var wasFound = Internal.HasPropertyGroupChildElement(
+			var wasFound = _Internal.HasPropertyGroupChildElement(
 				projectElement,
 				Instances.ElementNames.TargetFramework,
 				mainPropertyGroupChildElementName);
@@ -956,7 +958,7 @@ namespace R5T.F0020
 			string mainPropertyGroupChildElementName,
 			string value)
         {
-			Internal.SetPropertyGroupChildElementValue(projectElement,
+			_Internal.SetPropertyGroupChildElementValue(projectElement,
 				Instances.ElementNames.TargetFramework,
 				mainPropertyGroupChildElementName,
 				value);
@@ -969,7 +971,7 @@ namespace R5T.F0020
 			string packagePropertyGroupChildElementName,
 			string value)
 		{
-			Internal.SetPropertyGroupChildElementValue(projectElement,
+			_Internal.SetPropertyGroupChildElementValue(projectElement,
 				Instances.ElementNames.Version,
 				packagePropertyGroupChildElementName,
 				value);
@@ -1030,7 +1032,7 @@ namespace R5T.F0020
 			XElement projectElement,
 			out string outputType)
 		{
-            var hasOutputType = Internal.HasPropertyGroupChildElementValue(projectElement,
+            var hasOutputType = _Internal.HasPropertyGroupChildElementValue(projectElement,
                 Instances.ElementNames.OutputType);
 
 			outputType = hasOutputType.Result;
@@ -1077,7 +1079,19 @@ namespace R5T.F0020
 				versionString);
         }
 
-		public XElement GetProjectReferenceElement(XElement projectElement,
+        public string Get_OutuputType(XElement projectElement)
+        {
+            var hasOutputType = this.Has_OutputType(projectElement);
+            if (!hasOutputType)
+            {
+				// Return the default.
+				return Instances.OutputTypeStrings.Library;
+            }
+
+            return hasOutputType;
+        }
+
+        public XElement GetProjectReferenceElement(XElement projectElement,
 			string projectDirectoryRelativeProjectFilePath)
 		{
 			var wasFound = this.HasProjectReferenceElement(
@@ -1126,7 +1140,7 @@ namespace R5T.F0020
 
         public WasFound<XElement> HasCheckEolTargetFrameworkElement(XElement projectElement)
         {
-            var hasCheckEolTargetFrameworkElement = Internal.HasPropertyGroupChildElement(projectElement,
+            var hasCheckEolTargetFrameworkElement = _Internal.HasPropertyGroupChildElement(projectElement,
                 Instances.ElementNames.CheckEolTargetFramework);
 
             return hasCheckEolTargetFrameworkElement;
@@ -1134,15 +1148,23 @@ namespace R5T.F0020
 
         public WasFound<string> HasRootNamespace(XElement projectElement)
 		{
-			var hasRootNamespace = Internal.HasPropertyGroupChildElementValue(projectElement,
+			var hasRootNamespace = _Internal.HasPropertyGroupChildElementValue(projectElement,
 				Instances.ElementNames.RootNamespace);
 
 			return hasRootNamespace;
 		}
 
-		public WasFound<string> HasTargetFramework(XElement projectElement)
+        public WasFound<string> Has_OutputType(XElement projectElement)
         {
-			var hasTargetFramework = Internal.HasPropertyGroupChildElementValue(projectElement,
+            var hasTargetFramework = _Internal.HasPropertyGroupChildElementValue(projectElement,
+                Instances.ElementNames.OutputType);
+
+            return hasTargetFramework;
+        }
+
+        public WasFound<string> HasTargetFramework(XElement projectElement)
+        {
+			var hasTargetFramework = _Internal.HasPropertyGroupChildElementValue(projectElement,
 				Instances.ElementNames.TargetFramework);
 
 			return hasTargetFramework;
@@ -1150,7 +1172,7 @@ namespace R5T.F0020
 
 		public WasFound<string> HasTargetFrameworkVersion(XElement projectElement)
 		{
-			var hasTargetFramework = Internal.HasPropertyGroupChildElementValue(projectElement,
+			var hasTargetFramework = _Internal.HasPropertyGroupChildElementValue(projectElement,
 				Instances.ElementNames.TargetFrameworkVersion);
 
 			return hasTargetFramework;
@@ -1158,7 +1180,7 @@ namespace R5T.F0020
 
 		public void SetTargetFramework(XElement projectElement, string targetFrameworkMonikerString)
 		{
-			Internal.SetPropertyGroupChildElementValue(projectElement,
+			_Internal.SetPropertyGroupChildElementValue(projectElement,
 				Instances.ElementNames.TargetFramework,
 				targetFrameworkMonikerString);
 		}
@@ -1167,7 +1189,7 @@ namespace R5T.F0020
 			XElement projectElement,
 			out bool value)
 		{
-            var hasTargetFramework = Internal.HasPropertyGroupChildElementValue(projectElement,
+            var hasTargetFramework = _Internal.HasPropertyGroupChildElementValue(projectElement,
                 Instances.ElementNames.UseWindowsForms);
 
 			value = hasTargetFramework

@@ -481,6 +481,40 @@ namespace R5T.F0020
             projectElementAction(projectElement);
         }
 
+        public async Task In_ProjectElementContext_Readonly(
+            string projectFilePath,
+            Action<XElement> projectElementAction)
+        {
+            var projectDocument = await Instances.ProjectFileXmlOperator.LoadProjectDocument(projectFilePath);
+
+            var projectElement = Instances.ProjectFileXPathOperator.GetProjectElement(projectDocument);
+
+            projectElementAction(projectElement);
+        }
+
+        public async Task<TOut> In_ProjectElementContext_Readonly<TOut>(
+            string projectFilePath,
+            Func<XElement, TOut> projectElementFunction)
+        {
+            var projectDocument = await Instances.ProjectFileXmlOperator.LoadProjectDocument(projectFilePath);
+
+            var projectElement = Instances.ProjectFileXPathOperator.GetProjectElement(projectDocument);
+
+            var output = projectElementFunction(projectElement);
+            return output;
+        }
+
+        public async Task In_ProjectElementContext_Readonly(
+            string projectFilePath,
+            Func<XElement, Task> projectElementAction)
+        {
+            var projectDocument = await Instances.ProjectFileXmlOperator.LoadProjectDocument(projectFilePath);
+
+            var projectElement = Instances.ProjectFileXPathOperator.GetProjectElement(projectDocument);
+
+            await projectElementAction(projectElement);
+        }
+
         /// <summary>
         /// Determines whether a project file is a library (as opposed to a an executable).
         /// </summary>
