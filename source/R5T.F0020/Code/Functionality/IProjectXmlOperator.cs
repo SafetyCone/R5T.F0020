@@ -1170,7 +1170,25 @@ namespace R5T.F0020
 			return hasTargetFramework;
 		}
 
-		public WasFound<string> HasTargetFrameworkVersion(XElement projectElement)
+        public WasFound<string> Has_VersionString(XElement projectElement)
+        {
+            var has_VersionString = _Internal.HasPropertyGroupChildElementValue(projectElement,
+                Instances.ElementNames.Version);
+
+            return has_VersionString;
+        }
+
+        public WasFound<Version> Has_Version(XElement projectElement)
+        {
+			var has_VersionString = this.Has_VersionString(projectElement);
+
+			var has_version = has_VersionString.Convert(
+				Instances.VersionOperator.Parse);
+
+            return has_version;
+        }
+
+        public WasFound<string> HasTargetFrameworkVersion(XElement projectElement)
 		{
 			var hasTargetFramework = _Internal.HasPropertyGroupChildElementValue(projectElement,
 				Instances.ElementNames.TargetFrameworkVersion);

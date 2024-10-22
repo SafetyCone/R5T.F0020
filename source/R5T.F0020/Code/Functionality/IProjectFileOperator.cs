@@ -371,11 +371,27 @@ namespace R5T.F0020
         /// </summary>
         public Version GetVersionOrDefault(string projectFilePath)
         {
-            var hasVersion = this.HasVersion(projectFilePath);
+            var hasVersion = this.Has_Version_Synchronous(projectFilePath);
 
             var output = hasVersion.Get_Result_OrIfNotFound(
                 () => Instances.ProjectOperator.GetDefaultVersion());
 
+            return output;
+        }
+
+        public async Task<string> Get_VersionString(string projectFilePath)
+        {
+            var has_VersionString = await this.Has_VersionString(projectFilePath);
+
+            var output = has_VersionString.Get_Result_OrExceptionIfNotFound(() => $"Project had no version property: {projectFilePath}");
+            return output;
+        }
+
+        public string Get_VersionString_Synchronous(string projectFilePath)
+        {
+            var has_VersionString = this.Has_VersionString_Synchronous(projectFilePath);
+
+            var output = has_VersionString.Get_Result_OrExceptionIfNotFound(() => $"Project had no version property: {projectFilePath}");
             return output;
         }
 
@@ -396,19 +412,44 @@ namespace R5T.F0020
             return output;
         }
 
-        public WasFound<Version> HasVersion(string projectFilePath)
+        public WasFound<Version> Has_Version_Synchronous(string projectFilePath)
         {
-            var hasVersionString = Instances.ProjectFileXmlOperator.InProjectFileXDocumentContext_Synchronous(
+            var has_VersionString = this.Has_VersionString_Synchronous(projectFilePath);
+
+            var output = has_VersionString.Convert(versionString => Version.Parse(versionString));
+            return output;
+        }
+
+        public Task<WasFound<string>> Has_VersionString(string projectFilePath)
+            => Instances.ProjectFileXmlOperator.InProjectFileXDocumentContext(
                 projectFilePath,
                 Instances.ProjectFileXDocumentOperator.HasVersionString);
 
-            var output = hasVersionString.Convert(versionString => Version.Parse(versionString));
+        public WasFound<string> Has_VersionString_Synchronous(string projectFilePath)
+        {
+            var output = Instances.ProjectFileXmlOperator.InProjectFileXDocumentContext_Synchronous(
+                projectFilePath,
+                Instances.ProjectFileXDocumentOperator.HasVersionString);
 
             return output;
         }
 
-        public async Task InModifyProjectFileContext(
+        public Task InModifyProjectFileContext(
             string projectFilePath,
+            Action<XElement> projectElementModifier)
+            // Re-use the different-output-filepath function.
+            => this.In_ModifyProjectFileContext(
+                projectFilePath,
+                projectFilePath,
+                projectElementModifier);
+
+        /// <summary>
+        /// Loads a project file, modifies the project element,
+        /// but then saves the project element to a different file.
+        /// </summary>
+        public async Task In_ModifyProjectFileContext(
+            string projectFilePath,
+            string projectFilePath_Output,
             Action<XElement> projectElementModifier)
         {
             var projectElement = await this.Load(projectFilePath);
@@ -416,7 +457,7 @@ namespace R5T.F0020
             projectElementModifier(projectElement);
 
             await this.Save(
-                projectFilePath,
+                projectFilePath_Output,
                 projectElement);
         }
 

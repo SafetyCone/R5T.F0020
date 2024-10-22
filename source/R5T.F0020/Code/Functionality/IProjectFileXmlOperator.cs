@@ -57,7 +57,17 @@ namespace R5T.F0020.N000
 			return output;
         }
 
-		public TOutput InProjectFileXDocumentContext_Synchronous<TOutput>(
+        public async Task<TOutput> InProjectFileXDocumentContext<TOutput>(
+            string projectFilePath,
+            Func<XDocument, TOutput> functionOnProjectXDocument)
+        {
+            var projectXDocument = await this.LoadProjectDocument(projectFilePath);
+
+            var output = functionOnProjectXDocument(projectXDocument);
+            return output;
+        }
+
+        public TOutput InProjectFileXDocumentContext_Synchronous<TOutput>(
 			string projectFilePath,
 			Func<XDocument, TOutput> functionOnProjectXDocument)
 		{
