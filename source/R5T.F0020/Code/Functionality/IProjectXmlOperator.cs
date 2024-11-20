@@ -919,7 +919,8 @@ namespace R5T.F0020
         /// <summary>
         /// Sets the <see cref="IElementNames.NoWarn"/> property value.
         /// </summary>
-        public void SetDisabledWarnings(XElement projectElement,
+        public void SetDisabledWarnings(
+			XElement projectElement,
 			IEnumerable<int> warnings)
 		{
 			var valueString = Instances.ProjectOperator.GetWarningsConcatentation(warnings);
@@ -929,7 +930,16 @@ namespace R5T.F0020
 				valueString);
 		}
 
-		public void SetGenerateDocumentationFile(XElement projectElement, bool value)
+		/// <inheritdoc cref="SetDisabledWarnings(XElement, IEnumerable{int})"/>
+		public void SetDisabledWarnings(
+			XElement projectElement,
+			params int[] warnings)
+			=> this.SetDisabledWarnings(
+				projectElement,
+				warnings.AsEnumerable());
+
+
+        public void SetGenerateDocumentationFile(XElement projectElement, bool value)
 		{
 			var valueString = Instances.BooleanOperator.ToString_ForProjectFile(value);
 
