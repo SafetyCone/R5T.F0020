@@ -14,7 +14,7 @@ namespace R5T.F0020.Construction
         {
 			var projectWithVersionFilePath = Instances.ProjectFilePaths.R5T_S0013;
 
-			var projectWithVersionHasVersion = Instances.ProjectFileOperator.HasVersion(projectWithVersionFilePath);
+			var projectWithVersionHasVersion = Instances.ProjectFileOperator.Has_VersionString_Synchronous(projectWithVersionFilePath);
 
 			var versionOrNot = projectWithVersionHasVersion.Exists
 				? projectWithVersionHasVersion.Result.ToString()
@@ -25,7 +25,7 @@ namespace R5T.F0020.Construction
 
 			var projectWithoutVersionFilePath = Instances.ProjectFilePaths.R5T_F0020_Construction;
 
-			var projectWithoutVersionHasVersion = Instances.ProjectFileOperator.HasVersion(projectWithoutVersionFilePath);
+			var projectWithoutVersionHasVersion = Instances.ProjectFileOperator.Has_VersionString_Synchronous(projectWithoutVersionFilePath);
 
 			versionOrNot = projectWithoutVersionHasVersion.Exists
 				? projectWithoutVersionHasVersion.Result.ToString()
@@ -100,7 +100,7 @@ namespace R5T.F0020.Construction
 					.OrderAlphabetically())
 				;
 
-			F0000.Instances.FileOperator.WriteLines(
+			F0000.Instances.FileOperator.Write_Lines_Synchronous(
 				outputFilePath,
 				lines);
         }

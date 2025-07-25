@@ -644,7 +644,7 @@ namespace R5T.F0020
                 .Select(projectReferenceFilePath => Instances.ProjectPathsOperator.GetProjectDirectoryRelativePath(
                     projectFilePath,
                     projectReferenceFilePath))
-                .Now();
+                .ToArray();
 
             ProjectFileOperator.Instance.InModifyProjectFileContext_Synchronous(
                 projectFilePath,

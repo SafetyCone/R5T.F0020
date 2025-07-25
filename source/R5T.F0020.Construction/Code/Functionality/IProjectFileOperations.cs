@@ -16,7 +16,7 @@ namespace R5T.F0020.Construction
 
             foreach (var filePath in backupProjectFilePaths)
             {
-				F0000.FileSystemOperator.Instance.DeleteFile_OkIfNotExists(
+				F0000.FileSystemOperator.Instance.Delete_File_OkIfNotExists(
 					filePath);
             }
 		}
@@ -32,11 +32,11 @@ namespace R5T.F0020.Construction
 				.Select(projectTuple => projectTuple.ProjectFilePath)
 				.Where(projectFilePath =>
 				{
-					var projectfileNameStem = F0002.PathOperator.Instance.GetFileNameStem(projectFilePath);
+					var projectfileNameStem = F0002.PathOperator.Instance.Get_FileNameStem(projectFilePath);
 
 					var isBackupProjectFile = F0000.StringOperator.Instance.EndsWith(
 						projectfileNameStem,
-						F0000.FileNameAffixes.Instance.BAK);
+						F0000.FileNameAffixes.Instance._Raw.BAK);
 
 					return isBackupProjectFile;
 				})
@@ -51,7 +51,7 @@ namespace R5T.F0020.Construction
 			var backupProjectFilePaths = this.DetermineBAKProjects();
 
 			// Write output.
-			Instances.FileOperator.WriteLines(
+			Instances.FileOperator.Write_Lines_Synchronous(
 				Instances.FilePaths.OutputTextFilePath,
 				backupProjectFilePaths);
 
@@ -72,7 +72,7 @@ namespace R5T.F0020.Construction
             {
 				var projectFilePath = projectTuple.ProjectFilePath;
 
-				var projectFileText = Instances.FileOperator.ReadText_Synchronous(projectFilePath);
+				var projectFileText = Instances.FileOperator.Read_Text_Synchronous(projectFilePath);
 
 				if(projectFileText.Contains("xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\""))
                 {
@@ -81,7 +81,7 @@ namespace R5T.F0020.Construction
 			}
 
 			// Write output.
-			Instances.FileOperator.WriteLines(
+			Instances.FileOperator.Write_Lines_Synchronous(
 				Instances.FilePaths.OutputTextFilePath,
 				projectFilePathsOfInterest);
 

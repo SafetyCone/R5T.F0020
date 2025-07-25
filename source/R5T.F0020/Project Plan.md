@@ -18,5 +18,5 @@ General:
 
 ## Links
 
-* <LangVersion> https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version
+* \<LangVersion> https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/configure-language-version
 

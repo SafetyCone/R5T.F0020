@@ -5,10 +5,13 @@ using R5T.T0131;
 
 namespace R5T.F0020
 {
-	/// <summary>
-	/// Find "OutputType" in: <see href="https://learn.microsoft.com/en-us/visualstudio/msbuild/common-msbuild-project-properties?view=vs-2022"/>
-	/// </summary>
-	[ValuesMarker]
+    /// <summary>
+    /// Find "OutputType" in: <see href="https://learn.microsoft.com/en-us/visualstudio/msbuild/common-msbuild-project-properties?view=vs-2022"/>
+    /// </summary>
+    /// <remarks>
+    /// Deprecated. See F10Y.Z0002.IOutputTypes.
+    /// </remarks>
+    [ValuesMarker]
 	public partial interface IOutputTypeStrings : IValuesMarker
 	{
 		/// <summary>
